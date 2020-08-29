@@ -1,0 +1,25 @@
+Question 1:
+a,b,c) False
+
+d) True
+
+e,f,g) False
+
+h) True
+
+
+
+Question 2:
+
+a)Inherits all methods and attributes from rectangles, but for its
+instantiate parameters, it acceps only 1 parameter for length which
+is passed onto the Rectangle class using super. Refer to the
+recitation02.java code.
+
+b)It allows the values within the Rectangle class to be modified,
+violating abstraction principles on encapsulation due to
+know-too-much and bad actors can edit these values. The original
+class's attributes are also changed, which is always bad.
+
+c)since a square is a specialised form of a rectangle, it still makes
+sense for a Square class to inherit from a Rectangle class.
