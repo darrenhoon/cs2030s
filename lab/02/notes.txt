@@ -1,0 +1,11 @@
+arraylist
+
+inheritence for cruises
+
+classes cruises must be immutable (ie final), loaders too
+
+EACH LOADER CAN ONLY SERVE ONE CRUISE AT A TIME
+
+if all loaders are full, just buy a new one
+
+try doing lab machine at home
