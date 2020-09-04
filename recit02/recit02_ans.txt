@@ -7,7 +7,14 @@ e,f,g) False
 
 h) True
 
+function signature: data type it takes in and data type it returns. so you can have 2 equals method, so long as they are not exactly the same. - Overloading
 
+vs
+
+Overriding: the method replaces the original method in the parent class. only happens when the subclass's method has the exact function signature as the parent's class's method. rmb always to add @Override for good code hygiene
+
+instanceof looks at nature of object, not the view of the object.
+ie Object o1 isinstanceof Circle, because o1 points to the entire Circle c1 object. just that o1 looks at it from an Object perspective, rather than Circle. ie it cannot use Circle's specific methods/access Circle's attributes (eg c's centre/radius)
 
 Question 2:
 
@@ -23,3 +30,11 @@ class's attributes are also changed, which is always bad.
 
 c)since a square is a specialised form of a rectangle, it still makes
 sense for a Square class to inherit from a Rectangle class.
+
+Corrections:
+the setHeight is the parent's setHeight, but because the original method has been overriden by the Square, it ends up as Square's setHeight method, not the parent's original setHeight.
+
+Liskov Substitution Principle: client expects same behaviour if rectangle was substitued with the subclass square. it is a run-time behaviour, not a compile-time behaviour.
+
+To solve this issue: 1. don't let them be subclasses to each other.
+2. don't let Square have the method of setHeight/setWidth (ie make them private)
