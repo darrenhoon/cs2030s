@@ -7,7 +7,7 @@ class Circle extends Shape{
         this.radius = radius;
     }
 
-    UnitCircle scaleBy(double factor){
+    Circle scaleBy(double factor){
         return new Circle(this.centre, this.radius*factor);
     }
 

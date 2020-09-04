@@ -1,12 +1,3 @@
-interface Scalable{
-	Scalable scaleBy(double factor);
-}
-
-abstract class Shape {
-	abstract double getArea();
-	abstract double getPerimeter();
-}
-
 class Rectangle extends Shape implements Scalable{
 	private final double length;
 	private final double breadth;
@@ -15,10 +6,6 @@ class Rectangle extends Shape implements Scalable{
 		this.breadth = breadth;
 	}
 	
-	public String toString(){
-		String message = String.format("Area is: %.2f, Perimeter is: %.2f",this.getArea(),this.getPerimeter();
-		return message;
-	}
 
 	@Override
 	public Rectangle scaleBy(double factor){
