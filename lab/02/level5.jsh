@@ -1,33 +1,28 @@
+import java.util.ArrayList;
+
 Loader getNewLoader(int index, Cruise c) {
     return new Loader(index, c);
 }
 
 void serveCruises(Cruise[] cruises) {
-    final int MAX_LOADER = 9;
-    final int MAX_CRUISE = 30;
-    Loader[] loaders = new Loader[MAX_LOADER*MAX_CRUISE];
-    int numOfLoaders = 0;
+    ArrayList<Loader> loaders = new ArrayList<Loader>();
+    int loaderIndex = 0;
 
     for (Cruise c : cruises) {
-        int count = c.getNumOfLoadersRequired();
-        int i = 0;
-        while (count > 0 && i < numOfLoaders) {
-            if (loaders[i].canServe(c)) {
-                loaders[i] = loaders[i].serve(c);
-                System.out.println(loaders[i]);
-                count--;
+        int loadersRequired = c.getNumOfLoadersRequired();
+        
+        for(Loader loader: loaders){
+            if (loader.canServe(c)){
+                loader.serve(c);
+                System.out.println(loader);
+                loadersRequired--;
             }
-            i = i + 1;
         }
 
-        i = numOfLoaders;
-        while (count > 0) {
-            loaders[i] = getNewLoader(i + 1, c);
-            System.out.println(loaders[i]);
-            i = i + 1;
-            count--;
+        for(i=0;i<loadersRequired;i++){
+            loaders.add(getNewLoader(loaderIndex+1, c));
+            System.out.println(getNewLoader(loaderIndex+1,c));
+            LoaderIndex++;
         }
-
-        numOfLoaders = i;
     }
 }
