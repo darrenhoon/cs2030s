@@ -1,6 +1,7 @@
 class Circle extends Shape{
     Point centre;
     double radius;
+    public String message = "Circle!";
 
     Circle(Point p, double radius){
         this.centre = p;
@@ -43,9 +44,12 @@ class Circle extends Shape{
 }
 
 class UnitCircle extends Circle{
+    public String message ="UC!";
     UnitCircle(Point centre){
         super(centre, 1.0);
     }
+    UnitCircle scaleBy(double factor){
+        return this;
+    }
 
-    UnitCircle scaleBy(double factor){return this;}
 }
