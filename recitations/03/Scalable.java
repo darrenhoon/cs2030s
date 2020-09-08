@@ -6,3 +6,7 @@ interface Scalable{
 interface Printable{
 	void print();
 }
+
+interface Shape{
+    double getArea();
+}

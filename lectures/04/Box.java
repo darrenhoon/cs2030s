@@ -4,8 +4,8 @@ class Box<T> {
         this.obj = obj;
     }
 
-    static <T> Box<T> of(T t){
-        return new Box<T>(t);
+    static <WhereDoesThisGo> Box<WhatDoesThisDo> of(WhatIsThis obj){
+        return new Box<WhatIsThis2>(obj);
     }
 
     @Override
