@@ -31,6 +31,6 @@ class PlainText extends FormattedText {
     }
     @Override
     PlainText toggleUnderline() {
-        return this;
+        return (PlainText) super.toggleUnderline();
     }
 }
