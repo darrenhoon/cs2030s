@@ -11,14 +11,14 @@ class Cruise {
         this.identifier = identifier;
     }
     @Override
-        public String toString(){
-            String time = Integer.toString(this.arrivalTime);
-            while (time.length()<4){
-                time = "0"+time;
-            }
-            String message = String.format("%s@%s",this.identifier,time);
-            return message;
+    public String toString(){
+        String time = Integer.toString(this.arrivalTime);
+        while (time.length()<4){
+            time = "0"+time;
         }
+        String message = String.format("%s@%s",this.identifier,time);
+        return message;
+    }
     public int calculateTime(int input){
         int hours = input/100;
         int mins = input%100;
