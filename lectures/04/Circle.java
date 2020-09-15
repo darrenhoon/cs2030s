@@ -1,4 +1,4 @@
-class Circle extends Shape{
+class Circle extends Shape {
     Point centre;
     double radius;
     public String message = "Circle!";
