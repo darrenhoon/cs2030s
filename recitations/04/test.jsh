@@ -13,6 +13,17 @@
     return max;
 }
 
+<T> Comparable<T> max3di(Comparable<T> a, Comparable<T> b, Comparable<T> c) {
+    Comparable<T> max = a;
+    if (b.compareTo((T) max) > 0) {
+        max = b;
+    }
+    if (c.compareTo((T) max) > 0) {
+        max = c;
+    }
+    return max;
+}
+
 <T> T max3dii(Comparable<T> a, Comparable<T> b, Comparable<T> c) {
     T max = (T) a;
     if (b.compareTo(max) > 0) {
@@ -24,20 +35,10 @@
     return max;
 }
 
+// to show type erasure. not recommended.
 Comparable max3diii(Comparable a, Comparable b, Comparable c) {
-    T max = a;
+    Comparable max = a;
     if (b.compareTo(max) > 0) {
-        max = b;
-    }
-    if (c.compareTo(max) > 0) {
-        max = c;
-    }
-    return max;
-}
-
-<T> Comparable<T> max3di(Comparable<T> a, Comparable<T> b, Comparable<T> c) {
-    Comparable<T> max = a;
-    if (b.compareT((T) max) > 0) {
         max = b;
     }
     if (c.compareTo(max) > 0) {
