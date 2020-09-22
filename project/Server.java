@@ -1,3 +1,7 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 class Server {
     private final int identifier;
     private final boolean isAvailable;
@@ -31,13 +35,11 @@ class Server {
     }
 
     Server serveCustomer(Customer c) {
-        return new Server(this.indentifier,false,false, this.nextAvailableTime);
+        double nextTime = c.getArrivalTime() + serviceTime;
+        return new Server(this.identifier,false,false, nextTime);
     }
 
     boolean canQueue() {
         return this.hasWaitingCustomer == false;
-    }
-
-    Server addQueue(Customer c) {
     }
 }
