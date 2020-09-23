@@ -2,64 +2,48 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class ArriveEvent {
-    private final Customer c;
-    private final List serverList;
+class ArriveEvent extends Event {
+    private final Customer customer;
+    private final List<Server> serverList;
     private final double serviceTime = 1.0;
 
-    ArriveEvent(Customer customer, List servers) {
+    ArriveEvent(Customer customer, List<Server> servers) {
         this.serverList = servers;
-        this.c = customer;
+        this.customer = customer;
     }
 
     public String toString() {
-        String message = String.format("%.3f %d ",this.c.getArrivalTime(),this.c.getId());
-        if (c.hasLeft()) {
-            message += "leaves";
-            return message;
-        }
-
-        for (int i = 0; i<serverList.size() ; i++) {
-            Server current = serverList.get(i);
-            if (current.canQueue() == false) {
-                return message + String.format("served by %d", current.getId());
-            }
-        }
-
-        message += "arrives";
+        double time = this.getCustomer().getArrivalTime();
+        int c = this.getCustomer().getId();
+        String message = String.format("%.3f %d arrives", time, c);
         return message;
     }
 
-    List getList() {
-        return this.list;
+    Event execute() {
+        for (int i = 0; i < this.serverList.size(); i++) {
+            Server s = this.serverList.get(i);
+            if (s.getAvailability()) {
+                return new ServeEvent(this.getCustomer(),this.serverList, s);
+            }
+        }
+        for (int i = 0; i < this.serverList.size(); i++) {
+            Server s = this.serverList.get(i);
+            if (s.canQueue()) {
+                return new WaitEvent(this.getCustomer(),this.serverList,s);
+            }
+        }
+        return new LeaveEvent(this.getCustomer(),this.serverList);
     }
 
-    ArriveEvent execute() {
-        List tempList = this.getList();
-        boolean customerLeft = true;
+    double getServiceTime() {
+        return this.serviceTime;
+    }
 
-        if (c.isBeingServed()) {
-            c.
-        }
+    Customer getCustomer() {
+        return this.customer;
+    }
 
-        for (Server s: tempList) {
-            if (s.canServe()) {
-                s.serveCustomer(this.c);
-                customerLeft = false;
-                break;
-            }
-            else {
-                if (s.canQueue()) {
-                    customerLeft = false;
-                    break;
-                }
-            }
-        }
-
-        if (customerLeft) {
-            return new ArriveEvent(this.c.leavePlace(), tempList);
-        } else {
-            return new ArriveEvent(this.c,tempList);
-        }
+    List<Server> getServerList() {
+        return this.serverList;
     }
 }

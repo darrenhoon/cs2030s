@@ -17,11 +17,11 @@ class Server {
 
     public String toString() {
         String message = String.format("%d is ",this.identifier);
-        String status = "is busy; ";
+        String status = "busy; ";
         if (this.isAvailable == false && this.hasWaitingCustomer == false) {
             status += String.format("available at %.3f",this.nextAvailableTime);
         }
-        if(this.isAvailable == false && this.hasWaitingCustomer == true) {
+        if (this.isAvailable == false && this.hasWaitingCustomer == true) {
             status += String.format("waiting customer to be served at %.3f",this.nextAvailableTime);
         }
         if (this.isAvailable == true) {
@@ -30,16 +30,19 @@ class Server {
         return message + status;
     }
 
-    boolean canServe() {
+    boolean getAvailability() {
         return this.isAvailable;
     }
 
-    Server serveCustomer(Customer c) {
-        double nextTime = c.getArrivalTime() + serviceTime;
-        return new Server(this.identifier,false,false, nextTime);
+    double getAvailableTime() {
+        return this.nextAvailableTime;
     }
 
     boolean canQueue() {
         return this.hasWaitingCustomer == false;
+    }
+
+    int getId() {
+        return this.identifier;
     }
 }
