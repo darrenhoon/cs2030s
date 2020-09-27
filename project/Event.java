@@ -7,4 +7,5 @@ abstract class Event {
     abstract double getServiceTime();
     abstract Customer getCustomer();
     abstract List<Server> getServerList();
+    abstract double getCurrentTime();
 }

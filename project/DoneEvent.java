@@ -42,4 +42,8 @@ class DoneEvent extends Event {
     Server getServer() {
         return this.server;
     }
+
+    double getCurrentTime() {
+        return this.getCustomer().getArrivalTime() + this.getServiceTime();
+    }
 }

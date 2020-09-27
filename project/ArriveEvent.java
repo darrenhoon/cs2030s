@@ -46,4 +46,8 @@ class ArriveEvent extends Event {
     List<Server> getServerList() {
         return this.serverList;
     }
+
+    double getCurrentTime() {
+        return this.getCustomer().getArrivalTime();
+    }
 }

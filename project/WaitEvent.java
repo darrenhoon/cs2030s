@@ -45,4 +45,7 @@ class WaitEvent extends Event {
         return this.serverList;
     }
 
+    double getCurrentTime() {
+        return this.getCustomer().getArrivalTime();
+    }
 }
