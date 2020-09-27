@@ -29,6 +29,7 @@ class Main {
             double time = sc.nextDouble();
             Customer c = new Customer(customerId, time);
             customerList.add(c);
+            customerId++;
         }
 
         Simulation sim = new Simulation(customerList,serverList);

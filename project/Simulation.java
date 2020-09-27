@@ -18,97 +18,87 @@ public class Simulation {
     Simulation(List<Customer> customerList, List<Server> serverList) {
         this.customerList = customerList; 
         this.serverList = serverList;
-
         EventComparator eventComp = new EventComparator();
-        CustomerComparator customerComp = new CustomerComparator();
-
-        //sort all customers according to time they arrive
-        this.customersOrder = new PriorityQueue<Customer>(this.customerList.size(), customerComp);
         this.queue = new PriorityQueue<Event>(eventComp);
+
+        for (Customer c: this.customerList) {
+            this.queue.add(new ArriveEvent(c,this.serverList));
+        }
     }
 
     void simulate() {
-        while (this.customersOrder.peek() != null) {
 
-            boolean customerWait = true;
-            boolean customerLeave = true;
+        while (this.queue.peek() != null) {
 
-            List<Server> currentServers = new ArrayList(this.serverList);
-            Customer currentCustomer = this.customersOrder.poll();
+            Event event = this.queue.poll();
+            System.out.println(event.toString());
 
-            //directly serve customer
-            for (int i = 0; i < currentServers.size(); i++) {
-                Server s = currentServers.get(i);
-                if (s.getAvailability()) {
-                    Server ns = new Server(s.getId(), false, false, s.getAvailableTime());
-                    this.serverList.set(i,ns);
-                    customerWait = false;
-                    customersServed++;
-                    break;
-                }
-            }
+            List<Server> listCopy = new ArrayList();
+            listCopy.addAll(this.serverList);
+            Customer currentCustomer = event.getCustomer();
 
-            //customer has to wait
-            if (customerWait) {
-
-                for (int i = 0; i < currentServers.size(); i++) {
-                    Server s = currentServers.get(i);
-                    if (s.canQueue()) {
-                        Server ns = new Server(s.getId(), false, true, s.getAvailableTime());
-                        this.serverList.set(i,ns);
-                        customerLeave = false;
-                        customersServed++;
-                        break;
-                    }
-                }
-            }
-
-            //all servers have waiting customers, new customer leaves
-            if (customerLeave) {
+            if (event instanceof LeaveEvent) {
                 customersLeft++;
-            }
-
-            Event event = new ArriveEvent(currentCustomer, currentServers);
-           
-            // keep executing event until it reaches DoneEvent
-            while (!(event instanceof DoneEvent) && !(event instanceof LeaveEvent)) {
-                System.out.println(event.execute());
-                event.execute();
+                continue;
             }
 
             if (event instanceof DoneEvent) {
-                DoneEvent event1 = (DoneEvent) event;
-
-                int id = event1.getServer().getId();
-
-                double endTime = event1.getCurrentTime();
-                
                 customersServed++;
-                double waitTime = endTime - currentCustomer.getArrivalTime();
+                DoneEvent currEvent = (DoneEvent) event;
+
+                double customerArrivalTime = currEvent.getCustomer().getArrivalTime(); 
+                double time = event.getCurrentTime();
+                double waitTime = time - customerArrivalTime;
                 totalWaitTime += waitTime;
 
-                //to replace the old server done serving
+                Server s = currEvent.getServer();
+
                 Server newServer;
-                if (event1.getServer().canQueue() == false) {
-                    newServer = new Server(id, false, false, endTime);
+                if (s.canQueue() == false) { //ie there is a customer that was queuing up
+                    newServer = new Server(s.getId(), false, false, time);
                 } else {
-                    newServer = new Server(id, true, false, endTime);
+                    newServer = new Server(s.getId(), true, false, time);
                 }
 
-                for (Server s: this.serverList) {
-                    int currentId = s.getId();
-                    int index = currentId - 1;
-                    if (currentId == id) {
-                        serverList.set(index, newServer);
+                for (int i = 0;i < this.serverList.size(); i++) {
+                    Server current = this.serverList.get(i);
+                    if (current.getId() == newServer.getId()) {
+                        this.serverList.set(i, newServer);
                         break;
                     }
                 }
-            }
-            queue.add(event);
-        }
+                continue;
+            } else {
+                boolean customerWait = true;
+                
+                for (int i = 0; i < this.serverList.size(); i++) {
+                    Server currentServer = this.serverList.get(i);
+                    if (currentServer.getAvailability()) {
+                        Server newServer = new Server(currentServer.getId(), false, false, currentServer.getAvailableTime());
+                        this.serverList.set(i, newServer);
+                        customerWait = false;
+                        break;
+                    }
+                }
 
-        double averageTime = totalWaitTime / customersServed;
-        String message = String.format("[%.3f %d %d]", averageTime, customersServed, customersLeft);
-        System.out.println(message);
+                if(customerWait) {
+                    for (int i = 0; i < this.serverList.size(); i++) {
+                        Server currentServer = this.serverList.get(i);
+                        if (currentServer.canQueue()) {
+                            Server newServer = new Server(currentServer.getId(), false, true, currentServer.getAvailableTime());
+                            this.serverList.set(i, newServer);
+                            break;
+                        }
+                    }
+                }
+                event = event.execute();
+                this.queue.add(event);
+ 
+            }
+      }
+       double averageTime = totalWaitTime / customersServed;
+       String message = String.format("[%.3f %d %d]", averageTime, customersServed, customersLeft);
+       System.out.println(message);
+ 
     }
 }

@@ -7,6 +7,9 @@ class EventComparator implements Comparator<Event> {
         double timeBefore = a.getCurrentTime();
         double timeCurrent = b.getCurrentTime();
 
+        if (a instanceof DoneEvent) {
+            return -1;
+        }
         if (timeBefore < timeCurrent) {
             return -1;
         }
