@@ -6,9 +6,11 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 
 class Main {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        
+        double startTime = 0.00;
         int numOfServers = sc.nextInt();
         int customerId = 1;
         int serverId = 1;
@@ -16,7 +18,7 @@ class Main {
         List<Server> serverList = new ArrayList<Server>();
         List<Customer> customerList = new ArrayList<Customer>();
 
-        while (numOfServers) {
+        while (numOfServers > 0) {
             Server s = new Server(serverId, true, false, startTime);
             serverList.add(s);
             numOfServers--;
