@@ -115,25 +115,31 @@ class ImmutableList<T> {
         return this.list.get(i);
     }
 
-    boolean equals(ImmutableList<T> list) {
+    @Override
+    public boolean equals(Object list) {
         if (list == this) {
             return true;
-        } else {
+        }
+        if (list instanceof ImmutableList) {
+            ImmutableList<?> typedList = (ImmutableList<?>) list;
             int i = 0;
-            int listLength = list.getLength();
+            int listLength = typedList.getLength();
             int thisLength = this.getLength();
             if (listLength != thisLength) {
+                System.out.println("Issue at not equal length");
                 return false;
             }
 
             while (i < listLength) {
-                if (this.getItem(i) != list.getItem(i)) {
+                if (this.getItem(i) != typedList.getItem(i)) {
+                    System.out.println("Issue at this item != list item");
                     return false;
                 }
                 i++;
             }
             return true;
         }
+        return false;
     }
 
     ImmutableList<T> sorted(Comparator<T> comp) {
