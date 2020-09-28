@@ -89,7 +89,7 @@ class ImmutableList<T> {
         }
         return new ImmutableList<R>(tempList);
     }
- 
+
     int getLength() {
         int i =  0;
         for (T item: this.list) {
@@ -126,13 +126,11 @@ class ImmutableList<T> {
             int listLength = typedList.getLength();
             int thisLength = this.getLength();
             if (listLength != thisLength) {
-                System.out.println("Issue at not equal length");
                 return false;
             }
 
             while (i < listLength) {
                 if (this.getItem(i) != typedList.getItem(i)) {
-                    System.out.println("Issue at this item != list item");
                     return false;
                 }
                 i++;
