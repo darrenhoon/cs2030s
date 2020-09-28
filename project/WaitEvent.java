@@ -8,7 +8,7 @@ class WaitEvent extends Event {
     private final Customer customer;
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
-
+    
     WaitEvent(Customer customer, List<Server> servers, Server s) {
         this.customer = customer;
         this.serverList = servers;

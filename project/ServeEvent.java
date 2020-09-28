@@ -8,11 +8,13 @@ class ServeEvent extends Event {
     private final Customer customer;
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
+    private final double nextTime;
 
     ServeEvent(Customer customer, List<Server> servers, Server s) {
         this.customer = customer;
         this.serverList = servers;
         this.server = s;
+        this.nextTime = s.getAvailableTime() + serviceTime;
     }
 
     public String toString() {

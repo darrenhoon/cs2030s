@@ -42,6 +42,10 @@ class Server {
         return this.hasWaitingCustomer == false;
     }
 
+    boolean getHasWaitingCustomer() {
+        return this.hasWaitingCustomer;
+    }
+
     int getId() {
         return this.identifier;
     }
