@@ -7,11 +7,10 @@ import java.util.Comparator;
 
 public class Simulation {
 
-    private List<Server> serverList;
+    private final List<Server> serverList;
     private final List<Customer> customerList;
-    private Queue<Event> queue;
-    private Queue<Customer> customersOrder;
-    
+    private final Queue<Event> queue;
+
     Simulation(List<Customer> customerList, List<Server> serverList) {
         this.customerList = customerList; 
         this.serverList = serverList;

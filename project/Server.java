@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class Server {
+public class Server {
     private final int identifier;
     private final boolean isAvailable;
     private final boolean hasWaitingCustomer;

@@ -1,4 +1,6 @@
-class Customer {
+
+
+public class Customer {
     private final int id;
     private final double arrivalTime;
 

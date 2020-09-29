@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class ServeEvent extends Event {
+public class ServeEvent extends Event {
     
     private final Server server;
     private final Customer customer;

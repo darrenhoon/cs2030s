@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class ArriveEvent extends Event {
+public class ArriveEvent extends Event {
     private final Customer customer;
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
