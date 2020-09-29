@@ -1,3 +1,13 @@
+import cs2030.simulator.Customer;
+import cs2030.simulator.Server;
+import cs2030.simulator.Event;
+import cs2030.simulator.ArriveEvent;
+import cs2030.simulator.ServeEvent;
+import cs2030.simulator.WaitEvent;
+import cs2030.simulator.LeaveEvent;
+import cs2030.simulator.DoneEvent;
+import cs2030.simulator.EventComparator;
+import cs2030.simulator.Simulation;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
