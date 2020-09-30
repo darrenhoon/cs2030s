@@ -1,3 +1,5 @@
+package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,12 +11,18 @@ public class DoneEvent extends Event {
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
 
-    DoneEvent(Customer customer, List<Server> servers, Server server) {
+    /**
+     * The Event after ServeEvent and does not have any subsequent
+     * events after this.
+     * @execute is not expected to be called in the main logic
+     */
+    public DoneEvent(Customer customer, List<Server> servers, Server server) {
         this.server = server;
         this.customer = customer;
         this.serverList = servers;
     }
 
+    @Override
     public String toString() {
         double completeTime = this.getCustomer().getArrivalTime() + this.getServiceTime();
         int c = this.getCustomer().getId();
@@ -23,7 +31,7 @@ public class DoneEvent extends Event {
         return message; 
     }
 
-    Event execute() {
+    public Event execute() {
         return this;
     }
 

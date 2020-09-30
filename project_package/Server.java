@@ -1,4 +1,5 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,13 +10,19 @@ public class Server {
     private final boolean hasWaitingCustomer;
     private final double nextAvailableTime;
 
-    Server(int identifier, boolean isAvailable, boolean hasWaitingCustomer, double nextAvailableTime) {
-        this.identifier = identifier;
+    /**
+     * Server object initialised with 4 parameters.
+     * Parameters used to determine the logic of the simulation and
+     * occurence of event to come
+     */
+    public Server(int id, boolean isAvailable, boolean hasWaitingCustomer, double nextTiming) {
+        this.identifier = id;
         this.isAvailable = isAvailable;
         this.hasWaitingCustomer = hasWaitingCustomer;
-        this.nextAvailableTime = nextAvailableTime;
+        this.nextAvailableTime = nextTiming;
     }
 
+    @Override
     public String toString() {
         String message = String.format("%d is ",this.identifier);
         String status = "busy; ";

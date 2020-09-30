@@ -1,4 +1,5 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,11 +9,12 @@ public class ArriveEvent extends Event {
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
 
-    ArriveEvent(Customer customer, List<Server> servers) {
+    public ArriveEvent(Customer customer, List<Server> servers) {
         this.serverList = servers;
         this.customer = customer;
     }
 
+    @Override
     public String toString() {
         double time = this.getCustomer().getArrivalTime();
         int c = this.getCustomer().getId();
@@ -20,7 +22,8 @@ public class ArriveEvent extends Event {
         return message;
     }
 
-    Event execute() {
+    @Override
+    public Event execute() {
         for (int i = 0; i < this.serverList.size(); i++) {
             Server s = this.serverList.get(i);
             if (s.getAvailability()) {

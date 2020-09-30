@@ -1,4 +1,5 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,10 @@ public class Simulation {
     private final List<Customer> customerList;
     private final Queue<Event> queue;
 
-    Simulation(List<Customer> customerList, List<Server> serverList) {
+    /**
+     * initialised with 2 Lists passed from Main.java
+     */
+    public Simulation(List<Customer> customerList, List<Server> serverList) {
         this.customerList = customerList; 
         this.serverList = serverList;
         EventComparator eventComp = new EventComparator();
@@ -23,7 +27,13 @@ public class Simulation {
         }
     }
 
-    void simulate() {
+    /**
+     * Main logic of simulation where the Server's isAvailable and
+     * hasWaitingCustomer truth values determine which event takes
+     * place next. Event that occurs next could also affect the
+     * Server's truth value accordingly.
+     */
+    public void simulate() {
         double totalWaitTime = 0.00;
         int customersServed = 0;
         int customersLeft = 0;
@@ -50,10 +60,9 @@ public class Simulation {
                 for (int i = 0; i < this.serverList.size(); i++) {
                     Server s = this.serverList.get(i);
                     if (s == currentServer) {
-
-
                         Server newServer;
-                        if (currentServer.getHasWaitingCustomer()) { //ie there is a customer that was queuing up                     
+
+                        if (currentServer.getHasWaitingCustomer()) {
                             newServer = new Server(currentServer.getId(), false, false, time);
 
                         } else {
@@ -72,22 +81,19 @@ public class Simulation {
 
                 ServeEvent currEvent = (ServeEvent) event;
                 Server currentServer = currEvent.getServer();
-
-                Server newServer;
+                Server s;
 
                 for (int i = 0; i < this.serverList.size(); i++) {
-                    Server s = this.serverList.get(i);
+                    Server server = this.serverList.get(i);
+                    
+                    if (server == currentServer) {
+                        double arrivalTime = currentCustomer.getArrivalTime();
+                        double serveTime = arrivalTime + currEvent.getServiceTime();
 
-                    double nextAvailableTime = currentCustomer.getArrivalTime() + 1.0;
-                    if (s == currentServer) {
+                        s = new Server(currentServer.getId(), false, false, serveTime);
+                        this.serverList.set(i, s);
 
-                        double serveTime = currentCustomer.getArrivalTime() + 1.0;
-
-                        newServer = new Server(currentServer.getId(), false, false, serveTime);
-                        this.serverList.set(i, newServer);
-
-                       // System.out.println("Server's status: " + newServer.toString());
-                        DoneEvent nextEvent = new DoneEvent(currentCustomer,this.serverList, newServer);
+                        DoneEvent nextEvent = new DoneEvent(currentCustomer, this.serverList, s);
                         this.queue.add(nextEvent);
 
                         break;

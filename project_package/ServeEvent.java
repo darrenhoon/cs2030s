@@ -1,23 +1,28 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ServeEvent extends Event {
-    
     private final Server server;
     private final Customer customer;
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
     private final double nextTime;
 
-    ServeEvent(Customer customer, List<Server> servers, Server s) {
+    /**
+     * Event after ArriveEvent.
+     * @execute used to pass the parameters passed in to return a DoneEvent
+     */
+    public ServeEvent(Customer customer, List<Server> servers, Server s) {
         this.customer = customer;
         this.serverList = servers;
         this.server = s;
         this.nextTime = s.getAvailableTime() + serviceTime;
     }
 
+    @Override
     public String toString() {
         double arrivalTime = this.getCustomer().getArrivalTime();
         int c = this.getCustomer().getId();
@@ -27,7 +32,7 @@ public class ServeEvent extends Event {
     }
 
     @Override
-    Event execute() {
+    public Event execute() {
         return new DoneEvent(this.getCustomer(), this.getServerList(), this.server);
     }
 

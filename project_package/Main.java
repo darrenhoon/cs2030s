@@ -8,6 +8,7 @@ import cs2030.simulator.LeaveEvent;
 import cs2030.simulator.DoneEvent;
 import cs2030.simulator.EventComparator;
 import cs2030.simulator.Simulation;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,8 +17,14 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 
 
-class Main {
+public class Main {
 
+    /**
+     * takes in number of servers and customers and generates servers and 
+     * customers with identifications ascending from 1,
+     * generates Customer object for all timings given, with Customer
+     * identification in ascending order from 1 too.
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         

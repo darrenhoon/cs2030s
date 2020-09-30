@@ -1,4 +1,5 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ public class LeaveEvent extends Event {
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
 
-    LeaveEvent(Customer customer, List<Server> servers) {
+    public LeaveEvent(Customer customer, List<Server> servers) {
         this.serverList = servers;
         this.customer = customer;
     }
@@ -24,7 +25,7 @@ public class LeaveEvent extends Event {
         return message;
     }
 
-    Event execute() {
+    public Event execute() {
         return this;
     }
 

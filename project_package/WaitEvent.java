@@ -1,4 +1,5 @@
 package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,13 +10,17 @@ public class WaitEvent extends Event {
     private final Customer customer;
     private final List<Server> serverList;
     private final double serviceTime = 1.0;
-    
-    WaitEvent(Customer customer, List<Server> servers, Server s) {
+
+    /**
+     * Event after ArriveEvent if all waiters are busy and a waiter has no Waiting Customer.
+     */
+    public WaitEvent(Customer customer, List<Server> servers, Server s) {
         this.customer = customer;
         this.serverList = servers;
         this.server = s;
     }
 
+    @Override
     public String toString() {
         int c = this.getCustomer().getId();
         int s = this.getServer().getId();
@@ -24,7 +29,7 @@ public class WaitEvent extends Event {
     }
 
     @Override
-    Event execute() {
+    public Event execute() {
         double servingTime = this.getServer().getAvailableTime();
         Customer c = new Customer(this.getCustomer().getId(),servingTime);
         return new ServeEvent(c,this.getServerList(),this.getServer());
