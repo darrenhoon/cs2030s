@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class LeaveEvent extends Event {
+public class LeaveEvent extends Event {
     
     private final Customer customer;
     private final List<Server> serverList;

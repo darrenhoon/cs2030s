@@ -22,6 +22,24 @@ public class Point {
             }
         }
         return false;
+
+    @Override
+    public int hashCode() { //will not work if the x and y are negative values
+        return power(2,x)*(3,y);
+    }
+
+    private static int power(int a, int b) {
+        if (b == 0) {
+            return 1;
+        } else {
+            return a*power(b-1);
+        }
+    }
+    
+    public int hashCode() {
+        int[] = intArray = {this.x,this.y};
+        return Arrays,hashCode(intArray);
+    }
 }
 
 

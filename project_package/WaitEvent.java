@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class WaitEvent extends Event {
+public class WaitEvent extends Event {
 
     private final Server server;
     private final Customer customer;
