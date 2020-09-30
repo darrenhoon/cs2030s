@@ -41,57 +41,6 @@ public class Simulation {
 
             if (event instanceof DoneEvent) {
                 customersServed++;
-                DoneEvent currEvent = (DoneEvent) event;
-
-                double time = event.getCurrentTime();
-                Server currentServer = currEvent.getServer();
-
-                for (int i = 0; i < this.serverList.size(); i++) {
-                    Server s = this.serverList.get(i);
-                    if (s == currentServer) {
-
-
-                        Server newServer;
-                        if (currentServer.getHasWaitingCustomer()) { //ie there is a customer that was queuing up                     
-                            newServer = new Server(currentServer.getId(), false, false, time);
-
-                        } else {
-                            newServer = new Server(currentServer.getId(), true, false, time);
-                        }
-
-
-                        this.serverList.set(i, newServer);
-                        break;
-                    }
-                }
-                continue;
-            }
-
-            if (event instanceof ServeEvent) {
-
-                ServeEvent currEvent = (ServeEvent) event;
-                Server currentServer = currEvent.getServer();
-
-                Server newServer;
-
-                for (int i = 0; i < this.serverList.size(); i++) {
-                    Server s = this.serverList.get(i);
-
-                    double nextAvailableTime = currentCustomer.getArrivalTime() + 1.0;
-                    if (s == currentServer) {
-
-                        double serveTime = currentCustomer.getArrivalTime() + 1.0;
-
-                        newServer = new Server(currentServer.getId(), false, false, serveTime);
-                        this.serverList.set(i, newServer);
-
-                       // System.out.println("Server's status: " + newServer.toString());
-                        DoneEvent nextEvent = new DoneEvent(currentCustomer,this.serverList, newServer);
-                        this.queue.add(nextEvent);
-
-                        break;
-                    }
-                }
                 continue;
             }
 
@@ -100,29 +49,15 @@ public class Simulation {
                 WaitEvent currEvent = (WaitEvent) event;
                 Server currentServer = currEvent.getServer();
 
-                Server newServer;
+                double newTime = currentServer.getAvailableTime();
 
-                for (int i = 0; i < this.serverList.size(); i++) {
-                    Server s = this.serverList.get(i);
-                    if (s == currentServer) {
+                double elapsedTime = newTime - currentCustomer.getArrivalTime();
+                totalWaitTime += elapsedTime;
 
-                        double newTime = s.getAvailableTime();
-                        double elapsedTime = newTime - currentCustomer.getArrivalTime();
-                        totalWaitTime += elapsedTime;
-
-                        newServer = new Server(currentServer.getId(), false, true, newTime);
-                        this.serverList.set(i, newServer);
-                        Customer c = new Customer(currentCustomer.getId(),newTime);
-
-                        ServeEvent nextEvent = new ServeEvent(c,this.serverList, newServer);
-                        this.queue.add(nextEvent);
-                        break;
-                    }
-                }
+                Event nextEvent = event.execute();
+                this.queue.add(nextEvent);
                 continue;
-            }
-
-            if (event instanceof ArriveEvent) {
+            } else {
                 Event nextEvent = event.execute();
                 this.queue.add(nextEvent);
             }

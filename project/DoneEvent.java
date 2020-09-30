@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 class DoneEvent extends Event {
-    
+
     private final Server server; 
     private final Customer customer;
     private final List<Server> serverList;
@@ -24,6 +24,29 @@ class DoneEvent extends Event {
     }
 
     Event execute() {
+        DoneEvent currEvent = (DoneEvent) this;
+
+        double time = currEvent.getCurrentTime();
+        Server currentServer = currEvent.getServer();
+
+        for (int i = 0; i < this.serverList.size(); i++) {
+            Server s = this.serverList.get(i);
+            if (s == currentServer) {
+
+
+                Server newServer;
+                if (currentServer.getHasWaitingCustomer()) {                     
+                    newServer = new Server(currentServer.getId(), false, false, time);
+
+                } else {
+                    newServer = new Server(currentServer.getId(), true, false, time);
+                }
+
+
+                this.serverList.set(i, newServer);
+                break;
+            }
+        }
         return this;
     }
 

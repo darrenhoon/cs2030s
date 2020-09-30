@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ServeEvent extends Event {
-    
+
     private final Server server;
     private final Customer customer;
     private final List<Server> serverList;
@@ -17,6 +17,7 @@ public class ServeEvent extends Event {
         this.nextTime = s.getAvailableTime() + serviceTime;
     }
 
+    @Override
     public String toString() {
         double arrivalTime = this.getCustomer().getArrivalTime();
         int c = this.getCustomer().getId();
@@ -25,9 +26,27 @@ public class ServeEvent extends Event {
         return message;
     }
 
-    @Override
     Event execute() {
-        return new DoneEvent(this.getCustomer(), this.getServerList(), this.server);
+        ServeEvent currEvent = (ServeEvent) this;
+        Server currentServer = currEvent.getServer();
+        Customer currentCustomer = this.customer;
+        Server newServer;
+
+        for (int i = 0; i < this.serverList.size(); i++) {
+            Server s = this.serverList.get(i);
+
+            double nextAvailableTime = currentCustomer.getArrivalTime() + 1.0;
+            if (s == currentServer) {
+
+                double serveTime = currentCustomer.getArrivalTime() + 1.0;
+
+                newServer = new Server(currentServer.getId(), false, false, serveTime);
+                this.serverList.set(i, newServer);
+
+                return new DoneEvent(currentCustomer,this.serverList, newServer);
+            }
+        }
+        return this;
     }
 
     Server getServer() {

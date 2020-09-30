@@ -12,6 +12,7 @@ public class ArriveEvent extends Event {
         this.customer = customer;
     }
 
+    @Override
     public String toString() {
         double time = this.getCustomer().getArrivalTime();
         int c = this.getCustomer().getId();

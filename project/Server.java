@@ -8,13 +8,14 @@ public class Server {
     private final boolean hasWaitingCustomer;
     private final double nextAvailableTime;
 
-    Server(int identifier, boolean isAvailable, boolean hasWaitingCustomer, double nextAvailableTime) {
-        this.identifier = identifier;
+    Server(int id, boolean isAvailable, boolean hasWaitingCustomer, double nextAvailableTime) {
+        this.identifier = id;
         this.isAvailable = isAvailable;
         this.hasWaitingCustomer = hasWaitingCustomer;
         this.nextAvailableTime = nextAvailableTime;
     }
 
+    @Override
     public String toString() {
         String message = String.format("%d is ",this.identifier);
         String status = "busy; ";
