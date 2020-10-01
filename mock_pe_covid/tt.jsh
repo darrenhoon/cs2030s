@@ -1,0 +1,9 @@
+/open SimulationParameters.java
+/open Virus.java
+/open AlphaCoronavirus.java
+/open SARS_CoV_2.java
+/open BetaCoronavirus.java
+/open Person.java
+/open Contact.java
+/open Location.java
+/open MaskedPerson.java
