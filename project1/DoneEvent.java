@@ -38,7 +38,7 @@ public class DoneEvent extends Event {
 
         for (int i = 0; i < this.serverList.size(); i++) {
             Server s = this.serverList.get(i);
-            if (s == currentServer) {
+            if (s.equals(currentServer)) {
                 Server newServer;
 
                 if (currentServer.getHasWaitingCustomer()) {
