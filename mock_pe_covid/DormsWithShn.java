@@ -17,14 +17,13 @@ class DormsWithShn extends Dorms {
         List<? extends Contact> contactList = super.queryContacts(person.getName(), time);
 
         if (!person.test(SimulationParameters.TARGET_VIRUS)) {
-            logNegativeTest(person, time);
+            super.logNegativeTest(person, time);
         } else {
-            logPositiveTest(person, time);
+            super.logPositiveTest(person, time);
         }
         super.updatePerson(person);
 
         for (Person p: contactList) {
-
         }
     }
 
