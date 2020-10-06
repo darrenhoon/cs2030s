@@ -28,8 +28,7 @@ class Schedule {
     }
 
     //added: 2 to 6
-    Schedule addClass(List<Lecture> list, Lecture c) {
-        this.classesList.addAll(list); this.classesList.add(c); this.classesList.sort(new ClassComparator()); return this; }
+    Schedule addClass(List<Lecture> list, Lecture c) {this.classesList.addAll(list); this.classesList.add(c); this.classesList.sort(new ClassComparator()); return this; }
 
     //added: 5 to 12
     @Override
