@@ -9,10 +9,11 @@ class Schedule {
         this.classesList = new ArrayList<Lecture>();
     }
 
+    //added: 2 to 3
     Schedule add(Lecture c) {
-       
+
         boolean flag = false;
-        
+
         for (Lecture curr: classesList) {
             if (curr.clashWith(c)) {
                 flag = true;
@@ -26,25 +27,16 @@ class Schedule {
         }
     }
 
-    //added 6 lines
+    //added: 2 to 6
     Schedule addClass(List<Lecture> list, Lecture c) {
-        this.classesList.addAll(list);
-        this.classesList.add(c);
-        this.classesList.sort(new ClassComparator());
-        return this;
-    }
+        this.classesList.addAll(list); this.classesList.add(c); this.classesList.sort(new ClassComparator()); return this; }
 
-    //all added
+    //added: 5 to 12
     @Override
     public String toString() {
         String message = "";
         for(Lecture l: this.classesList) {
-            if (l.getClassType() == "Lecture") {
-                message += String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
-            } else {
-                message += String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
-            }
-        }
-        return message;
-    }
+            if (l.getClassType() == "Lecture") { message += String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());} else { message += String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime()); } } return message;}
 }
+
+//total lines edited: 9 to 21

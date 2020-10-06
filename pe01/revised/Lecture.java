@@ -15,8 +15,8 @@ public class Lecture {
         this.ins = ins;
         this.start = start;
     }
-
-    //8lines removed, 1 line added = 9
+    
+    //8lines removed, 1 line added. 8 to 9
     boolean hasSameModule(Lecture c) {
         if (c == this) {
             return true;
@@ -24,7 +24,7 @@ public class Lecture {
         return this.getMod() == c.getMod();
     }
 
-    //10 lines removed, 1 added = 11
+    //10 lines removed, 1 added. 10 to 11
     boolean hasSameInstructor(Lecture c) {
         if (c == this) {
             return true;
@@ -32,7 +32,7 @@ public class Lecture {
         return this.getIns().getName() == c.getIns().getName();
     }
 
-    //10 lines removed, 1 line added = 11
+    //10 lines removed, 1 line added. 10 to 11
     boolean hasSameVenue(Lecture c) {
         if (this.equals(c)) {
             return true;
@@ -40,7 +40,7 @@ public class Lecture {
         return this.getVenue() == c.getVenue();
     }
 
-    //17 lines removed, everything in the body added 6 lines
+    //17 lines removed, everything in the body added 6 lines. 17 to 23
     boolean clashWith(Lecture c) {
         if (((this.getStartTime() <= c.getStartTime()) && (c.getStartTime() < this.getEndTime())) || ((this.getStartTime() < c.getEndTime()) && (c.getEndTime() <= this.getEndTime()))) {
             if (((this.getClassType() == "Lecture" && c.getClassType() == "Lecture") || (this.getClassType() == "Lecture" && c.getClassType() == "Tutorial") || (this.getClassType() == "Tutorial" && c.getClassType() == "Lecture")) && (this.hasSameModule(c) || this.hasSameVenue(c)|| this.hasSameInstructor(c))) {
@@ -88,3 +88,5 @@ public class Lecture {
         return this.tutorialDuration;
     }
 }
+
+//total edited: 

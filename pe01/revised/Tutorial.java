@@ -9,9 +9,11 @@ class Tutorial extends Lecture {
         return this.getStartTime() + this.getTutorialDuration();
     }
 
-    //added 4 lines
+    //added 1 to 4
     @Override
     String getClassType() {
         return "Tutorial";
     }
 }
+
+//lines added: 1 to 4
