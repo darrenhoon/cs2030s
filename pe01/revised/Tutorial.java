@@ -8,4 +8,10 @@ class Tutorial extends Lecture {
     public int getEndTime() {
         return this.getStartTime() + this.getTutorialDuration();
     }
+
+    //added 4 lines
+    @Override
+    String getClassType() {
+        return "Tutorial";
+    }
 }
