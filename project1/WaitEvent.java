@@ -77,7 +77,6 @@ public class WaitEvent extends Event {
 
     double getElapsedTime() {
         Server s = this.getServer();
-
         double arriveTime = this.getCustomer().getArrivalTime();
         return s.getAvailableTime() - arriveTime;
     }
