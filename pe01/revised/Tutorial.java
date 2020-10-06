@@ -11,9 +11,7 @@ class Tutorial extends Lecture {
 
     //added 1 to 4
     @Override
-    String getClassType() {
-        return "Tutorial";
-    }
+    String getClassType() {return "Tutorial";}
 }
 
 //lines added: 1 to 4
