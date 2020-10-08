@@ -4,7 +4,7 @@ public class Lecture {
     private final int classId;
     private final String venueId;
     private final int start;
-    private String mod;
+    private final String mod;
     private final int lectureDuration = 2;
     private final int tutorialDuration = 1;
 
@@ -20,10 +20,6 @@ public class Lecture {
         if (c == this) {
             return true;
         }
-        if (c instanceof Tutorial) {
-            Tutorial t = (Tutorial) c;
-            return this.getMod() == t.getMod();
-        }
         if (c instanceof Lecture) {
             Lecture l = (Lecture) c;
             return this.getMod() == l.getMod();
@@ -35,13 +31,6 @@ public class Lecture {
         if (c == this) {
             return true;
         }
-        
-        if (c instanceof Tutorial) {
-            Tutorial t = (Tutorial) c;
-            Instructor ins = t.getIns();
-            return this.getIns().equals(ins);
-        }
-
         if (c instanceof Lecture) {
             Lecture l = (Lecture) c;
             Instructor ins = l.getIns();
@@ -54,38 +43,14 @@ public class Lecture {
         if (this.equals(c)) {
             return true;
         }
-        
-        if (c instanceof Tutorial) {
-            Tutorial t = (Tutorial) c;
-            return this.getVenue() == t.getVenue();
-        }
-
         if (c instanceof Lecture) {
             Lecture l = (Lecture) c;
             return this.getVenue() == l.getVenue();
         } 
         return false;
     }
-
     boolean clashWith(Lecture c) {
-        if (c instanceof Tutorial && this instanceof Tutorial) {
-            if (c.getStartTime() == this.getStartTime()) {
-                if (this.hasSameVenue(c) || this.hasSameInstructor(c)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        else {
-            
-            if ((this.getStartTime() <= c.getStartTime()) && (c.getStartTime() <= this.getEndTime())) {
-            }
-
-            if ((this.getStartTime() <= c.getStartTime()) && (c.getEndTime() <= this.getEndTime())) {
-            }
-            return false;
-        }
-    }
+        if (((this.getStartTime() <= c.getStartTime()) && (c.getStartTime() < this.getEndTime())) || ((this.getStartTime() < c.getEndTime()) && (c.getEndTime() <= this.getEndTime()))) {if (((this.getClassType() == "Lecture" && c.getClassType() == "Lecture") || (this.getClassType() == "Lecture" && c.getClassType() == "Tutorial") || (this.getClassType() == "Tutorial" && c.getClassType() == "Lecture")) && (this.hasSameModule(c) || this.hasSameVenue(c)|| this.hasSameInstructor(c))) {return true;} return (this.hasSameInstructor(c) || this.hasSameVenue(c));}return false;}
 
     String getMod() {
         return this.mod;
@@ -104,6 +69,7 @@ public class Lecture {
     }
 
     int getEndTime() {
+        if (this.getClassType == "Tutorial") {return this.getStartTime() + tutorialDuration;}
         return this.getStartTime() + lectureDuration;
     }
 
@@ -114,4 +80,6 @@ public class Lecture {
     int getTutorialDuration() {
         return this.tutorialDuration;
     }
+
+    String getClassType() { return "Lecture";}
 }

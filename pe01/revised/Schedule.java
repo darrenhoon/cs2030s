@@ -28,14 +28,26 @@ class Schedule {
     }
 
     //added: 2 to 6
-    Schedule addClass(List<Lecture> list, Lecture c) {this.classesList.addAll(list); this.classesList.add(c); this.classesList.sort(new ClassComparator()); return this; }
+    Schedule addClass(List<Lecture> list, Lecture c) {
+        this.classesList.addAll(list);
+        this.classesList.add(c);
+        this.classesList.sort(new ClassComparator());
+        return this;
+    }
 
     //added: 5 to 12
     @Override
     public String toString() {
         String message = "";
         for(Lecture l: this.classesList) {
-            if (l.getClassType() == "Lecture") { message += String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());} else { message += String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime()); } } return message;}
+            String curr = String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
+            if (l.getClassType() == "Lecture") {
+                curr = String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
+            }
+            message+=curr;
+        }
+        return message;
+    }
 }
 
 //total lines edited: 9 to 21

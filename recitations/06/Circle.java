@@ -6,9 +6,7 @@ public class Circle {
         this.radius = r;
     }
     public Circle add(Circle other) {
-        Point newCentre = this.getCentre().add(other.getCentre());
-        double newRadius = this.getRadius() + other.getRadius();
-        return new Circle(newCentre, newRadius);
+        return new Circle(this.centre.add(other), this.radius + other.radius);
     }
 
     public Circle scale(double k) {
