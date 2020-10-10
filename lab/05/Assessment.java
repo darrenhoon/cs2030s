@@ -1,4 +1,6 @@
-public class Assessment implements Keybable {
+import java.util.Map;
+
+public class Assessment implements Keyable {
 
     private final String key;
     private final String grade;
