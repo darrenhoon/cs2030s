@@ -40,11 +40,7 @@ class Schedule {
     public String toString() {
         String message = "";
         for(Lecture l: this.classesList) {
-            String curr = String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
-            if (l.getClassType() == "Lecture") {
-                curr = String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
-            }
-            message+=curr;
+            (l.getClassType() == "Lecture") ? message += String.format("%s L%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime()) : message += String.format("%s T%d @ %s [%s] %d--%d\n", l.getMod(), l.getClassId(), l.getVenue(), l.getIns().getName(), l.getStartTime(), l.getEndTime());
         }
         return message;
     }

@@ -69,7 +69,9 @@ public class Lecture {
     }
 
     int getEndTime() {
-        if (this.getClassType == "Tutorial") {return this.getStartTime() + tutorialDuration;}
+        if (this.getClassType == "Tutorial") {
+            return this.getStartTime() + tutorialDuration;
+        }
         return this.getStartTime() + lectureDuration;
     }
 
