@@ -3,7 +3,9 @@ import java.util.HashMap;
 
 class Module implements Keyable {
     private final String key;
+
     private Map<String,Assessment> map;
+    
     Module(String key) {
         this.key = key;
         this.map = new HashMap<String,Assessment>();
@@ -46,5 +48,7 @@ class Module implements Keyable {
         this.map.put(a.getKey(), a);
     }
 
-    public String getKey() {return this.key;}
+    public String getKey() {
+        return this.key;
+    }
 }

@@ -2,10 +2,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class Module extends KeyableMap {
+public class Module<V extends Keyable> extends KeyableMap {
 
     Module(String mod) {
         super(mod);
+    }
+
+    @Override
+    public Module<V> put(V item) {
+        return (Module) super.put(item);
     }
 }
 
