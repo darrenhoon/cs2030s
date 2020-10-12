@@ -38,10 +38,10 @@ class Module implements Keyable {
     }
 
     Assessment get(String key) {
-        if (this.map.containsKey(a.getKey() == false)) {
+        if (this.map.containsKey(key) == false) {
             return null;
         }
-        return this.map.get(a.getKey());
+        return this.map.get(key);
     }
 
     public void addItem(Assessment a) {
