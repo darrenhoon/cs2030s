@@ -5,7 +5,7 @@ import java.util.Optional;
 abstract class KeyableMap<V extends Keyable> {
 
     private final String key;
-    private Map<String, V> map;
+    private final Map<String, V> map;
 
     KeyableMap(String key) {
         this.key = key;
