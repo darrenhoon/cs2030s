@@ -1,7 +1,8 @@
 import java.lang.IllegalArgumentException;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-interface  Logger<T> {
+interface Logger<T> {
     
     static <T> Logger<T> make(T t) {
         if (t == null) {
@@ -14,6 +15,8 @@ interface  Logger<T> {
         
         return (Logger<T>) nextLogger;
     }
+
+    boolean test(Predicate<T> p);
 
     void printlog();
 
