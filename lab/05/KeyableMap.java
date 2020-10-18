@@ -24,10 +24,10 @@ abstract class KeyableMap<V extends Keyable> {
         for (Map.Entry<String, V> entry: this.map.entrySet()) {
             String curr = entry.getValue().toString();
             msg += curr;
-            if (counter != size-1) {
+            if (counter != size - 1) {
                 msg += ", ";
             }
-            counter ++;
+            counter++;
         }
         msg += "}";
         return msg;

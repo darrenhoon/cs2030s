@@ -13,9 +13,16 @@ public class Roster extends KeyableMap<Student> implements Keyable {
         return (Roster) super.put(item);
     }
 
+    /**
+     * method to return grade if present or else returns no such
+     * record message as specified.
+     *
+     */
     public String getGrade(String id, String mod, String assessment) {
         String noRecordMessage = String.format("No such record: %s %s %s", id, mod, assessment);
-        return this.get(id).flatMap(x -> x.get(mod)).flatMap(x -> x.get(assessment)).map(Assessment::getGrade).orElse(noRecordMessage);
+        return this.get(id).flatMap(x -> x.get(mod))
+            .flatMap(x -> x.get(assessment))
+            .map(Assessment::getGrade).orElse(noRecordMessage);
     }
 }
 
