@@ -7,6 +7,8 @@ class LoggerImpl<T> implements Logger<T> {
 
     private final T item;
     private final List<String> backlog;
+    private static final String UNCHANGED = "Value unchanged. Value = ";
+    private static final String CHANGED = "Value changed! New value = "; 
 
     LoggerImpl(T item) {
         this.item = item;
@@ -32,61 +34,29 @@ class LoggerImpl<T> implements Logger<T> {
     }
 
     public <R> Logger<R> flatMap(Function<? super T, ? extends Logger<? extends R>> func) {
-        /*
-        System.out.println("\nSTEP: " + LoggerImpl.COUNTER + " FlatMAP");
-        System.out.println(func.apply(this.getItem()));
-        LoggerImpl.COUNTER++;
-        */
+        List<String> tempList = new ArrayList<String>(this.backlog);
+        Logger<? extends R> log = func.apply(this.item);
 
-        List<String> tempList = new ArrayList<String>();
-        for (String s: this.backlog) {
-            tempList.add(s);
-        }
-        
-        if (this.equals(func.apply(this.getItem())) == false) {
-            R item = func.apply(this.getItem()).getItem();
-            String latestMsg = String.format("Value changed! New value = " + item);
-            tempList.add(latestMsg);
-        }
+        //new Log's starting point is value initialized but that
+        //value is the last product from this class
+        List<String> extendedBacklog = log.getBacklog();
+        extendedBacklog.remove(0); //get rid of the initialized line
+        tempList.addAll(extendedBacklog);
 
-        Logger<? extends R> log = func.apply(this.getItem());
-        //Logger<R> log2 = log.map(x -> x);
         LoggerImpl<R> log3 = new LoggerImpl<R>(log.getItem(), tempList);
         return (Logger<R>) log3;
     }
    
 
     public <R> Logger<R> map(Function<? super T, ? extends R> func) {
-
         String latestMsg;
-        if (this.getItem() == func.apply(this.getItem())) {
-            latestMsg = String.format("Value unchanged. Value = %s",this.getItem());
+        if (this.item.equals(func.apply(this.item))) {
+            latestMsg = this.UNCHANGED + String.valueOf(this.item);
         } else {
-            R item = func.apply(this.getItem());
-            latestMsg = String.format("Value changed! New value = " + item);
+            latestMsg = this.CHANGED + String.valueOf(func.apply(this.item));
         }
-        
-        //this.backlog.add(latestMsg);
-        List<String> tempList = new ArrayList<String>();
-
-        int i = 0;
-        for (String s: this.backlog) {
-            tempList.add(s);
-            i++;
-        }
-
+        List<String> tempList = new ArrayList<String>(this.backlog);
         tempList.add(latestMsg);
-
-        /*
-        System.out.println("\nStep: " + LoggerImpl.COUNTER + " mAP");
-        System.out.println(func.apply(this.getItem()));
-        LoggerImpl.COUNTER++;
-
-        if (this.backlog.get(i - 1).equals(latestMsg) == false) { 
-            tempList.add(latestMsg);
-        }
-        */
-
         LoggerImpl<R> log = new LoggerImpl<R>(func.apply(this.getItem()), tempList);        
         return (Logger<R>) log;
     }
@@ -116,7 +86,7 @@ class LoggerImpl<T> implements Logger<T> {
     }
 
     public boolean test(Predicate<T> p) {
-        return p.test(this.getItem());
+        return p.test(this.item);
     }
 
     public T getItem() {
