@@ -22,7 +22,7 @@ Logger<Integer> f(int n) {
             log = log.map(x -> x/2);
             n = n / 2;
         } else {
-            log = log.map(x -> 3 * x + 1);
+            log = log.map(x -> x * 3).map(x -> x + 1);
             n = 3 * n + 1;
         }
     }
