@@ -12,6 +12,10 @@ public class Puzzle {
         //Insert your code here.
         //Return true only when both m,p are not 0,
         //and the given equation is satisfied.
+        //only possible because all the alphabets are permutations ie neither will have the same of value
+        int pzcz = p*1000 + z*100 + c*100 + z;
+        int muchz = m*10000 + u*1000 + c*100 + h*10 + z;
+        return m!=0 && p!= 0 && (pzcz*15 == muchz);
     }
 
     public static LazyList<LazyList<Integer>> permute(LazyList<Integer> LL, int r) {
@@ -25,11 +29,10 @@ public class Puzzle {
         return LL.filter(x-> x != n);
     }
 
-    
+    //permuate will return a list of lists of size 10P6
     public static void main(String[] args) {
-        permute(LazyList.intRange(1,10), 6)
+        permute(LazyList.intRange(0,10), 6)
             .filter(Puzzle::pzczSatisfies)
             .forEach(LazyList::print);
     }
-
 }
