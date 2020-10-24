@@ -16,6 +16,8 @@ public class qaTest {
         questions.add(new TFQ("The sky is blue (T/F)", 'T'));
         questions.add(new MCQ("Which animal is an elephant?", 'C'));
         questions.add(new TFQ("A square is a circle (T/F)", 'F'));
+
+        //wrong. check ans key.
         for (QA q : questions) {
            q.displayQuestion();
            Sandbox<Boolean> sb = Sandbox.make(getAnswer()); //WRONG.
