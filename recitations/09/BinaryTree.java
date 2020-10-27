@@ -86,12 +86,23 @@ public class BinaryTree<T extends Comparable<T>> {
                                     ()-> this.leftTree(),
                                     ()-> this.rightTree().add(thing));
     }
-
-    public Lazy<Boolean> contains(T searchItem) {
-        // Insert code here.
-        return new Lazy<>(true);
-    }
     
+    public Lazy<Boolean> contains(T searchItem) {
+        int result = this.value().compareTo(searchItem);
+        
+        if (this.isEmpty()) {
+             return new Lazy<Boolean>(() -> false);
+        }
+        if (result == 0) {
+            return new Lazy<Boolean>(() -> true);
+        }
+
+        else if (result > 0) {
+            return this.leftTree().contains(searchItem);
+        } else {
+            return this.rightTree().contains(searchItem);
+        }
+    }
 
     public boolean eagerContains(T thing) {
         if (this.isEmpty())
@@ -115,6 +126,14 @@ public class BinaryTree<T extends Comparable<T>> {
             return new BinaryTree<>(f.apply(this.value()),
                                     ()-> this.leftTree().map(f),
                                     ()-> this.rightTree().map(f));
+    }
+
+    public Lazy<T> max() {
+        if (this.rightTree().isEmpty()) {
+            return new Lazy<T>( () -> this.value());
+        } else {
+            return this.rightTree().max();
+        }
     }
 
     public void preOrder(Consumer<T> action) {
