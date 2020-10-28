@@ -86,7 +86,14 @@ public class BinaryTree<T extends Comparable<T>> {
                                     ()-> this.leftTree(),
                                     ()-> this.rightTree().add(thing));
     }
-    
+
+    //better way
+    public Lazy<Boolean> contains(T searchItem) {
+        return new Lazy<Boolean>(() -> this.eagerContains(searchItem));
+    }
+
+    /*
+    //my ans, not efficient.
     public Lazy<Boolean> contains(T searchItem) {
         int result = this.value().compareTo(searchItem);
         
@@ -103,6 +110,7 @@ public class BinaryTree<T extends Comparable<T>> {
             return this.rightTree().contains(searchItem);
         }
     }
+    */
 
     public boolean eagerContains(T thing) {
         if (this.isEmpty())
@@ -129,7 +137,12 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public Lazy<T> max() {
-        if (this.rightTree().isEmpty()) {
+        //missed out the step to check if you have an empty tree
+        
+        if (this.isEmpty()) {
+            return null;
+        }
+        else if (this.rightTree().isEmpty()) {
             return new Lazy<T>( () -> this.value());
         } else {
             return this.rightTree().max();
