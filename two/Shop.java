@@ -31,7 +31,7 @@ public class Shop {
     }
 
     public Optional<Server> find(Predicate<Server> pred) {
-        return this.list.stream().filter(x -> pred.test(x)).findAny();
+        return this.list.stream().filter(x -> pred.test(x)).findFirst();
     }
 
     public Shop replace(Server s) {
