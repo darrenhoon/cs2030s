@@ -2,7 +2,6 @@ import java.util.function.Function;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 class LoggerImpl<T> implements Logger<T> {
 
@@ -29,10 +28,9 @@ class LoggerImpl<T> implements Logger<T> {
     }
 
     public void printlog() {
-        Stream
-            .iterate(0, val -> val < this.backlog.size(), val -> val + 1)
-            .map(x -> this.backlog.get(x))
-            .forEach(msg -> System.out.println(msg));
+        for (String msg: this.backlog) {
+            System.out.println(msg);
+        }
     }
 
     public <R> Logger<R> flatMap(Function<? super T, ? extends Logger<? extends R>> func) {

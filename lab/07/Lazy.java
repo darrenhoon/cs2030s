@@ -35,12 +35,12 @@ class Lazy<T extends Comparable<T>> {
     }
 
     public T get() {
-        return this.value.orElseGet( () -> {
-            T value = this.supplier.orElseThrow().get();
-            this.value = Optional.of(value);
-            return value;
-            
-        } );
+        return this.value.orElseGet( () -> 
+                {
+                    T value = this.supplier.orElseThrow().get();
+                    this.value = Optional.of(value);
+                    return value;            
+                });
     }
     
     @Override

@@ -25,7 +25,9 @@ class LazyList<T extends Comparable<T>> {
         int listLastIndex = this.list.size() - 1;
 
         if (i > listLastIndex) {
+
             int iterCount = i - listLastIndex;
+            
             Stream.iterate(this.func.apply(this.list.get(listLastIndex).get()), x -> this.func.apply(x))
                 .limit(iterCount)
                 .forEach(x -> this.list.add(Lazy.of(x)));
