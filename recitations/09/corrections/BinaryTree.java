@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.Consumer;
 
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree <T extends Comparable<T>> {
 
     private final T value;
     private final Supplier<BinaryTree<T>> leftTree;
