@@ -1,9 +1,15 @@
 class Troll extends GameObject {
+    
     private final String state;
-    private boolean alive;
+    private final boolean isDead;
+
     public Troll() {
         this.state = "Troll lurks in the shadows.";
-        this.alive = true;
+        this.isDead = false;
+    }
+    public Troll(boolean dead) {
+        this.isDead = true;
+        this.state = "Should be dead so this does not print!!!!";
     }
 
     public String toString() {
@@ -11,6 +17,7 @@ class Troll extends GameObject {
     }
     private Troll(String state) {
         this.state = state;
+        this.isDead = false;
     }
     public GameObject changeState() {
         if  (this.state.equals("Troll lurks in the shadows.")) {
@@ -34,5 +41,9 @@ class Troll extends GameObject {
         }
         Troll t =new Troll("Troll attacks!");
         return (GameObject) t;
+    }
+
+    public boolean isDead() {
+        return this.isDead;
     }
 }

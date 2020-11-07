@@ -1,7 +1,7 @@
 class Candle extends GameObject {
     private final String state;
     public Candle() {
-        this.state = "Candle flickers";
+        this.state = "Candle flickers.";
     }
 
     private Candle(String state) {
