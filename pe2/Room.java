@@ -3,11 +3,13 @@ import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.function.Function;
+import java.util.Optional;
 
 class Room {
 
     private final List<GameObject> list;
     private final String loc;
+    private final List<Room> prevRoom = new ArrayList<Room>();
 
     public Room(String loc) {
         this.loc = loc;
@@ -24,16 +26,24 @@ class Room {
         for (GameObject o: this.list) {
             tempList.add(o.changeState());
         }
-        return new Room(this.loc, tempList);
+        Room nextRoom = new Room(this.loc, tempList);
+        if (this.prevRoom.isEmpty() == false) {
+            nextRoom.addRoom(this.prevRoom.get(0));
+        }
+        return nextRoom;
     }
 
     public Room tick(UnaryOperator<List<GameObject>> f) {
         List<GameObject> tempList = new ArrayList<GameObject>();
-        
+
         for (GameObject o: f.apply(this.list)) {
             tempList.add(o.changeState());
         }
-        return new Room(this.loc, tempList);
+        Room nextRoom = new Room(this.loc, tempList);
+        if (this.prevRoom.isEmpty() == false) {
+            nextRoom.addRoom(this.prevRoom.get(0));
+        }
+        return nextRoom;
     }
 
     public String toString() {
@@ -45,38 +55,54 @@ class Room {
     }
 
     public Room add(GameObject o) {
+        if (this.list.contains(o)) {
+            return this;
+        }
         List<GameObject> tempList = new ArrayList<GameObject>(this.list);
         tempList.add(o);
         return new Room(this.loc, tempList);
     }
+
     void editSword(boolean bool, GameObject sword) {
         if (bool) {
             this.list.add(0, sword);
         } else {
-            this.list.remove(sword);
+            this.list.add(sword);
         }
     }
 
+    void addRoom(Room rm) {
+        this.prevRoom.add(rm);
+    }
+
     public Room go(Function<List<GameObject>, Room> f) {
-        List<GameObject> bringOverList = new ArrayList<GameObject>(this.list);
-        Room nextRoom = f.apply(bringOverList);
+        
+        List<GameObject> listWOsword = new ArrayList<GameObject>();
+        Room nextRoom = f.apply(this.list);
+        
         for(GameObject o: this.list) {
             if (o instanceof Sword && (((Sword) o).isTaken() == true)) {
-                ((Sword) o).rememberRoom(this);
-                nextRoom.editSword(true, (GameObject) o);
-                this.editSword(false, (GameObject) o);
-                break;
+                nextRoom.editSword(true, o);
+            } else {
+                listWOsword.add(o);
             }
         }
+        Room previousRoom = new Room(this.loc, listWOsword);
+        nextRoom.addRoom(previousRoom);
         return nextRoom;
     }
 
     public Room back() {
-        for (GameObject o: this.list) {
-            if (o instanceof Sword) {
-                return ((Sword) o).previousRoom();
+        if (this.prevRoom.isEmpty()) {
+            return this;
+        }
+        Room nextRoom = this.prevRoom.get(0);
+        
+        for(GameObject o: this.list) {
+            if (o instanceof Sword && (((Sword) o).isTaken() == true)) {
+                nextRoom.editSword(false, o);
             }
         }
-        return this;
+        return nextRoom.tick();
     }
 }

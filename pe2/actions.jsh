@@ -43,14 +43,17 @@ UnaryOperator<List<GameObject>> killTroll = (List<GameObject> list) -> {
     return list.stream().filter(x -> !(x instanceof Troll)).collect(Collectors.toList());
 };
 
-UnaryOperator<GameObject> dropSword = (GameObject x) -> {
-    if (x instanceof Sword) {
-        String msg = "--> You have dropped sword.";
-
-        System.out.println(msg);
-        Sword ss = new Sword(false);
-        return ss;
-    } else {
-        return x;
+UnaryOperator<List<GameObject>> dropSword = (List<GameObject> list) -> {
+    
+    List<GameObject> tempList = new ArrayList<GameObject>();
+    
+    for (GameObject x: list) {
+        if (x instanceof Sword && ((Sword) x).isTaken()) {
+            System.out.println("--> You dropped the sword.");
+            tempList.add((GameObject) new Sword(false));
+            } else {
+            tempList.add(x);
+        }
     }
+    return tempList;
 };
