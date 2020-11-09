@@ -9,41 +9,24 @@ class Room {
 
     private final List<GameObject> list;
     private final String loc;
-    private final List<Room> prevRoom = new ArrayList<Room>();
+    private final List<Room> prevRoom;
 
     public Room(String loc) {
         this.loc = loc;
         this.list = new ArrayList<GameObject>();
+        this.prevRoom = new ArrayList<Room>();
     }
 
     public Room(String loc, List<GameObject> list) {
         this.loc = loc;
         this.list = list;
+        this.prevRoom = new ArrayList<Room>();
     }
 
-    public Room tick() {
-        List<GameObject> tempList = new ArrayList<GameObject>();
-        for (GameObject o: this.list) {
-            tempList.add(o.changeState());
-        }
-        Room nextRoom = new Room(this.loc, tempList);
-        if (this.prevRoom.isEmpty() == false) {
-            nextRoom.addRoom(this.prevRoom.get(0));
-        }
-        return nextRoom;
-    }
-
-    public Room tick(UnaryOperator<List<GameObject>> f) {
-        List<GameObject> tempList = new ArrayList<GameObject>();
-
-        for (GameObject o: f.apply(this.list)) {
-            tempList.add(o.changeState());
-        }
-        Room nextRoom = new Room(this.loc, tempList);
-        if (this.prevRoom.isEmpty() == false) {
-            nextRoom.addRoom(this.prevRoom.get(0));
-        }
-        return nextRoom;
+    public Room(String loc, List<GameObject> list, List<Room> rmList) {
+        this.loc = loc;
+        this.list = list;
+        this.prevRoom = rmList;
     }
 
     public String toString() {
@@ -55,19 +38,32 @@ class Room {
     }
 
     public Room add(GameObject o) {
-        if (this.list.contains(o)) {
-            return this;
-        }
         List<GameObject> tempList = new ArrayList<GameObject>(this.list);
         tempList.add(o);
-        return new Room(this.loc, tempList);
+        return new Room(this.loc, tempList, this.prevRoom);
     }
 
-    void editSword(boolean bool, GameObject sword) {
-        if (bool) {
-            this.list.add(0, sword);
+    public Room tick() {
+        List<GameObject> tempList = new ArrayList<GameObject>();
+        for (GameObject o: this.list) {
+            tempList.add(o.changeState());
+        }
+        return new Room(this.loc, tempList, this.prevRoom);
+    }
+
+    public Room tick(UnaryOperator<List<GameObject>> f) {
+        List<GameObject> tempList = new ArrayList<GameObject>();
+        for (GameObject o: f.apply(this.list)) {
+            tempList.add(o.changeState());
+        }
+        return new Room(this.loc, tempList, this.prevRoom);
+    }
+
+    void editSword(boolean flag, GameObject o) {
+        if(flag) {
+            this.list.add(0, o);
         } else {
-            this.list.add(sword);
+            this.list.remove(o);
         }
     }
 
@@ -76,19 +72,16 @@ class Room {
     }
 
     public Room go(Function<List<GameObject>, Room> f) {
-        
-        List<GameObject> listWOsword = new ArrayList<GameObject>();
         Room nextRoom = f.apply(this.list);
-        
-        for(GameObject o: this.list) {
-            if (o instanceof Sword && (((Sword) o).isTaken() == true)) {
+        List<GameObject> tempList = new ArrayList<GameObject>(this.list);
+        for (GameObject o: this.list) {
+            if (o instanceof Sword && ((Sword) o).isTaken() == true) {
                 nextRoom.editSword(true, o);
-            } else {
-                listWOsword.add(o);
+                this.editSword(false, o);
+                break;
             }
         }
-        Room previousRoom = new Room(this.loc, listWOsword);
-        nextRoom.addRoom(previousRoom);
+        nextRoom.addRoom(this);
         return nextRoom;
     }
 
@@ -96,13 +89,14 @@ class Room {
         if (this.prevRoom.isEmpty()) {
             return this;
         }
-        Room nextRoom = this.prevRoom.get(0);
-        
-        for(GameObject o: this.list) {
-            if (o instanceof Sword && (((Sword) o).isTaken() == true)) {
-                nextRoom.editSword(false, o);
-            }
-        }
-        return nextRoom.tick();
+        Room previousRoom = this.prevRoom
+            .get(this.prevRoom.size() - 1).tick();
+
+        if (this.list.stream()
+                .filter(x -> x instanceof Sword)
+                .anyMatch(x -> ((Sword) x).isTaken() == true)) {
+            return previousRoom.add(new Sword(true));
+                }
+        return previousRoom;
     }
 }

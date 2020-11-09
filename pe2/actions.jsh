@@ -49,7 +49,7 @@ UnaryOperator<List<GameObject>> dropSword = (List<GameObject> list) -> {
     
     for (GameObject x: list) {
         if (x instanceof Sword && ((Sword) x).isTaken()) {
-            System.out.println("--> You dropped the sword.");
+            System.out.println("--> You have dropped sword.");
             tempList.add((GameObject) new Sword(false));
             } else {
             tempList.add(x);
