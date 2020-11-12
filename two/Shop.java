@@ -36,7 +36,7 @@ public class Shop {
 
     public Shop replace(Server s) {
         List<Server> tempList = new ArrayList<Server>(this.list);
-        tempList.set(s.getId() - 1, s);
+        tempList.set(s.identifier() - 1, s);
         return new Shop(tempList);
     }
 }

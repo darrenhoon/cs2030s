@@ -1,13 +1,16 @@
-class Pair<T, U> {
+public final class Pair<T,U> {
+    private final T first;
+    private final U second;
 
-    T first;
-    U second;
-
-    Pair(T first,U second) {
-        this.first = first;
-        this.second = second;
+    Pair(T t, U u) {
+        this.first = t;
+        this.second = u;
     }
-    
+
+    public static <T,U> Pair<T, U> of(T t, U u) {
+        return new Pair<>(t, u);
+    }
+
     T first() {
         return this.first;
     }
@@ -15,10 +18,4 @@ class Pair<T, U> {
     U second() {
         return this.second;
     }
-
-    static Pair<T,U> of(T first, U second) {
-        return new Pair(first, second);
-    }
-
-     
 }

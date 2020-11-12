@@ -35,24 +35,16 @@ public class Server {
         }
         return message + status;
     }
-
-    boolean getAvailability() {
-        return this.isAvailable;
-    }
-
-    double getAvailableTime() {
+    
+    double nextAvailableTime() {
         return this.nextAvailableTime;
     }
-
-    boolean canQueue() {
-        return this.hasWaitingCustomer == false;
-    }
-
-    boolean getHasWaitingCustomer() {
+    
+    boolean hasWaitingCustomer() {
         return this.hasWaitingCustomer;
     }
 
-    int getId() {
+    int identifier() {
         return this.identifier;
     }
     

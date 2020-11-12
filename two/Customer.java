@@ -1,5 +1,3 @@
-package cs2030.simulator;
-
 public class Customer {
     private final int id;
     private final double arrivalTime;
@@ -14,11 +12,11 @@ public class Customer {
         return message;
     }
 
-    double getArrivalTime() {
+    double arrivalTime() {
         return this.arrivalTime;
     }
 
-    int getId() {
+    int identifier() {
         return this.id;
     }
 }
