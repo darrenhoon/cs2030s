@@ -5,35 +5,25 @@ import java.util.function.Function;
 import java.util.Optional;
 
 public class ServeEvent extends Event {
-    private final Server server;
-    private final Customer customer;
-    private final List<Server> serverList;
     private static final double SERVICE_TIME = 1.0;
-    private final double nextTime;
-    private final Shop shop;
-
-    public ServeEvent(Customer customer, Shop shop, Server s) {
-        this.customer = customer;
-        this.shop = shop;
-        this.server = server;
-        this.nextTime = s.nextAvailableTime() + this.SERVICE_TIME;
-
-        Function<Pair<Shop,Event>> func = (shop -> {
+   
+    public ServeEvent(Customer customer, Server s) {
+        super(customer, shop -> {
             int currentId = s.identifier();
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
             Server nextServer;
-            double nextTiming = currentServer.nextAvailableTime() + this.SERVICE_TIME;
+            double nextTiming = currentServer.nextAvailableTime() + SERVICE_TIME;
 
             if (currentServer.hasWaitingCustomer() == true) {
-                Server nextServer = new Server(currentId, false, false, nextTiming);
+                nextServer = new Server(currentId, false, false, nextTiming);
             } else {
-                Server nextServer = new Server(currentId, true, false, nextTiming);
+                nextServer = new Server(currentId, true, false, nextTiming);
             }
             Shop nextShop = shop.replace(nextServer);
-            DoneEvent nextEvent = new DoneEvent(this.customer, nextShop);
-            return (Event) nextEvent; 
-        });
-        super(customer, func);
+            DoneEvent nextEvent = new DoneEvent(customer, nextServer);
+            Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
+            return pair; 
+        }, s);
     }
 
     @Override
@@ -41,16 +31,16 @@ public class ServeEvent extends Event {
 
         double time;
 
-        double availableTime = this.server.nextAvailableTime();
-        double arrivalTime = this.customer.arrivalTime();
+        double availableTime = this.server().nextAvailableTime();
+        double arrivalTime = this.customer().arrivalTime();
         
         if (availableTime > arrivalTime) {
             time = availableTime;
         } else {
             time = arrivalTime;
         }
-        int c = this.customer.identifier();
-        int s = this.server.identifier();
+        int c = this.customer().identifier();
+        int s = this.server().identifier();
         String message = String.format("%.3f %d served by %d", time, c, s);
         return message;
     }

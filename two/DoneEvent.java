@@ -3,57 +3,45 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DoneEvent extends Event {
-
-    private final Customer customer;
-    private final Server = server;
-
-    private static final double SERVICE_TIME = 1.0;
     
-    public DoneEvent(Customer customer, Shop shop, Server s) {
-        this.customer = customer;
-        this.server = s;
+    private static final double SERVICE_TIME = 1.0;
 
-        int nextTime = s.nextAvailableTime() + this.SERVICE_TIME;
-
-        Function<Shop, Pair<Shop, Event>> func = (shop -> {
-
+    public DoneEvent(Customer customer, Server s) {
+        super(customer, shop -> {
             int currentId = s.identifier();
-            
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
-            Server nextServer;
-            double nextTiming;
-            Event nextEvent;
 
-            if (currentServer.hasWaitingCustomer() == true) {
-                nextTiming = currentServer.nextAvailableTime() + this.SERVICE_TIME; 
-                Server nextServer = new Server(currentId, false, false, nextTiming);
-                Shop nextShop = shop.replace(nextServer);
-                ServeEvent nextEvent = new ServeEvent(this.customer, nextShop, nextServer);
-                return new Pair<Shop, Event>(nextShop, (Event) nextEvent);
-            } else {
-                nextTiming = currentServer.nextAvailableTime();
-                Server nextServer = new Server(currentId, true, false, nextTiming);
-                Shop nextShop = shop.replace(nextServer);
-                return new Pair<Shop, Event>(nextShop, this);
-            }
-        });
-        super(customer, func);
+            //idk what to do with DoneEvent for now when there are no customers waiting
+            /*
+               if (currentServer.hasWaitingCustomer() == true) {
+               double nextTiming = currentServer.nextAvailableTime() + SERVICE_TIME; 
+               Server nextServer = new Server(currentId, false, false, nextTiming);
+               Shop nextShop = shop.replace(nextServer);
+               ServeEvent nextEvent = new ServeEvent(customer, nextServer);
+               return new Pair<Shop, Event>(nextShop, (Event) nextEvent);
+               } else {
+            //still dk what to do with this for now
+            double nextTiming = currentServer.nextAvailableTime();
+            Server nextServer = new Server(currentId, true, false, nextTiming);
+            Shop nextShop = shop.replace(nextServer);
+            ArriveEvent event = 
+            return new Pair<Shop, Event>(nextShop, this);
+               }
+               */
+            double nextTiming = currentServer.nextAvailableTime() + SERVICE_TIME; 
+            Server nextServer = new Server(currentId, false, false, nextTiming);
+            Shop nextShop = shop.replace(nextServer);
+            ServeEvent nextEvent = new ServeEvent(customer, nextServer);
+            return new Pair<Shop, Event>(nextShop, (Event) nextEvent);
+        }, s);
     }
 
     @Override
     public String toString() {
-        double completeTime = this.server.getAvailableTime();
-        int c = this.customer.identifier();
-        int s = this.server.identifier();
+        double completeTime = this.server().nextAvailableTime();
+        int c = this.customer().identifier();
+        int s = this.server().identifier();
         String message = String.format("%.3f %d done serving by %d", completeTime, c, s);
         return message; 
-    }
-
-    Customer customer() {
-        return this.customer;
-    }
-    
-    Server server() {
-        return this.server;
     }
 }
