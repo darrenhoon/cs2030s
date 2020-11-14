@@ -1,3 +1,5 @@
+package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +14,7 @@ class Event {
     Event(Customer c, Function<Shop, Pair<Shop, Event>> func) {
         this.customer = c;
         this.func = func;
-        this.server = new Server(0, true, false, 0.0);
+        this.server = null;
     }
     
     Event(Customer c, Function<Shop, Pair<Shop, Event>> func, Server s) {

@@ -5,5 +5,6 @@
 /open Pair.java
 /open ArriveEvent.java
 /open ServeEvent.java
+/open WaitEvent.java
 /open DoneEvent.java
-//open LeaveEvent.java
+/open LeaveEvent.java

@@ -10,21 +10,19 @@ public class DoneEvent extends Event {
         super(customer, shop -> {
             
             int currentId = s.identifier();
-                
-            double nextTiming = currentServer.nextAvailableTime();
- 
+
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
             
+            double nextTiming = currentServer.nextAvailableTime();
+
             if (currentServer.hasWaitingCustomer() == true) {
                 Server nextServer = new Server(currentId, false, false, nextTiming);
                 Shop nextShop = shop.replace(nextServer);
-                ServeEvent nextEvent = new ServeEvent(customer, nextServer);
-                return new Pair<Shop, Event>(nextShop, (Event) nextEvent);
             } else {
                 Server nextServer = new Server(currentId, true, false, nextTiming);
                 Shop nextShop = shop.replace(nextServer);
-                return new Pair<Shop, Event>(nextShop, Event);
             }
+            return null;
         }, s);
     }
 

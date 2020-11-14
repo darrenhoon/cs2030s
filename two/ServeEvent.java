@@ -1,3 +1,5 @@
+package cs2030.simulator;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +14,8 @@ public class ServeEvent extends Event {
             int currentId = s.identifier();
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
             Server nextServer;
+
+            //serviceTime edited to be based on RandomGenerator
             double nextTiming = currentServer.nextAvailableTime() + SERVICE_TIME;
 
             if (currentServer.hasWaitingCustomer() == true) {
