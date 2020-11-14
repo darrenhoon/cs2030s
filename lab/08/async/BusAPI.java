@@ -35,34 +35,34 @@ class BusAPI {
    * @return The HTTP resposne body, or an empty string if the 
    *     query fails.
    */
-  private static CompletedStage<String> httpGet(String url) {
+  private static CompletableFuture<String> httpGet(String url) {
     HttpClient client = HttpClient.newBuilder()
         .build();
     HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url))
         .build();
-    HttpResponse<String> response;
+    CompletableFuture<HttpResponse<String>> response = client.sendAsync(request, BodyHandlers.ofString());
     
-    CompletableFuture<HttpResponse<String>> responseCF = CompletableFuture.supplyAsync(() -> client.send(request,
-        BodyHandlers.ofString()));
-
-    BiFunction<? super IOException, ? extends String> func = 
-    Executor = System.out.println(
-    return responseCF.thenApplyAsync(
-       
     /*
-    try {
-      response = client.send(request, BodyHandlers.ofString()); // TODO 
-    } catch (IOException | InterruptedException e) {
-      throw new CompletionException(e);
-    }
-    */
-
     if (response.statusCode() != 200) {
       System.out.println(response + " " + response.statusCode());
       return "";
     }
-    return response.body();
+    return response.body()'
+    */
+    return response.thenApplyAsync(x -> {
+        if (x.statusCode() != 200) {
+            System.out.println(x + " " + x.statusCode());
+            return "";
+        }
+        return x.body();
+    }).handle((input, exception) -> {
+        if (exception != null) {
+            throw new CompletionException(exception);
+        } else {
+            return input;
+        }
+    });
   }
 
   /**
@@ -73,7 +73,7 @@ class BusAPI {
    *     string if something go wrong.
    */ 
   public static CompletableFuture<String> getBusStopsServedBy(String serviceId) {
-    return CompletableFuture<String>.supplyAsync(() -> httpGet(BUS_SERVICE_API + serviceId));
+    return httpGet(BUS_SERVICE_API + serviceId);
   }
 
   /**
@@ -83,7 +83,7 @@ class BusAPI {
    *     the bus services that stopped at this bus stop; an empty 
    *     string if the API query failed.
    */ 
-  public static String getBusServicesAt(String stopId) {
+  public static CompletableFuture<String> getBusServicesAt(String stopId) {
     return httpGet(BUS_STOP_API + stopId);
   }
 }
