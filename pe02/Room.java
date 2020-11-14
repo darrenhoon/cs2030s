@@ -73,7 +73,6 @@ class Room {
 
     public Room go(Function<List<GameObject>, Room> f) {
         Room nextRoom = f.apply(this.list);
-        List<GameObject> tempList = new ArrayList<GameObject>(this.list);
         for (GameObject o: this.list) {
             if (o instanceof Sword && ((Sword) o).isTaken() == true) {
                 nextRoom.editSword(true, o);

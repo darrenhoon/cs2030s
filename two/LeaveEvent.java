@@ -4,10 +4,9 @@ import java.util.Arrays;
 
 public class LeaveEvent extends Event {
     private static final double SERVICE_TIME = 1.0;
-
+    private final Customer customer;
     public LeaveEvent(Customer customer) {
-        super(customer, shop -> {
-        });
+        this.customer = customer;
     }
     @Override
     public String toString() {

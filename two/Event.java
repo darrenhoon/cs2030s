@@ -3,8 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
 
-class Event {
-    
+class Event {    
     private static double SERVICE_TIME = 1.0;
     private final Customer customer;
     private final Function<Shop, Pair<Shop, Event>> func;
