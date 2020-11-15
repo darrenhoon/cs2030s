@@ -12,13 +12,14 @@ public class ArriveEvent extends Event {
         super(customer, shop -> {
             
             double arrivalTime = customer.arrivalTime();
-            Optional<Server> serverOptional = shop
-                .find(x -> (x.isAvailable()) || (x.hasWaitingCustomer() == false));
+            Optional<Server> isAvailable = shop
+                .find(x -> x.isAvailable());
+ 
+            Optional<Server> hasWaitingCustomer = shop
+                .find(x -> x.hasWaitingCustomer() == false);
             
-            if ((serverOptional.isEmpty() == false) && (arrivalTime >= serverOptional.get().nextAvailableTime()) && (serverOptional.get().isAvailable())) {
-                
-                Server currentServer = serverOptional.get();
-
+            if ((isAvailable.isEmpty() == false) && (arrivalTime >= isAvailable.get().nextAvailableTime())) {
+                Server currentServer = isAvailable.get();
                 Server before = new Server(currentServer.identifier(), true, false,
                         currentServer.nextAvailableTime());
 
@@ -32,27 +33,24 @@ public class ArriveEvent extends Event {
                 return pair;
             }
 
-            if ((serverOptional.isEmpty() == false) && (serverOptional.get().hasWaitingCustomer() == false)) {
-                Server currentServer = serverOptional.get();
-                Server before = new Server(currentServer.identifier(), false, false,
-                        currentServer.nextAvailableTime());
-
+            else if (hasWaitingCustomer.isEmpty() == false) {
+                Server currentServer = hasWaitingCustomer.get();
+                Server before = new Server(currentServer.identifier(), false, false, currentServer.nextAvailableTime());
                 Server after = new Server(before.identifier(), false, true, currentServer.nextAvailableTime());
                 
-                //might need to edit this part to get the timing sequence correct
-                
+                //might need to edit this part to get the timing sequence correct                
                 Shop nextShop = shop.replace(after);
-
                 WaitEvent nextEvent = new WaitEvent(customer, before);
                 
                 Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
+            } 
+            
+            else {
+                LeaveEvent nextEvent = new LeaveEvent(customer);
+                Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
+                return pair;
             }
-
-            LeaveEvent nextEvent = new LeaveEvent(customer);
-            Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
-            return pair;
-
         });
     }
 

@@ -16,7 +16,7 @@ public class WaitEvent extends Event {
             
             double nextTiming = currentServer.nextAvailableTime();
             
-            Server nextServer = new Server(currentId, false, false, nextTiming);
+            Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming);
             
             Shop nextShop = shop.replace(nextServer);
     

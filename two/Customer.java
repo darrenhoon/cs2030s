@@ -45,6 +45,10 @@ public class Customer {
         return this.serviceTimeSupplier.get();
     }
 
+    Supplier<Double> serviceTimeSupplier() {
+        return this.serviceTimeSupplier;
+    }
+
     int identifier() {
         return this.id;
     }

@@ -12,8 +12,7 @@ public class ServeEvent extends Event {
         super(customer, shop -> {
             int currentId = s.identifier();
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
-            Server nextServer;
-
+           
             //serviceTime edited to be based on RandomGenerator
             double SERVICE_TIME = customer.serviceTime();
 
@@ -27,18 +26,15 @@ public class ServeEvent extends Event {
             }            
             double nextTiming = currentTime + SERVICE_TIME;
 
-            if (currentServer.hasWaitingCustomer() == true) {
-                nextServer = new Server(currentId, false, false, nextTiming);
-            } else {
-                nextServer = new Server(currentId, true, false, nextTiming);
-            }
+            Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming);
 
             //Check server's current Time after adding SERRICE TIME
             //System.out.println("Server's current Time (to be doneEvent's): " + nextServer.nextAvailableTime());
 
             Shop nextShop = shop.replace(nextServer);
-            
-            DoneEvent nextEvent = new DoneEvent(customer, nextServer);
+            Customer nextCustomer = new Customer(customer.identifier(), nextTiming, customer.serviceTimeSupplier());
+
+            DoneEvent nextEvent = new DoneEvent(nextCustomer, nextServer);
             
             Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
             
