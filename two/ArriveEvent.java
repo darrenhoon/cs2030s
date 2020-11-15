@@ -12,7 +12,6 @@ public class ArriveEvent extends Event {
         super(customer, shop -> {
             
             double arrivalTime = customer.arrivalTime();
-
             Optional<Server> serverOptional = shop
                 .find(x -> (x.isAvailable()) || (x.hasWaitingCustomer() == false));
             

@@ -30,8 +30,7 @@ public class Simulation {
 
         //Customer's suppliers
         Supplier<Double> arrivalTime = () -> rg.genInterArrivalTime();
-        Supplier<Double> firstCustomerArrivalTime = () -> 0.0;
-
+        
         //ServiceTime
         Supplier<Double> serviceTime = () -> rg.genServiceTime();
 
@@ -42,19 +41,16 @@ public class Simulation {
            */
 
 
-        //generate customers, first customer having Id = 1
-        int customerId = 1;
-        Customer firstCustomer = new Customer(customerId, firstCustomerArrivalTime, serviceTime);
-        
-           List<Customer> remainingCustomers = Stream.iterate(customerId + 1, x -> x + 1)
-           .limit(numOfCustomers - 1)
-           .map(id -> new Customer(id, arrivalTime, serviceTime))
-           .collect(Collectors.toList());
-           
+        //generate customers
         List<Customer> tempList = new ArrayList<Customer>();
 
-        tempList.add(firstCustomer);
-        tempList.addAll(remainingCustomers);
+        double previousValue = 0.0;
+        for (int id = 1; id <= numOfCustomers; id++) {
+            tempList.add(new Customer(id, previousValue, serviceTime));
+            previousValue += arrivalTime.get();
+        }
+
+        //tempList.forEach(x -> System.out.println(x.arrivalTime())); ok, passed
 
         this.customerList = tempList; 
         this.shop = shop;

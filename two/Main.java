@@ -54,11 +54,11 @@ public class Main {
         int customerId = 1;
 
         //generate servers
-        List<Server> serverList = Stream.iterate(serverId, x-> x + 1)
+        List<Server> serverList = Stream.iterate(serverId, x -> x + 1)
             .limit(numOfServers)
             .map(id -> new Server(id, true, false, startTime))
             .collect(Collectors.toList());
-
+        
         Shop shop = new Shop(serverList);
         
         Simulation sim = new Simulation(shop, seedValue, numOfCustomers, arrivalRate, serviceRate, restRate);

@@ -25,7 +25,8 @@ public class DoneEvent extends Event {
                 nextShop = shop.replace(nextServer);
             }
             
-            System.out.println("Server's status: " + nextServer +"\nServer's currentTime: " + nextServer.nextAvailableTime());
+            //To check for status of server and current time
+            //System.out.println("Server's status: " + nextServer +"\nServer's currentTime: " + nextServer.nextAvailableTime());
 
             Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, null);
             return pair;
@@ -37,7 +38,7 @@ public class DoneEvent extends Event {
         double completeTime = this.server().nextAvailableTime();
         int c = this.customer().identifier();
         int s = this.server().identifier();
-        String message = String.format("%.3f %d done serving by %d", completeTime, c, s);
+        String message = String.format("%.3f %d done serving by server %d", completeTime, c, s);
         return message; 
     }
 }
