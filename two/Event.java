@@ -1,12 +1,16 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
 
-class Event {    
-    private static double SERVICE_TIME = 1.0;
+public class Event {    
+    //public static Supplier<Double> serviceStream;
+    //public static Supplier<Double> randomRestStream;
+    //public static Supplier<Double> restPeriodStream;
+    //public static Supplier<Double> customerTypeStream;
+
     private final Customer customer;
     private final Function<Shop, Pair<Shop, Event>> func;
     private Server server;
@@ -16,7 +20,7 @@ class Event {
         this.func = func;
         this.server = null;
     }
-    
+
     Event(Customer c, Function<Shop, Pair<Shop, Event>> func, Server s) {
         this.customer = c;
         this.func = func;

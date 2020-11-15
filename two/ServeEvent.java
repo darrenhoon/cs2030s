@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,8 +7,7 @@ import java.util.function.Function;
 import java.util.Optional;
 
 public class ServeEvent extends Event {
-    private static final double SERVICE_TIME = 1.0;
-   
+    
     public ServeEvent(Customer customer, Server s) {
         super(customer, shop -> {
             int currentId = s.identifier();
@@ -16,6 +15,7 @@ public class ServeEvent extends Event {
             Server nextServer;
 
             //serviceTime edited to be based on RandomGenerator
+            double SERVICE_TIME = customer.serviceTime();
             double nextTiming = currentServer.nextAvailableTime() + SERVICE_TIME;
 
             if (currentServer.hasWaitingCustomer() == true) {
@@ -23,9 +23,13 @@ public class ServeEvent extends Event {
             } else {
                 nextServer = new Server(currentId, true, false, nextTiming);
             }
+
             Shop nextShop = shop.replace(nextServer);
+            
             DoneEvent nextEvent = new DoneEvent(customer, nextServer);
+            
             Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
+            
             return pair; 
         }, s);
     }

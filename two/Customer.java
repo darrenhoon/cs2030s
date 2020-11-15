@@ -1,12 +1,17 @@
-package cs2030.simulator;
+//package cs2030.simulator;
+
+//import cs2030.simulator.RandomGenerator;
+import java.util.function.Supplier;
 
 public class Customer {
     private final int id;
-    private final double arrivalTime;
+    private final Supplier<Double> arrivalTime;
+    private final Supplier<Double> serviceTime;
 
-    public Customer(int id, double arrivalTime) {
+    public Customer(int id, Supplier<Double> arrivalTime, Supplier<Double> serviceTime) {
         this.id = id;
         this.arrivalTime = arrivalTime;
+        this.serviceTime = serviceTime;
     }
 
     public String toString() {
@@ -15,7 +20,11 @@ public class Customer {
     }
 
     double arrivalTime() {
-        return this.arrivalTime;
+        return this.arrivalTime.get();
+    }
+    
+    double serviceTime() {
+        return this.serviceTime.get();
     }
 
     int identifier() {

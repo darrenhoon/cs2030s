@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.Optional;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Shop {
         int firstID = 1;
         Stream.iterate(firstID, x -> x + 1)
                 .limit(num)
-                .forEach(id -> this.list.add(new Server(id,true,false,Shop.STARTING_HOUR)));
+                .forEach(id -> this.list.add(new Server(id, true, false, Shop.STARTING_HOUR)));
     }
 
     public Shop(List<Server> list) {

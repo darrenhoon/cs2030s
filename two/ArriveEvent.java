@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,8 +7,7 @@ import java.util.function.Function;
 import java.util.Optional;
 
 public class ArriveEvent extends Event {
-    private static final double SERVICE_TIME = 1.0;
-
+    
     public ArriveEvent(Customer customer) {
         super(customer, shop -> {
             
@@ -20,18 +19,17 @@ public class ArriveEvent extends Event {
             if ((serverOptional.isEmpty() == false) && (arrivalTime >= serverOptional.get().nextAvailableTime()) && (serverOptional.get().isAvailable())) {
                 
                 Server currentServer = serverOptional.get();
+
                 Server before = new Server(currentServer.identifier(), true, false,
                         currentServer.nextAvailableTime());
 
-                double nextAvailableTime = before.nextAvailableTime() + SERVICE_TIME;
-                
-                Server after = new Server(before.identifier(), false, false, nextAvailableTime);
+                Server after = new Server(before.identifier(), false, false, currentServer.nextAvailableTime());
                 
                 Shop nextShop = shop.replace(after);
                 
-                ServeEvent nextEvent = new ServeEvent(customer, after);
+                ServeEvent nextEvent = new ServeEvent(customer, before);
                 
-                Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
+                Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
             }
 
@@ -40,15 +38,15 @@ public class ArriveEvent extends Event {
                 Server before = new Server(currentServer.identifier(), false, false,
                         currentServer.nextAvailableTime());
 
-                double nextAvailableTime = before.nextAvailableTime();
+                Server after = new Server(before.identifier(), false, true, currentServer.nextAvailableTime());
                 
-                Server after = new Server(before.identifier(), false, true, nextAvailableTime);
+                //might need to edit this part to get the timing sequence correct
                 
                 Shop nextShop = shop.replace(after);
-                
+
                 WaitEvent nextEvent = new WaitEvent(customer, before);
                 
-                Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
+                Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
             }
 

@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -8,7 +8,9 @@ public class LeaveEvent extends Event {
     private static final double SERVICE_TIME = 1.0;
     public LeaveEvent(Customer customer) {
         super(customer, shop -> {
-            return null;
+
+            Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, null);
+            return pair;
         });
     }
     @Override
