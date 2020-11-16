@@ -63,6 +63,10 @@ public class ServeEvent extends Event {
     @Override
     public String toString() {
         
+        if (this.server().cusList().get(0).identifier() != this.customer().identifier()) {
+            return "";
+        }
+
         double time;
 
         double availableTime = this.server().nextAvailableTime();
@@ -75,7 +79,7 @@ public class ServeEvent extends Event {
         }
         int c = this.customer().identifier();
         int s = this.server().identifier();
-        String message = String.format("%.3f %d served by server %d", time, c, s);
+        String message = String.format("%.3f %d served by %d", time, c, s);
         return message;
     }
 }
