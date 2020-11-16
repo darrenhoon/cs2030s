@@ -10,7 +10,7 @@ public class Server {
     private final boolean hasWaitingCustomer;
     private final double nextAvailableTime;
     private final int maxQ;
-    private final int waitingCustomers;
+    private final List<Customer> cusList;
 
     /**
      * Server object initialised with 4 parameters.
@@ -23,16 +23,16 @@ public class Server {
         this.hasWaitingCustomer = hasWaitingCustomer;
         this.nextAvailableTime = nextTiming;
         this.maxQ = 1;
-        this.waitingCustomers = 0;
+        this.cusList = new ArrayList<Customer>();
     }
 
-    public Server(int id, boolean isAvailable, boolean hasWaitingCustomer, double nextTiming, int maxQ, int waitingCustomers) {
+    public Server(int id, boolean isAvailable, boolean hasWaitingCustomer, double nextTiming, int maxQ, List<Customer> cusList) {
         this.identifier = id;
         this.isAvailable = isAvailable;
         this.hasWaitingCustomer = hasWaitingCustomer;
         this.nextAvailableTime = nextTiming;
         this.maxQ = maxQ;
-        this.waitingCustomers = waitingCustomers;
+        this.cusList = cusList;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Server {
     }
     
     boolean hasWaitingCustomer() {
-        return this.maxQ == this.waitingCustomers;
+        return this.maxQ == (this.cusList.size() - 1);
     }
 
     int identifier() {
@@ -71,7 +71,7 @@ public class Server {
         return this.maxQ;
     }
 
-    int waitingCustomers() {
-        return this.waitingCustomers;
+    List<Customer> cusList() {
+        return this.cusList;
     }
 }

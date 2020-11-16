@@ -18,10 +18,10 @@ public class EventComparator implements Comparator<Event> {
 
     @Override
     public int compare(Event event1, Event event2) {
-        double time1 = event1.server().nextAvailableTime();
-        double time2 = event2.server().nextAvailableTime();
+        double time1; //= event1.server().nextAvailableTime();
+        double time2; //= event2.server().nextAvailableTime();
 
-        /*
+        
         if (event1 instanceof ServeEvent) {
             double arrivalTime = event1.customer().arrivalTime();
             double availableTime = event1.server().nextAvailableTime();
@@ -33,7 +33,8 @@ public class EventComparator implements Comparator<Event> {
         } else {
             time1 = event1.customer().arrivalTime();
         }
-        */
+        
+       
         
         if (event2 instanceof ServeEvent) {
             double arrivalTime = event2.customer().arrivalTime();
@@ -46,6 +47,7 @@ public class EventComparator implements Comparator<Event> {
         } else {
             time2 = event2.customer().arrivalTime();
         }
+        
 
         if (time1 < time2) {
             return SMALLER;

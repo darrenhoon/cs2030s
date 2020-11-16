@@ -85,7 +85,7 @@ public class Simulation {
             Shop nextShop  = pair.first();
             previousShop = nextShop;
             Event nextEvent = pair.second();
-
+            
             if (event instanceof LeaveEvent) {
                 customersLeft++;
                 continue;
@@ -96,14 +96,16 @@ public class Simulation {
                 continue;
             }
 
+            if (nextEvent == null || event == null) {
+                continue;
+            }
+
             if (event instanceof WaitEvent) {
                 WaitEvent currEvent = (WaitEvent) event;
-
                 double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
                 totalWaitTime += elapsedTime;
                 this.queue.add(nextEvent);
-                continue;
-            } else { //ServeEvent
+            } else { //current event is a ServeEvent
                 this.queue.add(nextEvent);
             }
         }

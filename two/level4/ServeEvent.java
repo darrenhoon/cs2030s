@@ -14,35 +14,44 @@ public class ServeEvent extends Event {
             //current Server's details
             int currentId = s.identifier();
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
+           
+            
+            //to loop
+            if ((currentServer.cusList().isEmpty() == false) &&
+                    (currentServer.cusList().get(0).identifier() != customer.identifier())) {
 
-            if (currentServer.isAvailable() == false) {
-                ServeEvent nextEvent = new ServeEvent(customer, s);
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+
+                double nextTiming = currentServer.nextAvailableTime();
+                Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
+                    currentServer.maxQ(), cusList);
+
+                
+                ServeEvent nextEvent = new ServeEvent(customer, nextServer);
                 return new Pair<Shop, Event>(shop, (Event) nextEvent);
             }
-            //System.out.println("Current CUSTOMER is: " +  customer.identifier());
-            //System.out.println(currentServer.nextAvailableTime() + "\n");
-            //serviceTime edited to be based on RandomGenerator
-            double SERVICE_TIME = customer.serviceTime();
+            
+            
 
+            // if server can serve now && customer is at the front of the queue
+            double SERVICE_TIME = customer.serviceTime();
             double availableTime = currentServer.nextAvailableTime();
             double arrivalTime = customer.arrivalTime();
             double currentTime;
+            
             if (availableTime > arrivalTime) {
                 currentTime = availableTime;
             } else {
                 currentTime = arrivalTime;
             }            
+            
             double nextTiming = currentTime + SERVICE_TIME;
-            int remainingCustomers = currentServer.waitingCustomers();
+            List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
             Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
-                    currentServer.maxQ(), remainingCustomers);
-
-            //Check server's current Time after adding SERVICE TIME
-            //System.out.println("Server's current Time (to be doneEvent's): " + nextServer.nextAvailableTime());
+                    currentServer.maxQ(), cusList);
 
             Shop nextShop = shop.replace(nextServer);
             Customer nextCustomer = new Customer(customer.identifier(), nextTiming, customer.serviceTimeSupplier());
-
             DoneEvent nextEvent = new DoneEvent(nextCustomer, nextServer);
             
             Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
@@ -53,7 +62,7 @@ public class ServeEvent extends Event {
 
     @Override
     public String toString() {
-
+        
         double time;
 
         double availableTime = this.server().nextAvailableTime();
@@ -66,7 +75,7 @@ public class ServeEvent extends Event {
         }
         int c = this.customer().identifier();
         int s = this.server().identifier();
-        String message = String.format("%.3f %d served by %d", time, c, s);
+        String message = String.format("%.3f %d served by server %d", time, c, s);
         return message;
     }
 }

@@ -57,7 +57,7 @@ public class Main {
         //generate servers
         List<Server> serverList = Stream.iterate(serverId, x -> x + 1)
             .limit(numOfServers)
-            .map(id -> new Server(id, true, false, startTime, maxQ, 0))
+            .map(id -> new Server(id, true, false, startTime, maxQ, (List<Customer>) new ArrayList<Customer>()))
             .collect(Collectors.toList());
         
         Shop shop = new Shop(serverList);

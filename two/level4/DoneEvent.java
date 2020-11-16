@@ -16,13 +16,23 @@ public class DoneEvent extends Event {
             double nextTiming = currentServer.nextAvailableTime();
             Shop nextShop;
             Server nextServer;
-
-            if (currentServer.waitingCustomers() == 0) {
-                nextServer = new Server(currentId, true, false, nextTiming, currentServer.maxQ(), 0);
+            
+            if (currentServer.cusList().size() == 0) {
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+                nextServer = new Server(currentId, true, false, nextTiming, currentServer.maxQ(), cusList);
+                nextShop = shop.replace(nextServer);
+            }
+            else if (currentServer.cusList().size() - 1 == 0) {
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+                cusList.remove(0);
+                nextServer = new Server(currentId, true, false, nextTiming, currentServer.maxQ(), cusList);
                 nextShop = shop.replace(nextServer);
             } else {
-                int remainingWait = currentServer.waitingCustomers() - 1;
-                nextServer = new Server(currentId, true, false, nextTiming, currentServer.maxQ(), remainingWait);
+
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+                cusList.remove(0);
+
+                nextServer = new Server(currentId, false, false, nextTiming, currentServer.maxQ(), cusList);
                 nextShop = shop.replace(nextServer);
             }
 

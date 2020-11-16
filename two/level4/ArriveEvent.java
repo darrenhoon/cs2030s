@@ -19,15 +19,19 @@ public class ArriveEvent extends Event {
                 .find(x -> x.hasWaitingCustomer() == false);
             
             if ((isAvailable.isEmpty() == false) && (arrivalTime >= isAvailable.get().nextAvailableTime())) {
-                
+
+                List<Customer> cusList = new ArrayList<Customer>();
+                Customer currCus = new Customer(customer.identifier(), customer.arrivalTime(), customer.serviceTimeSupplier());
+                cusList.add(currCus);
+
                 Server currentServer = isAvailable.get();
                 
                 Server before = new Server(currentServer.identifier(), true, false,
-                        currentServer.nextAvailableTime(), currentServer.maxQ(), 0);
+                        currentServer.nextAvailableTime(), currentServer.maxQ(), currentServer.cusList());
 
-                Server after = new Server(before.identifier(), true, false, currentServer.nextAvailableTime(),
-                        currentServer.maxQ(), 0);
-                
+                Server after = new Server(before.identifier(), false, false, currentServer.nextAvailableTime(),
+                        currentServer.maxQ(), cusList);
+
                 Shop nextShop = shop.replace(after);
                 
                 ServeEvent nextEvent = new ServeEvent(customer, before);
@@ -38,15 +42,19 @@ public class ArriveEvent extends Event {
 
             else if (hasWaitingCustomer.isEmpty() == false) {
                 Server currentServer = hasWaitingCustomer.get();
+                
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+                Customer currCus = new Customer(customer.identifier(), customer.arrivalTime(), customer.serviceTimeSupplier());
+                cusList.add(currCus);
 
-                int newQlength = currentServer.waitingCustomers() + 1;
+                int newQlength = currentServer.cusList().size() + 1;
                 boolean newHWC = (newQlength == currentServer.maxQ());
 
                 Server before = new Server(currentServer.identifier(), false, false, currentServer.nextAvailableTime(),
-                        currentServer.maxQ(), currentServer.waitingCustomers());
+                        currentServer.maxQ(), currentServer.cusList());
 
                 Server after = new Server(before.identifier(), false, newHWC, currentServer.nextAvailableTime(),
-                        currentServer.maxQ(), newQlength);
+                        currentServer.maxQ(), cusList);
                 
                 //might need to edit this part to get the timing sequence correct                
                 Shop nextShop = shop.replace(after);
