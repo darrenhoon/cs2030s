@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -54,10 +54,10 @@ public class Server {
     public String toString() {
         String message = String.format("%d is ",this.identifier);
         String status = "busy; ";
-        if (this.isAvailable == false && this.hasWaitingCustomer == false) {
+        if (this.isAvailable == false && this.gotQ() == false) {
             status += String.format("available at %.3f",this.nextAvailableTime);
         }
-        if (this.isAvailable == false && this.hasWaitingCustomer == true) {
+        if (this.isAvailable == false && this.gotQ() == true) {
             status += String.format("waiting customer to be served at %.3f",this.nextAvailableTime);
         }
         if (this.isAvailable == true) {
@@ -70,6 +70,9 @@ public class Server {
         return this.nextAvailableTime;
     }
     
+    boolean gotQ() {
+        return (this.cusList.size() > 1);
+    }
     boolean hasWaitingCustomer() {
         return this.maxQ == (this.cusList.size() - 1);
     }
