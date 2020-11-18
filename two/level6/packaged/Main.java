@@ -47,13 +47,8 @@ public class Main {
         double restRate;
         double restProb;
         double greedyProb;
-
-        //System.out.println("Length is: " + args.length);
-        //System.out.println(Integer.parseInt(args[0]));
-        //System.out.println(Integer.parseInt(args[1]));
-        //System.out.println(Integer.parseInt(args[2]));
-        //System.out.println(Double.parseDouble(args[3]));
-        //System.out.println(Double.parseDouble(args[4]));
+        
+        //level3
         if (args.length == 5) {
 
             seedValue = Integer.parseInt(args[0]);
@@ -68,7 +63,7 @@ public class Main {
             greedyProb = 0.0;
         }
 
-
+        //level4
         else if (args.length == 6) {
             seedValue = Integer.parseInt(args[0]);
             numOfServers = Integer.parseInt(args[1]);
@@ -78,10 +73,11 @@ public class Main {
             arrivalRate = Double.parseDouble(args[4]);
             serviceRate =  Double.parseDouble(args[5]);
             restRate = 1.0;
-            restProb = 1.0;
-            greedyProb = 1.0;
+            restProb = 0.0;
+            greedyProb = 0.0;
         }
 
+        //level5
         else if (args.length == 8) {
             seedValue = Integer.parseInt(args[0]);
             numOfServers = Integer.parseInt(args[1]);
@@ -92,9 +88,10 @@ public class Main {
             serviceRate =  Double.parseDouble(args[5]);
             restRate = Double.parseDouble(args[6]);
             restProb = Double.parseDouble(args[7]);
-            greedyProb = 1.0;
+            greedyProb = 0.0; 
         }
 
+        //level6
         else if (args.length == 9) {
             seedValue = Integer.parseInt(args[0]);
             numOfServers = Integer.parseInt(args[1]);
@@ -105,9 +102,10 @@ public class Main {
             serviceRate =  Double.parseDouble(args[6]);
             restRate = Double.parseDouble(args[7]);
             restProb = Double.parseDouble(args[8]);
-            greedyProb = 1.0;
+            greedyProb = 0.0;
         }
 
+        //level7
         else {
             seedValue = Integer.parseInt(args[0]);
             numOfServers = Integer.parseInt(args[1]);
