@@ -93,7 +93,6 @@ public class Simulator {
                 this.queue.add(nextEvent);
             } else if (event instanceof WaitEvent) {
                 this.queue.add(nextEvent);
-
                 // System.out.println(event);
             } else if (event instanceof LeaveEvent) {
                 customersLeft++;
@@ -126,15 +125,12 @@ public class Simulator {
             } else if (event instanceof ServerBack) {
                 continue;
             } else {
-                // System.out.println(event);
                 this.queue.add(nextEvent);
             }
             System.out.println(event);
         }
 
-        //Calculate the stats
-        double averageWaitTime = totalWaitingTime / customersServed;
-        String s = String.format("[%.3f %s %s]", averageWaitTime, customersServed, customersLeft);
-        System.out.println(s);
+        Statistics stats = new Statistics(totalWaitingTime, customersServed, customersLeft);
+        System.out.println(stats);
     }
 }

@@ -1,4 +1,4 @@
-package cs2030.simulator;
+//package cs2030.simulator;
 
 public class Statistics {
     
@@ -17,11 +17,7 @@ public class Statistics {
         this.waitTime = waitTime;
         this.served = served;
         this.left = left;
-        if (this.served == 0) {
-            this.average = 0.0;
-        } else {
-            this.average = this.waitTime / this.served;
-        }
+        this.average = this.waitTime / this.served;
     }
 
     @Override

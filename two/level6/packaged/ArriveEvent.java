@@ -15,8 +15,8 @@ public class ArriveEvent extends Event {
             Optional<Server> isAvailable = shop
                 .find(x -> x.isAvailable());
 
-            Optional<Server> canQ = shop
-                .find(x -> x.canQ() == true);
+            Optional<Server> hasWaitingCustomer = shop
+                .find(x -> x.hasWaitingCustomer() == false);
 
             //checkout current shop
             //System.out.println("Current Shops @ ArriveEvent: " + shop);
@@ -55,13 +55,13 @@ public class ArriveEvent extends Event {
 
                 ServeEvent nextEvent = new ServeEvent(nextCus, currentServer);
 
-                Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
+                Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
             }
 
             //waitEvent
-            else if (canQ.isEmpty() == false) {
-                Server currentServer = canQ.get();
+            else if (hasWaitingCustomer.isEmpty() == false) {
+                Server currentServer = hasWaitingCustomer.get();
                 Shop nextShop;
                 Customer nextCus = new Customer(customer.identifier(), customer.arrivalTime(),
                             customer.serviceTimeSupplier(), true);
@@ -70,9 +70,13 @@ public class ArriveEvent extends Event {
                 if (currentServer instanceof SelfCheckout) {
                    
                     SelfCheckout sc = (SelfCheckout) currentServer;
+                    int newQlength = sc.SCQsize() + 1;
 
+                    //actually can remove since HWC does nothing now 
+                    boolean newHWC = (newQlength == currentServer.maxQ());
+                    
                     SelfCheckout after = new SelfCheckout(currentServer.identifier(), 
-                            false, true, currentServer.nextAvailableTime(),
+                            false, newHWC, currentServer.nextAvailableTime(),
                             currentServer.maxQ());
                    
                     //customer goes into the static queue
@@ -85,15 +89,17 @@ public class ArriveEvent extends Event {
                     List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
                    
                     cusList.add(nextCus);
-                    
-                    Server after = new Server(currentServer.identifier(), false, true,
+                    int newQlength = currentServer.cusList().size() + 1;
+                    boolean newHWC = (newQlength == currentServer.maxQ());
+
+                    Server after = new Server(currentServer.identifier(), false, newHWC,
                             currentServer.nextAvailableTime(), currentServer.maxQ(), cusList,
                             currentServer.isResting());
                     nextShop = shop.replace(after);
                 }
 
-                WaitEvent nextEvent = new WaitEvent(nextCus, currentServer);
-                Pair<Shop, Event> pair = new Pair<Shop, Event>(shop, (Event) nextEvent);
+                WaitEvent nextEvent = new WaitEvent(nextCus, currentServer); //or isit after instead?
+                Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
             }
 

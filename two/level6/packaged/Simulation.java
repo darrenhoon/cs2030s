@@ -19,6 +19,7 @@ public class Simulation {
     private final double restProb;
     private final Supplier<Double> restGen;
     private final Supplier<Double> restPeriod;
+    private final double greedyProb;
 
     /**
      * initialised with 2 Lists passed from Main.java.
@@ -26,7 +27,7 @@ public class Simulation {
      * @param customerList is the list of customers
      * @param serverList is the list of servers
      */
-    public Simulation(Shop shop, int seedValue, int numOfCustomers, double arrivalRate, double serviceRate, double restRate, double restProb) {
+    public Simulation(int seedValue, int numOfServers, int selfCheckout, int maxQ, int numOfCustomers, double arrivalRate, double serviceRate, double restRate, double restProb, double greedyProb) {
 
         RandomGenerator rg = new RandomGenerator(seedValue, arrivalRate, serviceRate, restRate);
 
@@ -48,12 +49,30 @@ public class Simulation {
         //tempList.forEach(x -> System.out.println(x.arrivalTime())); ok, passed
 
         this.customerList = tempList; 
-        this.shop = shop;
+       
+        //generate servers
+        int serverId = 1;
+        double startTime = 0.0;
+        List<Server> serverList = Stream.iterate(serverId, x -> x + 1)
+            .limit(numOfServers + selfCheckout)
+            .map(id -> {
+                if (id <= numOfServers) {
+                    return new Server(id, true, false, startTime, maxQ,
+                            (List<Customer>) new ArrayList<Customer>());
+                } else {
+                    return (Server) new SelfCheckout(id, true, false, startTime, maxQ);
+                }
+            })
+        .collect(Collectors.toList());
+
+        this.shop = new Shop(serverList);
+        
         EventComparator eventComp = new EventComparator();
         this.queue = new PriorityQueue<Event>(eventComp);
         this.restProb = restProb;
         this.restGen = () -> rg.genRandomRest();
         this.restPeriod = () -> rg.genRestPeriod();
+        this.greedyProb = greedyProb;
 
         tempList.stream().forEachOrdered(customer -> this.queue.add(new ArriveEvent(customer)));
     }
@@ -104,6 +123,8 @@ public class Simulation {
                     //System.out.println("SIM => SE => SCQ: " + sc.SCQlist());
                     //System.out.println("SIM => SE => SCS: " + sc.SCSlist());
 
+
+                    // HAVE TO REDO DONE EVENT LOGIC HERE
                 } 
                 //if currentserver is a normal server
                 else {

@@ -1,4 +1,3 @@
-
 import cs2030.simulator.Customer;
 import cs2030.simulator.Server;
 import cs2030.simulator.Shop;
@@ -16,7 +15,6 @@ import cs2030.simulator.RandomGenerator;
 import cs2030.simulator.SERVER_REST;
 import cs2030.simulator.SERVER_BACK;
 import cs2030.simulator.SelfCheckout;
-
 
 import java.util.Scanner;
 import java.util.List;
@@ -37,43 +35,100 @@ public class Main {
     public static void main(String[] args) {
         double startTime = 0.00;
 
-        //values taken in by scanner
-        int seedValue = Integer.parseInt(args[0]);
-        int numOfServers = Integer.parseInt(args[1]);
-        int selfCheckout = Integer.parseInt(args[2]);
-        int maxQ = Integer.parseInt(args[3]);
-        int numOfCustomers = Integer.parseInt(args[4]); //also number of ARRIVAL EVENTS
-        double arrivalRate = Double.parseDouble(args[5]);
-        double serviceRate =  Double.parseDouble(args[6]);
-        double restRate = Double.parseDouble(args[7]);
-        double restProb = Double.parseDouble(args[8]);
-        
-        /*
-        System.out.println("seedValue: " + seedValue);
-        System.out.println("servers: " + numOfServers);
-        System.out.println("customers: " + numOfCustomers);
-        System.out.println("arrivalrate: " + arrivalRate);
-        System.out.println("servicerate: " + serviceRate);
-        */
 
-        int serverId = 1;
-        
-        //generate servers
-        List<Server> serverList = Stream.iterate(serverId, x -> x + 1)
-            .limit(numOfServers + selfCheckout)
-            .map(id -> {
-                if (id <= numOfServers) {
-                    return new Server(id, true, false, startTime, maxQ,
-                            (List<Customer>) new ArrayList<Customer>());
-                } else {
-                    return (Server) new SelfCheckout(id, true, false, startTime, maxQ);
-                }
-            })
-            .collect(Collectors.toList());
-        
-        Shop shop = new Shop(serverList);
-       
-        Simulation sim = new Simulation(shop, seedValue, numOfCustomers, arrivalRate, serviceRate, restRate, restProb);
+        //values taken in by scanner
+        int seedValue;
+        int numOfServers;
+        int selfCheckout;
+        int maxQ;
+        int numOfCustomers;
+        double arrivalRate;
+        double serviceRate;
+        double restRate;
+        double restProb;
+        double greedyProb;
+
+        //System.out.println("Length is: " + args.length);
+        //System.out.println(Integer.parseInt(args[0]));
+        //System.out.println(Integer.parseInt(args[1]));
+        //System.out.println(Integer.parseInt(args[2]));
+        //System.out.println(Double.parseDouble(args[3]));
+        //System.out.println(Double.parseDouble(args[4]));
+        if (args.length == 5) {
+
+            seedValue = Integer.parseInt(args[0]);
+            numOfServers = Integer.parseInt(args[1]);
+            selfCheckout = 0;
+            maxQ = 1;
+            numOfCustomers = Integer.parseInt(args[2]); //also number of ARRIVAL EVENTS
+            arrivalRate = Double.parseDouble(args[3]);
+            serviceRate =  Double.parseDouble(args[4]);
+            restRate = 1.0;
+            restProb = 0.0;
+            greedyProb = 0.0;
+        }
+
+
+        else if (args.length == 6) {
+            seedValue = Integer.parseInt(args[0]);
+            numOfServers = Integer.parseInt(args[1]);
+            selfCheckout = 0;
+            maxQ = Integer.parseInt(args[2]);
+            numOfCustomers = Integer.parseInt(args[3]); //also number of ARRIVAL EVENTS
+            arrivalRate = Double.parseDouble(args[4]);
+            serviceRate =  Double.parseDouble(args[5]);
+            restRate = 1.0;
+            restProb = 1.0;
+            greedyProb = 1.0;
+        }
+
+        else if (args.length == 8) {
+            seedValue = Integer.parseInt(args[0]);
+            numOfServers = Integer.parseInt(args[1]);
+            selfCheckout = 0;
+            maxQ = Integer.parseInt(args[2]);
+            numOfCustomers = Integer.parseInt(args[3]); //also number of ARRIVAL EVENTS
+            arrivalRate = Double.parseDouble(args[4]);
+            serviceRate =  Double.parseDouble(args[5]);
+            restRate = Double.parseDouble(args[6]);
+            restProb = Double.parseDouble(args[7]);
+            greedyProb = 1.0;
+        }
+
+        else if (args.length == 9) {
+            seedValue = Integer.parseInt(args[0]);
+            numOfServers = Integer.parseInt(args[1]);
+            selfCheckout = Integer.parseInt(args[2]);
+            maxQ = Integer.parseInt(args[3]);
+            numOfCustomers = Integer.parseInt(args[4]); //also number of ARRIVAL EVENTS
+            arrivalRate = Double.parseDouble(args[5]);
+            serviceRate =  Double.parseDouble(args[6]);
+            restRate = Double.parseDouble(args[7]);
+            restProb = Double.parseDouble(args[8]);
+            greedyProb = 1.0;
+        }
+
+        else {
+            seedValue = Integer.parseInt(args[0]);
+            numOfServers = Integer.parseInt(args[1]);
+            selfCheckout = Integer.parseInt(args[2]);
+            maxQ = Integer.parseInt(args[3]);
+            numOfCustomers = Integer.parseInt(args[4]); //also number of ARRIVAL EVENTS
+            arrivalRate = Double.parseDouble(args[5]);
+            serviceRate =  Double.parseDouble(args[6]);
+            restRate = Double.parseDouble(args[7]);
+            restProb = Double.parseDouble(args[8]);
+            greedyProb = Double.parseDouble(args[9]);
+        }
+        /*
+           System.out.println("seedValue: " + seedValue);
+           System.out.println("servers: " + numOfServers);
+           System.out.println("customers: " + numOfCustomers);
+           System.out.println("arrivalrate: " + arrivalRate);
+           System.out.println("servicerate: " + serviceRate);
+           */
+
+        Simulation sim = new Simulation(seedValue, numOfServers, selfCheckout, maxQ, numOfCustomers, arrivalRate, serviceRate, restRate, restProb, greedyProb);
         sim.simulate();
     }
 }

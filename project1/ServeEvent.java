@@ -8,7 +8,7 @@ public class ServeEvent extends Event {
     private final Server server;
     private final Customer customer;
     private final List<Server> serverList;
-    private final double SERVICE_TIME = 1.0;
+    private final double serviceTime = 1.0;
     private final double nextTime;
 
     /**
@@ -19,7 +19,7 @@ public class ServeEvent extends Event {
         this.customer = customer;
         this.serverList = servers;
         this.server = s;
-        this.nextTime = s.getAvailableTime() + this.getServiceTime();
+        this.nextTime = s.getAvailableTime() + serviceTime;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ServeEvent extends Event {
     }
 
     double getServiceTime() {
-        return SERVICE_TIME;
+        return this.serviceTime;
     }
 
     Customer getCustomer() {

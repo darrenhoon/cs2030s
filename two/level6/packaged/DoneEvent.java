@@ -42,10 +42,10 @@ public class DoneEvent extends Event {
                 /*
                  * @Causes cyclical error
                  * 
-                 * /
+                 
                 //if there is a person in queue, need to return a serveevent
                 //may need to KIV this logic against SERVE EVENT (Private test cases)
-                /*
+
                 if ((isAvailable == false)) {
                     
                 
@@ -70,6 +70,7 @@ public class DoneEvent extends Event {
                     return pair;
                 }
                 */
+                
 
                 //else, return null. but that means Simulation will also need to
                 //acc for this new situation

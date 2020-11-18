@@ -23,7 +23,11 @@ public class Server {
         this.isAvailable = isAvailable;
         this.hasWaitingCustomer = hasWaitingCustomer;
         this.nextAvailableTime = nextTiming;
-        this.maxQ = 1;
+        if (hasWaitingCustomer == false) {
+            this.maxQ  = 1;
+        } else {
+            this.maxQ = -1;
+        }
         this.cusList = new ArrayList<Customer>();
         this.isResting = false;
     }
@@ -54,10 +58,10 @@ public class Server {
     public String toString() {
         String message = String.format("%d is ",this.identifier);
         String status = "busy; ";
-        if (this.isAvailable == false && this.gotQ() == false) {
+        if (this.isAvailable == false && this.hasWaitingCustomer() == false) {
             status += String.format("available at %.3f",this.nextAvailableTime);
         }
-        if (this.isAvailable == false && this.gotQ() == true) {
+        if (this.isAvailable == false && this.hasWaitingCustomer() == true) {
             status += String.format("waiting customer to be served at %.3f",this.nextAvailableTime);
         }
         if (this.isAvailable == true) {
@@ -73,10 +77,11 @@ public class Server {
     boolean gotQ() {
         return (this.cusList.size() > 1);
     }
+
     boolean hasWaitingCustomer() {
         return this.maxQ == (this.cusList.size() - 1);
     }
-
+    
     int identifier() {
         return this.identifier;
     }

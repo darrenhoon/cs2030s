@@ -29,6 +29,19 @@ public class Server {
         this.maxQ = 1;
         this.isResting = false;
     }
+    
+    public Server(int identifier, boolean isAvailable, boolean hasWaitingCustomer, double nextTime) {
+        this.id = identifier;
+        this.isAvailable = isAvailable;
+        if (hasWaitingCustomer == true) {
+            this.inWaiting = 1;
+        } else {
+            this.inWaiting = 0;
+        }
+        this.nextAvailableTime = nextTime;
+        this.maxQ = 1;
+        this.isResting = false;
+    }
 
     public Server(int identifier, boolean isAvailable, int waitingCustomer, double nextTime, int maxQ) {
         this.id = identifier;
