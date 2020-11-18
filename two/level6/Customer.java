@@ -1,4 +1,4 @@
-//package cs2030.simulator;
+package cs2030.simulator;
 
 //import cs2030.simulator.RandomGenerator;
 import java.util.function.Supplier;
@@ -8,7 +8,7 @@ public class Customer {
     private final Supplier<Double> serviceTimeSupplier;
     private final double arrivalTime;
     private final boolean queued;
-
+    private final boolean hasLeft;
     /*
     public Customer(int id, Supplier<Double> arrivalTimeSupplier, Supplier<Double> serviceTimeSupplier) {
         this.id = id;
@@ -27,11 +27,20 @@ public class Customer {
     }
     */
 
+    public Customer(int id, double arrivalTime) {
+        this.id = id;
+        this.arrivalTime = arrivalTime;
+        this.serviceTimeSupplier = () -> 1.0;
+        this.queued = false;
+        this.hasLeft = false;
+    }
+
     public Customer(int id, double arrivalTime, Supplier<Double> serviceTimeSupplier) {
         this.id = id;
         this.serviceTimeSupplier = serviceTimeSupplier;
         this.arrivalTime = arrivalTime;
         this.queued = false;
+        this.hasLeft = false;
     }
     
     public Customer(int id, double arrivalTime, Supplier<Double> serviceTimeSupplier, boolean queued) {
@@ -39,10 +48,18 @@ public class Customer {
         this.serviceTimeSupplier = serviceTimeSupplier;
         this.arrivalTime = arrivalTime;
         this.queued = queued;
+        this.hasLeft = false;
+    }
+    
+    public Customer(int id, double arrivalTime, Supplier<Double> serviceTimeSupplier, boolean queued, boolean hasLeft) {
+        this.id = id;
+        this.serviceTimeSupplier = serviceTimeSupplier;
+        this.arrivalTime = arrivalTime;
+        this.queued = queued;
+        this.hasLeft = hasLeft;
     }
  
 
- 
     public String toString() {
         String message = String.format("%d arrives at %.1f", this.id, this.arrivalTime);      
         return message;
@@ -66,5 +83,14 @@ public class Customer {
 
     int identifier() {
         return this.id;
+    }
+
+    Customer leave() {
+        return new Customer(this.id, this.arrivalTime,
+                this.serviceTimeSupplier, this.queued, true);
+    }
+
+    boolean hasLeft() {
+        return this.hasLeft;
     }
 }

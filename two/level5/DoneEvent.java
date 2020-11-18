@@ -24,18 +24,16 @@ public class DoneEvent extends Event {
             //System.out.println("Before edit, Que is: " + beforeList);
 
                 afterList = new ArrayList<Customer>(beforeList);
-                afterList.remove(0);
-
                 boolean isAvailable;
-                if (afterList.size() == 0) {
+
+                if (beforeList.size() == 1) {
                     isAvailable = true;
                 } else {
                     isAvailable = false;
                 }
+                afterList.remove(0);
                 nextServer = new Server(currentId, isAvailable, false, nextTiming, currentServer.maxQ(), afterList);
                 nextShop = shop.replace(nextServer);
-            
-
 
             //System.out.println("After edit, Que is: " + afterList);
             

@@ -11,6 +11,7 @@ public class Server {
     private final double nextAvailableTime;
     private final int maxQ;
     private final List<Customer> cusList;
+    private final boolean isResting;
     
     /**
      * Server object initialised with 4 parameters.
@@ -24,6 +25,7 @@ public class Server {
         this.nextAvailableTime = nextTiming;
         this.maxQ = 1;
         this.cusList = new ArrayList<Customer>();
+        this.isResting = false;
     }
 
     public Server(int id, boolean isAvailable, boolean hasWaitingCustomer, double nextTiming, int maxQ, List<Customer> cusList) {
@@ -33,7 +35,20 @@ public class Server {
         this.nextAvailableTime = nextTiming;
         this.maxQ = maxQ;
         this.cusList = cusList;
+        this.isResting = false;
     }
+
+    public Server(int id, boolean isAvailable, boolean hasWaitingCustomer, 
+            double nextTiming, int maxQ, List<Customer> cusList, boolean isResting) {
+        this.identifier = id;
+        this.isAvailable = isAvailable;
+        this.hasWaitingCustomer = hasWaitingCustomer;
+        this.nextAvailableTime = nextTiming;
+        this.maxQ = maxQ;
+        this.cusList = cusList;
+        this.isResting = isResting;
+    }
+
 
     @Override
     public String toString() {
@@ -73,5 +88,19 @@ public class Server {
 
     List<Customer> cusList() {
         return this.cusList;
+    }
+
+    boolean isResting() {
+        return this.isResting;
+    }
+
+    Server rest() {
+        return new Server(this.identifier, this.isAvailable, this.hasWaitingCustomer,
+                this.nextAvailableTime, this.maxQ, this.cusList, true);
+    }
+
+    Server back() {
+        return new Server(this.identifier, this.isAvailable, this.hasWaitingCustomer,
+                this.nextAvailableTime, this.maxQ, this.cusList, false);
     }
 }

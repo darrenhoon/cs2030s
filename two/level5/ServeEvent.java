@@ -16,6 +16,23 @@ public class ServeEvent extends Event {
             Server currentServer = shop.find(server -> server.identifier() == currentId).get();
 
             //System.out.println("Server: " + currentId + "\n" + currentServer.cusList() + "\n");
+           
+            //if server is resting
+            if (currentServer.isResting()) {
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+
+                double nextTiming = currentServer.nextAvailableTime();
+                
+                Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
+                        currentServer.maxQ(), cusList, true);
+                
+                Customer nextCustomer = new Customer(customer.identifier(), customer.arrivalTime(), customer.serviceTimeSupplier()
+                        ,customer.queued());
+                
+                ServeEvent nextEvent = new ServeEvent(nextCustomer, nextServer);
+                
+                return new Pair<Shop, Event>(shop, (Event) nextEvent);
+            }
 
             //to loop
             if ((currentServer.cusList().isEmpty() == false) && 
@@ -23,12 +40,25 @@ public class ServeEvent extends Event {
                 List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
                 double nextTiming = currentServer.nextAvailableTime();
                 Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
-                        currentServer.maxQ(), cusList);
+                        currentServer.maxQ(), cusList, currentServer.isResting());
                 Customer nextCustomer = new Customer(customer.identifier(), customer.arrivalTime(), customer.serviceTimeSupplier()
                         ,customer.queued());
                 ServeEvent nextEvent = new ServeEvent(nextCustomer, nextServer);
                 return new Pair<Shop, Event>(shop, (Event) nextEvent);
                 }
+            
+            /*
+            if (currentServer.isResting()) {
+                List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
+                double nextTiming = currentServer.nextAvailableTime();
+                Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
+                        currentServer.maxQ(), cusList, currentServer.isResting());
+                Customer nextCustomer = new Customer(customer.identifier(), customer.arrivalTime(), customer.serviceTimeSupplier()
+                        ,customer.queued());
+                ServeEvent nextEvent = new ServeEvent(nextCustomer, nextServer);
+                return new Pair<Shop, Event>(shop, (Event) nextEvent);
+                }
+            */
 
             // if server can serve now && customer is at the front of the queue
             double SERVICE_TIME = customer.serviceTime();
@@ -43,6 +73,15 @@ public class ServeEvent extends Event {
             }
 
             double nextTiming = currentTime + SERVICE_TIME;
+ 
+            //check current timing
+            //System.out.println("ServeEvent. Server's time now is: " + availableTime);
+            //System.out.println("ServeEvent. Customer's time now is: " + arrivalTime);
+            //System.out.println("ServeEvent. Server now is: " + currentServer.identifier());
+            //System.out.println("ServeEvent. Customer now is: " + customer.identifier());
+            //System.out.println("ServeEvent. SERVICETIME is: " + SERVICE_TIME);
+            //System.out.println("ServeEvent. Next timing ie DoneEvent's time will be: " + nextTiming);
+           
             List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
             Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming, 
                     currentServer.maxQ(), cusList);

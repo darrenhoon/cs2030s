@@ -23,6 +23,8 @@ public class EventComparator implements Comparator<Event> {
 
         if (event1 instanceof ArriveEvent) {
             time1 = event1.customer().arrivalTime();
+        } else if (event1 instanceof SERVER_REST || event1 instanceof SERVER_BACK) {
+            time1 = event1.server().nextAvailableTime();
         } else if (event1 instanceof ServeEvent) {
             time1 = event1.server().nextAvailableTime();
         } else if (event1 instanceof WaitEvent) {
@@ -33,10 +35,10 @@ public class EventComparator implements Comparator<Event> {
             time1 = event1.customer().arrivalTime(); // LeaveEvent
         }
 
-        
-        
         if (event2 instanceof ArriveEvent) {
             time2 = event2.customer().arrivalTime();
+        } else if (event2 instanceof SERVER_REST || event2 instanceof SERVER_BACK) {
+            time2 = event2.server().nextAvailableTime();
         } else if (event2 instanceof ServeEvent) {
             time2 = event2.server().nextAvailableTime();
         } else if (event2 instanceof WaitEvent) {
@@ -46,48 +48,6 @@ public class EventComparator implements Comparator<Event> {
         } else {
             time2 = event2.customer().arrivalTime(); // LeaveEvent
         }
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        if (event1 instanceof ServeEvent) {
-            double arrivalTime = event1.customer().arrivalTime();
-            double availableTime = event1.server().nextAvailableTime();
-            time1 = availableTime;
-            
-            if (availableTime > arrivalTime) {
-                time1 = availableTime;
-            } else {
-                time1 = arrivalTime;
-            }
-            
-        } else {
-            time1 = event1.customer().arrivalTime();
-        }
-        
-        if (event2 instanceof ServeEvent) {
-            double arrivalTime = event2.customer().arrivalTime();
-            double availableTime = event2.server().nextAvailableTime();
-            time2 = availableTime;
-            
-            if (availableTime > arrivalTime) {
-                time2 = availableTime;
-            } else {
-                time2 = arrivalTime;
-            }
-            
-        } else {
-            time2 = event2.customer().arrivalTime();
-        }
-        */
 
         if (time1 < time2) {
             return SMALLER;

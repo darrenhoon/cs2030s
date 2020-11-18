@@ -4,10 +4,12 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
-public class WaitEvent extends Event {
+public class SERVER_BACK extends Event {
     
-    public WaitEvent(Customer customer, Server s) {
+    public SERVER_BACK(Customer customer, Server s) {
         super(customer, shop -> {
 
             int currentId = s.identifier();
@@ -16,17 +18,15 @@ public class WaitEvent extends Event {
             
             List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
             int maxQ = currentServer.maxQ();
-
+            
             double nextTiming = currentServer.nextAvailableTime();
             
-            Server nextServer = new Server(currentId, false, currentServer.hasWaitingCustomer(), nextTiming,
-                    maxQ, cusList);
+            Server nextServer = new Server(currentId, currentServer.isAvailable(), currentServer.hasWaitingCustomer(), nextTiming,
+                    maxQ, cusList, false);
             
             Shop nextShop = shop.replace(nextServer);
-    
-            ServeEvent nextEvent = new ServeEvent(customer, nextServer);
-            
-            Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
+
+            Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, null);
             
             return pair; 
         }, s);
@@ -34,9 +34,6 @@ public class WaitEvent extends Event {
 
     @Override
     public String toString() {
-        int c = this.customer().identifier();
-        int s = this.server().identifier();
-        double arrivalTime = this.customer().arrivalTime();
-        return String.format("%.3f %d waits to be served by server %d",arrivalTime, c, s);
+        return "BACK EVENT FOR Server: " + this.server().identifier();
     }
 }

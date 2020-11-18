@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Optional;
 
 public class Simulation {
 
@@ -30,7 +31,7 @@ public class Simulation {
 
         //Customer's suppliers
         Supplier<Double> arrivalTime = () -> rg.genInterArrivalTime();
-        
+
         //ServiceTime
         Supplier<Double> serviceTime = () -> rg.genServiceTime();
 
@@ -68,24 +69,47 @@ public class Simulation {
         double totalWaitTime = 0.00;
         int customersServed = 0;
         int customersLeft = 0;
-        Shop previousShop = this.shop;
-
-        //System.out.println(this.queue); //Causes the queue to be eagarly evaluated (do not)
+        Shop latestShop = this.shop;
 
         while (this.queue.isEmpty() == false) {
 
             Event event = this.queue.poll();
 
+            Customer currentCustomer = event.customer();
+            Server previousServer = event.server();
+
+            Pair<Shop, Event> pair = event.execute(latestShop);
+            Shop nextShop  = pair.first();
+
+            Event nextEvent = pair.second();
+
+            if ((event instanceof ServeEvent) && (latestShop != this.shop)) {
+                Server currentServer = latestShop.find(server -> server.identifier() == previousServer.identifier()).get();
+
+                //System.out.println("Current Event is: " + event);
+                //System.out.println("Current Server's qList is: " + currentServer.cusList());
+                
+                if ((currentServer.cusList().size() != 0) && (currentServer.cusList().get(0).identifier() != currentCustomer.identifier())) {
+                    this.queue.add(nextEvent);
+                    latestShop = nextShop;
+                    continue;
+                } else {
+                    System.out.println(event.toString());
+                    if (currentCustomer.queued()) {
+                        
+                        double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
+                        totalWaitTime += elapsedTime;
+                    }
+                    this.queue.add(nextEvent);
+                    latestShop = nextShop;
+                    continue;
+                }
+ 
+            }
+            
+            latestShop = nextShop;        
             System.out.println(event.toString());
 
-            Customer currentCustomer = event.customer();
-            Server currentServer = event.server();
-
-            Pair<Shop, Event> pair = event.execute(previousShop);
-            Shop nextShop  = pair.first();
-            previousShop = nextShop;
-            Event nextEvent = pair.second();
-            
             if (event instanceof LeaveEvent) {
                 customersLeft++;
                 continue;
@@ -96,16 +120,14 @@ public class Simulation {
                 continue;
             }
 
-            if (nextEvent == null || event == null) {
-                continue;
-            }
-
             if (event instanceof WaitEvent) {
-                WaitEvent currEvent = (WaitEvent) event;
-                double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
-                totalWaitTime += elapsedTime;
+                //WaitEvent currEvent = (WaitEvent) event;
+                //Server currentServer = nextEvent.server();
+                //double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
+                //totalWaitTime += elapsedTime;
                 this.queue.add(nextEvent);
-            } else { //current event is a ServeEvent
+
+            } else {
                 this.queue.add(nextEvent);
             }
         }
