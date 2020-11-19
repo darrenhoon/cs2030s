@@ -49,7 +49,7 @@ public class Simulation {
         //tempList.forEach(x -> System.out.println(x.arrivalTime())); ok, passed
 
         this.customerList = tempList; 
-       
+
         //generate servers
         int serverId = 1;
         double startTime = 0.0;
@@ -66,7 +66,7 @@ public class Simulation {
         .collect(Collectors.toList());
 
         this.shop = new Shop(serverList);
-        
+
         EventComparator eventComp = new EventComparator();
         this.queue = new PriorityQueue<Event>(eventComp);
         this.restProb = restProb;
@@ -95,7 +95,6 @@ public class Simulation {
 
             Pair<Shop, Event> pair = event.execute(latestShop);
             Shop nextShop  = pair.first();
-
             Event nextEvent = pair.second();
 
             if ((event instanceof ServeEvent) && (latestShop != this.shop)) {
@@ -115,50 +114,87 @@ public class Simulation {
                     SelfCheckout sc = (SelfCheckout) currentServer;
                     QlistSize = sc.SCQsize();
                     ID = currentCustomer.identifier();
-                    
-                    if (sc.SCScheck(currentCustomer)) {
+
+                    if (currentCustomer.queued()) {
+
+                        System.out.println("b");
+                        double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
+                        totalWaitTime += elapsedTime;    
+                    }
+
+
+                    //when the customer has been served already
+                    //or is being served by another counter
+                    if ((nextEvent == null) &&
+                            sc.SCScheck(currentCustomer) && 
+                             sc.servingCheck(currentCustomer)) {
+
+                        boolean isAvailable;
+                        if (sc.SCQlist().size() != 0) {
+                            isAvailable = false;
+                        } else {
+                            isAvailable = true;
+                        }
+                        if (isAvailable == false) {
+                            Customer nextCus = sc.SCQget(0);
+                            sc.SCQremove(nextCus);
+                            SelfCheckout newSCO = new SelfCheckout(
+                                    sc.identifier(), false, false,
+                                    sc.nextAvailableTime(), sc.maxQ());
+                            Server nextServer = (Server) newSCO;
+                            latestShop = nextShop.replace(nextServer);
+                            ServeEvent hijackEvent = new ServeEvent(nextCus, nextServer);
+                            this.queue.add((Event) hijackEvent);
+                            continue;
+                        }
+                        else {
+                            SelfCheckout newSCO = new SelfCheckout(
+                                    sc.identifier(), true, false,
+                                    sc.nextAvailableTime(), sc.maxQ());
+                            Server nextServer = (Server) newSCO;
+                            latestShop = nextShop.replace(nextServer);
+                            continue;
+                        }
+                             }
+
+                    //customer was actually being served
+                    else {
+                        System.out.println(event.toString());
+                        this.queue.add(nextEvent);
                         continue;
                     }
-                    
-                    //System.out.println("SIM => SE => SCQ: " + sc.SCQlist());
-                    //System.out.println("SIM => SE => SCS: " + sc.SCSlist());
+                }
 
 
-                    // HAVE TO REDO DONE EVENT LOGIC HERE
-                } 
                 //if currentserver is a normal server
                 else {
                     QlistSize = currentServer.cusList().size();
                     ID = currentCustomer.identifier();
-                }
 
-                if (nextEvent == null) {
-                    continue;
-                }
 
-                if ((QlistSize != 0) && (ID != currentCustomer.identifier())) {
-                    continue;
-                } else {
-
-                    if (previousServer.nextAvailableTime() < currentServer.nextAvailableTime()) {
-
+                    if ((QlistSize != 0) && (ID != currentCustomer.identifier())) {
+                        continue;
                     }
+                    
                     else {
-                        System.out.println(event.toString());
-                        if (currentCustomer.queued()) {
-                            double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
-                            totalWaitTime += elapsedTime;
+
+                        if (previousServer.nextAvailableTime() < currentServer.nextAvailableTime()) {
+
                         }
+                        else {
+                            System.out.println(event.toString());
+                            if (currentCustomer.queued()) {
+                                double elapsedTime = currentServer.nextAvailableTime() - currentCustomer.arrivalTime();
+                                totalWaitTime += elapsedTime;
+                            }
 
-                    }
-                    this.queue.add(nextEvent);
-                    latestShop = nextShop;
-                    continue;
-                } 
+                        }
+                        this.queue.add(nextEvent);
+                        latestShop = nextShop;
+                        continue;
+                    } 
+                }
             }
-
-
-
 
             //update shop && Print Line
             latestShop = nextShop;
@@ -173,28 +209,61 @@ public class Simulation {
             if (event instanceof DoneEvent) {
                 customersServed++;
 
-                if (previousServer instanceof SelfCheckout) {
+                //Current Server with the updated status
+                Server currentServer = nextShop
+                    .find(server -> server.identifier() == previousServer.identifier()).get();
 
-                    //no one else in the Q
-                    if (nextEvent == null) {
+                //curSer is a SCO
+                if (currentServer instanceof SelfCheckout) {
+                    SelfCheckout sc = (SelfCheckout) currentServer;
+
+                    //System.out.println("DE SIM => current SCO QLIST:" + sc.SCQlist());
+
+                    boolean isAvailable;
+                    if (sc.SCQlist().size() == 0) {
+                        isAvailable = true;
+                    } else {
+                        isAvailable = false;
+                    }
+
+                    //there is a customer
+                    if (isAvailable == false) {
+
+                        Customer nextCus = sc.SCQget(0);
+                        sc.SCQremove(nextCus);
+                        SelfCheckout nextServer = new SelfCheckout(
+                                sc.identifier(), false, false,
+                                sc.nextAvailableTime(),
+                                sc.maxQ());
+                        ServeEvent hijackEvent = new ServeEvent(nextCus,
+                                (Server) nextServer);
+                        latestShop = nextShop.replace((Server) nextServer);
+                        this.queue.add(hijackEvent);
                         continue;
                     }
-                    
-                    //can add a new ServeEVENT
                     else {
-                        this.queue.add(nextEvent);
-                        latestShop = nextShop;
+                        boolean HWC = (sc.SCQlist().size() == sc.maxQ());
+                        SelfCheckout nextServer = new SelfCheckout(
+                                sc.identifier(), true, HWC,
+                                sc.nextAvailableTime(),
+                                sc.maxQ());
+                        latestShop = nextShop.
+                            replace((Server) nextServer);
                         continue;
                     }
                 }
+
+
+
+                //curSer is a human
                 double restValue = this.restGen.get();
                 if (restValue < this.restProb) {
 
                     //checkout latest Shop
                     //System.out.println(latestShop);
 
-                    Server currentServer = latestShop
-                        .find(server -> server.identifier() == previousServer.identifier()).get();
+                    //Server currentServer = latestShop
+                    //.find(server -> server.identifier() == previousServer.identifier()).get();
 
                     List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
 

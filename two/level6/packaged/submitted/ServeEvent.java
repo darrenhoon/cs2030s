@@ -44,7 +44,7 @@ public class ServeEvent extends Event {
             if (currentServer instanceof SelfCheckout) {
                 SelfCheckout sc = (SelfCheckout) currentServer;
 
-                //if customer has already been served by another SCO and has left the place
+                //if customer has already been served and left
                 if ((sc.SCScheck(customer))) {
                     
                     boolean isAvailable;
@@ -56,28 +56,27 @@ public class ServeEvent extends Event {
                         isAvailable = true;
                     }
 
-                    SelfCheckout nextSC = new SelfCheckout(currentId, isAvailable,
-                            currentServer.hasWaitingCustomer(), nextTiming, 
+                    boolean HWC = (sc.SCQlist().size() == sc.maxQ());
+
+                    SelfCheckout nextSC = new SelfCheckout(currentId,
+                            isAvailable, HWC, nextTiming, 
                             currentServer.maxQ());
                     nextServer = (Server) nextSC;
-                    
+                   
+                    //check if there are anyone else in the Q to
+                    //serve
                     if (isAvailable == false) {
                         nextCus = sc.SCQget(0);
                     }
                     else {
-                        //need to do something about this because technically
-                        //the customer has already been served
-                        //handle this at Simulation's serveevent instance level
                         nextCus = null;
-                       }
-                    
+                    }
+
                     nextShop = shop.replace(nextServer);
 
                     if (nextCus == null) {
                         return new Pair<Shop, Event>(nextShop, null);
-
                     }
-                    
                     else {
                         DoneEvent nextEvent = new DoneEvent(nextCus, nextServer);
                         Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
@@ -115,25 +114,9 @@ public class ServeEvent extends Event {
                 
                 }
 
-                //customer is directly served by SCO or waitevent
+                //customer is directly served by SCO
                 else {
-                    /*
-                    //to loop
-                    if ((sc.SCsize() != 0) && 
-                    (sc.SCget(0).identifier() != customer.identifier())) {
-
-                    SelfCheckout nextSC = new SelfCheckout(currentId, false,
-                    currentServer.hasWaitingCustomer(), currentServer.nextAvailableTime(),
-                    currentServer.maxQ());
-
-                    nextServer = (Server) nextSC;
-
-                    ServeEvent nextEvent = new ServeEvent(customer, (Server) nextServer);
-                    return new Pair<Shop, Event>(shop, (Event) nextEvent);
-                    }
-                    */
-
-                    // if SCO can serve now && customer has not been served by another SCO
+                   
                     double SERVICE_TIME = customer.serviceTime();
                     double availableTime = currentServer.nextAvailableTime();
                     double arrivalTime = customer.arrivalTime();
@@ -149,14 +132,7 @@ public class ServeEvent extends Event {
                     SelfCheckout nextSC = new SelfCheckout(currentId, false,
                             currentServer.hasWaitingCustomer(), nextTiming, 
                             currentServer.maxQ());
-                    
-                    //System.out.println("SE => SCO's before SCQlist: " + nextSC.SCQlist());
-                    //System.out.println("SE => SCO's before SCSlist: " + nextSC.SCSlist()); 
-                    //remove customer from the SCO's queuelist
-                    ////System.out.println("SE => SCO's after SCQlist: " + nextSC.SCQlist());
-                    //System.out.println("SE => SCO's after SCSlist: " + nextSC.SCSlist()); 
-
-                    sc.SCQremove(customer);
+                   
                     sc.servingAdd(customer);
                    
                     nextServer = (Server) nextSC;
@@ -168,12 +144,11 @@ public class ServeEvent extends Event {
             }
 
 
-
-
-
             //if curSer is a normal Server
             else {
-                //to loop
+                //to loop if the timing is still too early due to
+                //the server going for a rest and delaying
+                //all subsequent queues
                 if ((currentServer.cusList().isEmpty() == false) && 
                         (currentServer.cusList().get(0).identifier() != customer.identifier())) {
                     List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());

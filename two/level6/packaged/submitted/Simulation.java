@@ -1,4 +1,4 @@
-//package cs2030.simulator;
+package cs2030.simulator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -125,9 +125,7 @@ public class Simulation {
 
 
                     // HAVE TO REDO DONE EVENT LOGIC HERE
-                }
-
-
+                } 
                 //if currentserver is a normal server
                 else {
                     QlistSize = currentServer.cusList().size();
@@ -174,34 +172,78 @@ public class Simulation {
 
             if (event instanceof DoneEvent) {
                 customersServed++;
-                
-                Server currentServer = latestShop
+
+                if (previousServer instanceof SelfCheckout) {
+                    Server currentServer = latestShop
                     .find(server -> server.identifier() == previousServer.identifier()).get();
-
-
-                //if the server was a SCO
-               if (currentServer instanceof SelfCheckout) {
-
                     
+                    
+                    SelfCheckout sc = (SelfCheckout) currentServer;
+
+                    boolean isAvailable;
+                    if (sc.SCQlist().size() == 0) {
+                        isAvailable = true;
+                    } else {
+                        isAvailable = false;
+                    }
+
+                    boolean HWC = (sc.SCQlist().size() == sc.maxQ());
+                    
+                    //dk if i need to do this
+                    //latestShop = shop.replace((Server) nextServer);
+
+                    if (isAvailable == false) {
+                        
+                        SelfCheckout nextServer = new SelfCheckout(
+                            currentServer.identifier(),
+                        isAvailable, false,
+                        currentServer.nextAvailableTime(),
+                        currentServer.maxQ());
+ 
+                        Customer nextCus = sc.SCQget(0);
+                        sc.SCQremove(nextCus);
+                        ServeEvent hijackEvent = new ServeEvent(nextCus,
+                                (Server) nextServer);
+                        this.queue.add((Event) hijackEvent);
+
+                        latestShop = nextShop.replace((Server)
+                                nextServer);
+                        continue;
+                    } else {
+                        SelfCheckout nextServer = new SelfCheckout(
+                            currentServer.identifier(),
+                        isAvailable, HWC,
+                        currentServer.nextAvailableTime(),
+                        currentServer.maxQ());
+                        latestShop = nextShop.replace((Server)
+                                nextServer);
+                        continue;
+                    }
+
+                /*
                     //no one else in the Q
                     if (nextEvent == null) {
                         continue;
                     }
                     
-                    //Need to add the logic of SERVEEVENT here
+                    //can add a new ServeEVENT
                     else {
                         this.queue.add(nextEvent);
                         latestShop = nextShop;
                         continue;
                     }
-                    
+                    */
                 }
 
+                //curSer is a HUMAN
                 double restValue = this.restGen.get();
                 if (restValue < this.restProb) {
 
                     //checkout latest Shop
                     //System.out.println(latestShop);
+
+                    Server currentServer = latestShop
+                        .find(server -> server.identifier() == previousServer.identifier()).get();
 
                     List<Customer> cusList = new ArrayList<Customer>(currentServer.cusList());
 
@@ -256,7 +298,6 @@ public class Simulation {
                 this.queue.add(nextEvent);
             }
         }
-
         Statistics stats = new Statistics(totalWaitTime, customersServed, customersLeft);
         System.out.println(stats.toString());
     }

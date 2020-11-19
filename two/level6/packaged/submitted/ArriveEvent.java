@@ -37,8 +37,6 @@ public class ArriveEvent extends Event {
                     SelfCheckout after = new SelfCheckout(currentServer.identifier(), false,
                             false, currentServer.nextAvailableTime(),
                             currentServer.maxQ());
-                    //changed from scadd to servingadd
-                    after.servingAdd(customer);
                     nextShop = shop.replace((Server) after);
                 } 
 
@@ -98,7 +96,7 @@ public class ArriveEvent extends Event {
                     nextShop = shop.replace(after);
                 }
 
-                WaitEvent nextEvent = new WaitEvent(nextCus, currentServer); //or isit after instead?
+                WaitEvent nextEvent = new WaitEvent(nextCus, currentServer);
                 Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
                 return pair;
             }
