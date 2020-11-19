@@ -43,9 +43,11 @@ public class ServeEvent extends Event {
             //if curSER is a SCO
             if (currentServer instanceof SelfCheckout) {
                 SelfCheckout sc = (SelfCheckout) currentServer;
-
+              
                 //if customer has already been served and left
-                if ((sc.SCScheck(customer))) {
+                //or customer is already being served
+                if ((sc.SCScheck(customer)) || (sc.servingCheck(customer))) {
+                    //System.out.println("SE => Customer is not to be served again: " + customer.identifier());
                     
                     boolean isAvailable;
                     double nextTiming = sc.nextAvailableTime();
@@ -73,21 +75,32 @@ public class ServeEvent extends Event {
                     }
 
                     nextShop = shop.replace(nextServer);
-
+                    return new Pair<Shop, Event>(nextShop, null);
+                    /*
                     if (nextCus == null) {
                         return new Pair<Shop, Event>(nextShop, null);
                     }
                     else {
                         DoneEvent nextEvent = new DoneEvent(nextCus, nextServer);
                         Pair<Shop, Event> pair = new Pair<Shop, Event>(nextShop, (Event) nextEvent);
-                        return pair; 
- 
-                    }   
+                        return pair;
+                    }
+                    */
                 }
+
+                //the service counters are all busy now so a new
+                //serve event cannot be made so send the serveevent
+                //back another time again...
+                else if (sc.servingList().size() == sc.maxQ()) { 
+                    ServeEvent nextEvent = new ServeEvent(customer,
+                        (Server) sc);
+                return new Pair<Shop, Event>(shop, nextEvent);
+                }
+
                
                 //customer was in queue, is not being served, has not been served.
                 else if ((sc.SCQcheck(customer) == true) && (sc.servingCheck(customer) == false) &&(sc.SCScheck(customer) == false)) {
-                    
+                  
                     double SERVICE_TIME = customer.serviceTime();
                     double availableTime = currentServer.nextAvailableTime();
                     double arrivalTime = customer.arrivalTime();

@@ -100,6 +100,8 @@ public class SelfCheckout extends Server {
         }
         return false;
     }
-
-
+    
+    List<Customer> servingList() {
+        return SelfCheckout.serving;
+    }
 }

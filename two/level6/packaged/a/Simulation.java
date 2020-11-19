@@ -118,14 +118,9 @@ public class Simulation {
                     
                     if (sc.SCScheck(currentCustomer)) {
                         continue;
-                    }
-                    
-                    //System.out.println("SIM => SE => SCQ: " + sc.SCQlist());
-                    //System.out.println("SIM => SE => SCS: " + sc.SCSlist());
+                    }    
+                }
 
-
-                    // HAVE TO REDO DONE EVENT LOGIC HERE
-                } 
                 //if currentserver is a normal server
                 else {
                     QlistSize = currentServer.cusList().size();
@@ -201,7 +196,18 @@ public class Simulation {
                         currentServer.maxQ());
  
                         Customer nextCus = sc.SCQget(0);
+                        
+                        //System.out.println("SIM => DE SCQ before: "
+                        //        + sc.SCQlist());
+                        
                         sc.SCQremove(nextCus);
+                        
+                        //System.out.println("SIM => DE SCQ after: " 
+                        //        + sc.SCQlist());
+                        
+                        //System.out.println("SIM => DE nextCus" 
+                        //        + nextCus.identifier());
+                        
                         ServeEvent hijackEvent = new ServeEvent(nextCus,
                                 (Server) nextServer);
                         this.queue.add((Event) hijackEvent);
