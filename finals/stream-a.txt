@@ -1,0 +1,4 @@
+//**** Streams (a)
+//**** Write your answer below
+purpose is to increment s where eventually s is the sum of all integers from 1 to 100
+including its initial value 0

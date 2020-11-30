@@ -1,0 +1,4 @@
+//**** Streams (c)
+//**** Write your answer below
+yes it would still be correct as addition is associative and commutative
+

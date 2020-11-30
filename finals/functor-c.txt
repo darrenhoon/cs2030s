@@ -1,0 +1,14 @@
+//**** Functor (c)
+//**** Write your answer below
+
+The functor laws are identity and associativity.
+it violates the identity law as 
+x.of("the Quick bROwn fox").toString() returns
+"xof nwORb kciuQ eht"
+but Box.of("the Quick bROwn fox").map(x -> x).toString() returns
+"the Quick bROwn fox"
+
+the object's identity is not kept and both do not equal each other.
+since the identity law is violated, the Box does not obey the
+functor laws.
+

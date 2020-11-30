@@ -1,0 +1,4 @@
+//**** Functor (b)
+//**** Write your answer below
+"Hello"
+

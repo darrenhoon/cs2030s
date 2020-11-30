@@ -1,0 +1,13 @@
+//**** Lambda
+//**** Write your answer below
+
+bar() leads to a compile time error as x was defined prior as an int
+but there is a subsequent x = x+1; statement after the lambda expression.
+since x is a local variable, the Runnable lambda expression would
+expect the value of x to be effectively final.
+thus there is an error because the value of  x is subsequently
+changed later with x = x + 1;
+
+baz() does not lead to a compile time error as y is not defined
+prior to the Runnable lambda expression being defined, thus y is 
+considered a free variable.

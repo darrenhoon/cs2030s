@@ -6,11 +6,7 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class Event {    
-    //public static Supplier<Double> serviceStream;
-    //public static Supplier<Double> randomRestStream;
-    //public static Supplier<Double> restPeriodStream;
-    //public static Supplier<Double> customerTypeStream;
-
+    
     private final Customer customer;
     private final Function<Shop, Pair<Shop, Event>> func;
     private Server server;
