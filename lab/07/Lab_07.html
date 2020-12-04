@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0059)https://codecrunch.comp.nus.edu.sg/user_viewsubmissions.php -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>CodeCrunch</title>
+<!-- START NUS Includes-->
+<script type="text/javascript" src="./Lab_07_files/nussearch.js.download"></script>
+<link rel="stylesheet" type="text/css" href="./Lab_07_files/nusbase.css" media="screen, print, projection, handheld">
+<link rel="stylesheet" type="text/css" href="./Lab_07_files/nusmenu.css" media="screen, print, projection, handheld">
+<link rel="stylesheet" type="text/css" href="./Lab_07_files/nusscreen.css" media="screen, projection, print">
+<link href="https://codecrunch.comp.nus.edu.sg/nus/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<link rel="apple-touch-icon" href="https://codecrunch.comp.nus.edu.sg/nus/blank.png">
+<!-- END NUS Includes -->
+<script type="text/javascript" src="./Lab_07_files/ajax.js.download"></script>
+<script type="text/javascript" src="./Lab_07_files/jquery-1.8.3.min.js.download"></script>
+<script type="text/javascript" src="./Lab_07_files/jquery.tablesorter.min.js.download"></script>
+<script type="text/javascript" src="./Lab_07_files/jquery.tablesorter.pager.js.download"></script>
+<!--<script type="text/javascript" src="/js/folding.js"></script>-->
+<script type="text/javascript" src="./Lab_07_files/jquery.watermark.min.js.download"></script>
+<script type="text/javascript">
+            function enterPressButton(field, button) {
+                $(field).keypress(function(e){if(e.which==13)$(button).trigger("click");});
+            }
+</script>
+<link rel="stylesheet" href="./Lab_07_files/style.css" type="text/css">
+<link rel="stylesheet" href="./Lab_07_files/jquery.tablesorter.css" type="text/css">
+</head>
+
+<body>
+<!-- START NUS-Header -->
+
+<!-- NUS Header -->
+<div id="nusheader" class="nusbody">
+<div class="nuslogodiv">
+<a href="http://www.nus.edu.sg/">
+<img class="nuslogo" src="./Lab_07_files/soclogo.png" alt="">
+</a>
+</div>
+<div id="nuspointermenu">
+<ul>
+<li><a href="http://exchange.nus.edu.sg/"><span style="text-transform:none">NUS WebMail</span></a></li>
+<li><a href="https://ivle.nus.edu.sg/lms/default.aspx">ivle</a></li>
+<li><a href="http://www.lib.nus.edu.sg/">library</a></li>
+<li><a href="http://www.nus.edu.sg/campusmap/">maps</a></li>
+<!--<li><a href="https://aces01.nus.edu.sg/CoE/jsp/coeMain.jsp">calendar</a></li>-->
+<!--<li><a href="/sitemap">sitemap</a></li>-->
+<!--<li><a href="#">a-z index</a></li>-->
+<!--<li><a href="/contact">contact</a></li>-->
+<li><a href="https://codecrunch.comp.nus.edu.sg/user_viewsubmissions.php#" id="rightcorner">&nbsp;</a></li>
+</ul>
+<br style="clear: left">
+</div>
+<div id="searchform">
+<script src="./Lab_07_files/nussearch.js.download" type="text/javascript"></script>
+<form id="frmSearch" onsubmit="evalSearch();return false" action="https://codecrunch.comp.nus.edu.sg/user_viewsubmissions.php"><div>
+<a href="http://www.nus.edu.sg/search/" style="text-decoration:none; font-size:11px; font-weight:bold; color:#666666">Search </a>
+<input id="txtKeyword" type="text" value="search for..." onfocus="value=&#39;&#39;" class="equal" size="18">
+in
+<select id="SearchMenu" name="SearchMenu">
+<option selected="selected" value="0">NUS Websites</option>
+<option value="1">Internet</option>
+<option value="2">Staff Directory</option>
+<option value="3">Advanced Search</option>
+</select>
+<input class="equal" id="Go" src="./Lab_07_files/go.png" type="image">
+</div></form>
+</div>
+</div>
+
+<!-- NUS Local-Navigation --><!--
+<div id="nusmenu" class="nusbody"><div id="nusmenu_l"><div id="nusmenu_r">
+<ul>
+  <li><a href="http://www.comp.nus.edu.sg/index.html">Home</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/about.html">About Us</a></li>
+  <li><a class="drop" href="javascript:;">Departments</a>
+    <ul>
+      <li><a href="http://www.comp.nus.edu.sg/cs" >Computer Science</a></li>
+      <li><a href="http://www.comp.nus.edu.sg/is/" >Information Systems</a></li>
+    </ul>
+  </li>
+  <li><a href="http://www.comp.nus.edu.sg/undergraduates" >Undergraduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/graduates" >Graduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/research" >Research</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/entrepreneurship" >Entrepreneurship</a></li>
+  <li><a href="http://www.stmi.nus.edu.sg" >Executive Education</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/external_relations" >External Relations</a></li>
+</ul>
+</div></div></div>
+-->
+
+<!-- NUS Inner-Title -->
+<div id="nustitle" class="nusbody"><div id="nustitle_l"><div id="nustitle_r">
+              <h1 id="site-name">
+                <a href="https://codecrunch.comp.nus.edu.sg/" title="Home" rel="home">CodeCrunch</a>
+              </h1>
+</div></div></div>
+
+<!-- END NUS-Header -->
+
+<div id="banner">
+        <div id="topmenu">
+        <div id="login">
+                Logged in as: <strong>e0523347</strong>
+                </div>
+                <div style="display: block;"><ul>
+                                        <li><a href="https://codecrunch.comp.nus.edu.sg/index.php">Home</a></li>
+                                                    <li><a href="https://codecrunch.comp.nus.edu.sg/user_course_viewall.php">My Courses</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/tutorial_browser.php">Browse Tutorials</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/task_browser.php">Browse Tasks</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/task_criteria.php">Search</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/user_viewsubmissions.php" class="active">My Submissions</a></li>
+                                                <li><a href="https://codecrunch.comp.nus.edu.sg/logout_process.php">Logout</a></li>
+                            </ul></div>
+        </div>
+</div>
+<div id="container">
+<div id="outer">
+                <div id="inner">
+                        <div id="content_full">
+                                <div id="notification">
+                                </div>
+                                <div class="content-header">
+                                        <h3>My Submissions</h3>
+                                </div>
+                <div id="submissionList"><h4>Course Submissions</h4>
+<table border="1" cellspacing="1" id="courseTaskTable" class="tablesorter" style="border:1px solid #CDDDDD;">
+        <thead>
+                <tr>
+                        <th>ID#&nbsp;&nbsp;</th>
+                        <th>Course Name&nbsp;&nbsp;</th>
+                        <th>Task Name&nbsp;&nbsp;</th>
+                        <th>Date Attempted&nbsp;&nbsp;</th>
+                        <th>Status&nbsp;&nbsp;</th>
+                        <th>Grade&nbsp;&nbsp;</th>
+                        <th>&nbsp;&nbsp;</th>
+                </tr>
+        </thead>
+        <tbody>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2095845">2095845</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=5002">CS2030/S Mock</a></td>
+                        <td>20 Nov 2020 18:27:47</td>
+                                                                <td>n/a</td><td>n/a</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2095845">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2095802">2095802</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4989">CS2030/S Project #2: Discrete Event Simulator Plus</a></td>
+                        <td>20 Nov 2020 18:15:44</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2095802">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2088671">2088671</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4883">CS2030/S Lab #8: Bus API</a></td>
+                        <td>14 Nov 2020 11:38:27</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2088671">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2088599">2088599</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4999">CS2030/S Practical Assessment #2: Zork!!</a></td>
+                        <td>14 Nov 2020 09:44:00</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2088599">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2071578">2071578</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4970">CS2030/S Lab #7: Lazy Values</a></td>
+                        <td>28 Oct 2020 14:18:26</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2071578">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2063319">2063319</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4968">CS2030/S Lab #6: Logging</a></td>
+                        <td>19 Oct 2020 12:50:01</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2063319">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2060309">2060309</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4964">CS2030/S Lab #5: Making Things Optional</a></td>
+                        <td>14 Oct 2020 22:02:17</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2060309">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2053935">2053935</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4960">CS2030/S Practical Assessment #1: Class Scheduling</a></td>
+                        <td>06 Oct 2020 21:16:21</td>
+                                                                <td>Graded</td>
+                        <td>E</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2053935">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2051447">2051447</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4948">CS2030/S Project #1: Discrete Event Simulator</a></td>
+                        <td>04 Oct 2020 18:20:23</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2051447">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2049118">2049118</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4954">CS2030/S Mock Practical Examination 1</a></td>
+                        <td>01 Oct 2020 17:21:20</td>
+                                                                <td>Graded</td>
+                        <td>E</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2049118">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2046895">2046895</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4950">CS2030/S Lab #4: Immutable List</a></td>
+                        <td>28 Sep 2020 11:30:50</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2046895">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2036700">2036700</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4947">CS2030/S Lab #3: Snatch</a></td>
+                        <td>12 Sep 2020 16:28:39</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2036700">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2031620">2031620</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4938">CS2030/S Lab #2: Cruise Loaders</a></td>
+                        <td>05 Sep 2020 20:24:43</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2031620">View details</a></td>
+                                </tr>
+      
+                <tr>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2025180">2025180</a></td>
+                                        <td><a href="https://codecrunch.comp.nus.edu.sg/course_view.php?course_id=170">CS2030 - CS2030/S - Programming Methodology II</a></td>
+                        <td><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4930">CS2030/S Lab #1: Maximum Disc Coverage</a></td>
+                        <td>29 Aug 2020 20:28:29</td>
+                                                                <td>Graded</td>
+                        <td>A</td>
+                                                <td><a href="https://codecrunch.comp.nus.edu.sg/user_task_viewsubmission.php?sid=2025180">View details</a></td>
+                                </tr>
+        </tbody>
+</table>
+
+<div id="pager1" class="pager">
+        <form style="margin:0">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/first.png" class="first">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/prev.png" class="prev">
+                <input type="text" class="pagedisplay">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/next.png" class="next">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/last.png" class="last">
+                <select class="pagesize">
+                        <option selected="selected" value="10">10</option>                             
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                </select>
+        </form>
+</div>
+
+<h4>Task Submissions</h4>
+<table border="1" cellspacing="1" id="taskTable" class="tablesorter" style="border:1px solid #CDDDDD;">
+        <thead>
+                <tr>
+                        <th>ID#&nbsp;&nbsp;</th>
+                        <th>Task Name&nbsp;&nbsp;</th>
+                        <th>Date Attempted&nbsp;&nbsp;</th>
+                        <th>Status&nbsp;&nbsp;</th>
+                        <th>Grade&nbsp;&nbsp;</th>
+                        <th>&nbsp;&nbsp;</th>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td colspan="6">There are no records.</td>
+                </tr>
+        </tbody>
+</table>
+
+<div id="pager2" class="pager">
+        <form style="margin:0">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/first.png" class="first">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/prev.png" class="prev">
+                <input type="text" class="pagedisplay">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/next.png" class="next">
+                <img src="https://codecrunch.comp.nus.edu.sg/images/tablesorter/last.png" class="last">
+                <select class="pagesize">
+                        <option selected="selected" value="10">10</option>                             
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                </select>
+        </form>
+</div>
+
+</div></div></div></div></div></body></html>

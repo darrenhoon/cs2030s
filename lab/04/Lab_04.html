@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0057)https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4950 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>CodeCrunch</title>
+<!-- START NUS Includes-->
+<script type="text/javascript" src="./Lab_04_files/nussearch.js.download"></script>
+<link rel="stylesheet" type="text/css" href="./Lab_04_files/nusbase.css" media="screen, print, projection, handheld">
+<link rel="stylesheet" type="text/css" href="./Lab_04_files/nusmenu.css" media="screen, print, projection, handheld">
+<link rel="stylesheet" type="text/css" href="./Lab_04_files/nusscreen.css" media="screen, projection, print">
+<link href="https://codecrunch.comp.nus.edu.sg/nus/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<link rel="apple-touch-icon" href="https://codecrunch.comp.nus.edu.sg/nus/blank.png">
+<!-- END NUS Includes -->
+<script type="text/javascript" src="./Lab_04_files/ajax.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/jquery-1.8.3.min.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/jquery.tablesorter.min.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/jquery.tablesorter.pager.js.download"></script>
+<!--<script type="text/javascript" src="/js/folding.js"></script>-->
+<script type="text/javascript" src="./Lab_04_files/jquery.watermark.min.js.download"></script>
+<script type="text/javascript">
+            function enterPressButton(field, button) {
+                $(field).keypress(function(e){if(e.which==13)$(button).trigger("click");});
+            }
+</script>
+<link rel="stylesheet" href="./Lab_04_files/style.css" type="text/css">
+<link rel="stylesheet" href="./Lab_04_files/jquery.tablesorter.css" type="text/css">
+<script type="text/javascript" src="./Lab_04_files/jquery-1.3.2.min.js.download"></script>
+<!--<script type="text/javascript" src="js/folding.js"></script>-->
+<script type="text/javascript" src="./Lab_04_files/jquery.rating.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/behaviour.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/textarea_maxlen.js.download"></script>
+<script type="text/javascript" src="./Lab_04_files/jquery.timer.js.download"></script>
+
+<script type="text/javascript" src="./Lab_04_files/plupload.full.min.js.download"></script>
+
+<link rel="stylesheet" href="./Lab_04_files/jquery.rating.css" type="text/css">
+<link rel="stylesheet" href="./Lab_04_files/style.css" type="text/css">
+<link rel="stylesheet" href="./Lab_04_files/tagcloud.css" type="text/css">
+<link rel="stylesheet" href="./Lab_04_files/jquery-ui-1.7.2.custom.css" type="text/css">
+
+<link rel="stylesheet" href="./Lab_04_files/jquery.ui.plupload.css" type="text/css">
+
+</head>
+
+<body>
+<!-- START NUS-Header -->
+
+<!-- NUS Header -->
+<div id="nusheader" class="nusbody">
+<div class="nuslogodiv">
+<a href="http://www.nus.edu.sg/">
+<img class="nuslogo" src="./Lab_04_files/soclogo.png" alt="">
+</a>
+</div>
+<div id="nuspointermenu">
+<ul>
+<li><a href="http://exchange.nus.edu.sg/"><span style="text-transform:none">NUS WebMail</span></a></li>
+<li><a href="https://ivle.nus.edu.sg/lms/default.aspx">ivle</a></li>
+<li><a href="http://www.lib.nus.edu.sg/">library</a></li>
+<li><a href="http://www.nus.edu.sg/campusmap/">maps</a></li>
+<!--<li><a href="https://aces01.nus.edu.sg/CoE/jsp/coeMain.jsp">calendar</a></li>-->
+<!--<li><a href="/sitemap">sitemap</a></li>-->
+<!--<li><a href="#">a-z index</a></li>-->
+<!--<li><a href="/contact">contact</a></li>-->
+<li><a href="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4950#" id="rightcorner">&nbsp;</a></li>
+</ul>
+<br style="clear: left">
+</div>
+<div id="searchform">
+<script src="./Lab_04_files/nussearch.js.download" type="text/javascript"></script>
+<form id="frmSearch" onsubmit="evalSearch();return false" action="https://codecrunch.comp.nus.edu.sg/task_view.php?tid=4950"><div>
+<a href="http://www.nus.edu.sg/search/" style="text-decoration:none; font-size:11px; font-weight:bold; color:#666666">Search </a>
+<input id="txtKeyword" type="text" value="search for..." onfocus="value=&#39;&#39;" class="equal" size="18">
+in
+<select id="SearchMenu" name="SearchMenu">
+<option selected="selected" value="0">NUS Websites</option>
+<option value="1">Internet</option>
+<option value="2">Staff Directory</option>
+<option value="3">Advanced Search</option>
+</select>
+<input class="equal" id="Go" src="./Lab_04_files/go.png" type="image">
+</div></form>
+</div>
+</div>
+
+<!-- NUS Local-Navigation --><!--
+<div id="nusmenu" class="nusbody"><div id="nusmenu_l"><div id="nusmenu_r">
+<ul>
+  <li><a href="http://www.comp.nus.edu.sg/index.html">Home</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/about.html">About Us</a></li>
+  <li><a class="drop" href="javascript:;">Departments</a>
+    <ul>
+      <li><a href="http://www.comp.nus.edu.sg/cs" >Computer Science</a></li>
+      <li><a href="http://www.comp.nus.edu.sg/is/" >Information Systems</a></li>
+    </ul>
+  </li>
+  <li><a href="http://www.comp.nus.edu.sg/undergraduates" >Undergraduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/graduates" >Graduate</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/research" >Research</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/entrepreneurship" >Entrepreneurship</a></li>
+  <li><a href="http://www.stmi.nus.edu.sg" >Executive Education</a></li>
+  <li><a href="http://www.comp.nus.edu.sg/external_relations" >External Relations</a></li>
+</ul>
+</div></div></div>
+-->
+
+<!-- NUS Inner-Title -->
+<div id="nustitle" class="nusbody"><div id="nustitle_l"><div id="nustitle_r">
+              <h1 id="site-name">
+                <a href="https://codecrunch.comp.nus.edu.sg/" title="Home" rel="home">CodeCrunch</a>
+              </h1>
+</div></div></div>
+
+<!-- END NUS-Header -->
+
+<div id="banner">
+        <div id="topmenu">
+        <div id="login"><strong></strong>
+                </div>
+                <div style="display: block;"><ul>
+                                        <li><a href="https://codecrunch.comp.nus.edu.sg/index.php">Home</a></li>
+                                                    <li><a href="https://codecrunch.comp.nus.edu.sg/user_course_viewall.php">My Courses</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/tutorial_browser.php">Browse Tutorials</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/task_browser.php">Browse Tasks</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/task_criteria.php">Search</a></li>
+                                                                <li><a href="https://codecrunch.comp.nus.edu.sg/user_viewsubmissions.php">My Submissions</a></li>
+                                                <li><a href="https://codecrunch.comp.nus.edu.sg/logout_process.php">Logout</a></li>
+                            </ul></div>
+        </div>
+</div>
+<div id="container">
+<div id="outer">
+<div id="inner">
+	<div id="content_full">                         
+		<div class="content-header"><h3>CS2030/S Lab #4: Immutable List</h3></div>
+		<div class="spacer"></div>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tbody><tr><td valign="top" style="width: 30%;">
+				<div class="meta_header">Tags &amp; Categories</div>
+				<div id="classifyList"><span class="value">Tags:
+</span>
+<span class="value">Categories:
+</span></div>
+			</td>
+			<td valign="top" style="width: 40%;">
+				<div class="meta_header">Related Tutorials</div>
+				<div id="tutorialList"></div>
+			</td>
+			<td valign="top" style="width: 30%;">
+			</td>
+			</tr>
+		</tbody></table>
+		<div class="content-header">
+			<h3>Task Content
+							</h3>
+		</div>                          
+		<div class="panel"><div class="task-content">
+		<!-- EDIT .SHTML FILE instead of index.html -->
+<h1>Immutable List</h1>
+<h2>Topic Coverage</h2>
+<ul>
+<li>Static methods</li>
+<li>Interface</li>
+<li>Generics</li>
+<li>Wildcards</li>
+<li>Variable-Length Arguments</li>
+</ul>
+<h2>Problem Description</h2>
+<p>In this lab, we are going to extend our generic immutable <tt>Box</tt> to take the form of a list.
+Although Java provides a <tt>List</tt> interface as a <tt>Collection</tt>, 
+<!--explore functional interfaces, lambda expressions, and exceptions.
+This lab serves as an introduction to functional programming and will help you for when we encounter streams later in the module. -->
+the <code>List</code> implementations from the Java Collection Framework are still mutable.  
+
+</p><p>In this lab, you will build you own immutable list class (<code>ImmutableList</code>) that implements various methods to manipulate this list
+We do this by wrapping an immutable API over a mutable <code>List</code> object — known as the <em>immutable delegation class</em> class, which obviously comes with a performance overhead.  
+Note that a much more efficient implementation of an immutable list is possible (using a recursive data structure), but let's leave that to a future lab on infinite lists.
+
+</p><h2>Task</h2>
+
+<p>By wrapping around an internal mutable <code>List</code>, implement the methods <code>add</code>, 
+<code>remove</code>, 
+<code>replace</code>, 
+<!-- <code>map</code>, <code>filter</code>, --> 
+<code>limit</code>, 
+<code>equals</code>, 
+<code>sorted</code>, and <code>toArray</code>.
+
+</p><p>
+</p><table style="width: 600px;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+<h2>Level 1</h2>
+<h3>Creating a Generic Immutable List</h3>
+
+<p>Create an <i>immutable</i> class <code>ImmutableList</code> that operates as a list.
+The list should be <em>ordered</em>, i.e., the position of the items in the list matters.  Your immutable list should not implement the <code>List</code> interface but should contain a <code>List</code> instead.
+
+</p><pre>import java.util.List;
+
+class ImmutableList&lt;T&gt; {
+    private final List&lt;T&gt; list;
+}
+</pre>
+
+<p>Your class should have two constructors, both accept items to populate your new immutable list.  The first one takes in a generic <code>List</code> containing the items as an argument; the second takes in a sequence of items as <em>variable-length arguments</em> (or varargs). Variable-length arguments allow you to pass an unspecified number of arguments to a method or constructor.  You can <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/arguments.html">read up about varargs</a> if you are unfamiliar with this Java feature.
+</p><p>Using varargs with generic type parameters could be unsafe.  Varargs is a syntactic sugar for an array, which is covariant in Java and potentially unsafe as you have seen in class (recall assigning a <tt>Shape</tt> array variable to reference a <tt>Circle</tt> array, and then storing a <tt>Rectangle</tt> as one of the array elements).
+<!--
+The following example shows the same <i>heap pollution</i> effect while using varags.
+
+<pre>
+jshell&gt; void foo(Number... x) { x[1] = new Integer(2); } // Integer is a sub-class of Number
+|  modified method foo(Number...)
+
+jshell&gt; foo(new Double[]{1.0, 2.0}) // Double is also a sub-class of Number
+|  Exception java.lang.ArrayStoreException: java.lang.Integer
+|        at foo (#11:1)
+|        at (#12:1)
+</pre>
+-->
+
+</p><p>To tell the compiler that you know what you are doing is type-safe, when you declare a method that takes in varargs with a generic type parameter, add an annotation <code>@SafeVarargs</code> before the method.
+
+
+
+
+
+</p><p>Your class should also have an appropriate <code>toString</code> method which prints out the contents of the List.
+
+</p><p>
+</p><table style="width: 100%;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+<pre><b>jshell&gt; /open ImmutableList.java</b>
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3)</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(Arrays.asList(1,2,3))</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(new ArrayList&lt;Integer&gt;(Arrays.asList(1,2,3)))</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;()</b>
+$.. ==&gt; []
+<b>jshell&gt; /exit</b>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Check the format correctness of the output by running the following on the command line:
+</p><pre>$ javac -Xlint:rawtypes *.java
+$ jshell -q &lt; test1.jsh
+</pre>
+<p>The <code>-Xlint:rawtypes</code> flag would warn you if you forget to specify generics and use raw types instead.
+</p><p>Check your styling by issuing the following
+</p><pre>$ checkstyle *.java
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+<h2>Level 2</h2>
+<h3>Manipulating the List</h3>
+
+<p>Include the method <code>add</code> (append an item to the list), <code>replace</code> (replace all occurences of an item with another), and <code>remove</code> (remove the first occurence of an item) methods.  Remember your list has to be immutable.
+
+</p><p>
+</p><pre><b>jshell&gt; /open ImmutableList.java</b>
+<b>jshell&gt; List&lt;Integer&gt; mList = new ArrayList&lt;Integer&gt;(Arrays.asList(1,2,3))</b>
+<b>jshell&gt; ImmutableList&lt;Integer&gt; imList = new ImmutableList&lt;Integer&gt;(mList)</b>
+<b>jshell&gt; imList.remove(3)</b>
+$.. ==&gt; [1, 2]
+<b>jshell&gt; imList</b>
+imList ==&gt; [1, 2, 3]
+<b>jshell&gt; imList.remove(3).add(2)</b>
+$.. ==&gt; [1, 2, 2]
+<b>jshell&gt; imList</b>
+imList ==&gt; [1, 2, 3]
+<b>jshell&gt; imList.remove(6)</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; imList.add(1).replace(1,3)</b>
+$.. ==&gt; [3, 2, 3, 3]
+<b>jshell&gt; imList.add(1).replace(1,1)</b>
+$.. ==&gt; [1, 2, 3, 1]
+<b>jshell&gt; imList.replace(6,3)</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; mList.set(0,10)</b>
+$.. ==&gt; 1
+<b>jshell&gt; mList</b>
+mList ==&gt; [10, 2, 3]
+<b>jshell&gt; imList</b>
+imList ==&gt; [1, 2, 3]
+<b>jshell&gt; Integer[] array = {1, 2, 3}</b>
+<b>jshell&gt; ImmutableList&lt;Integer&gt; imList = new ImmutableList&lt;Integer&gt;(array)</b>
+<b>jshell&gt; array[0] = 10</b>
+$.. ==&gt; 10
+<b>jshell&gt; imList</b>
+imList ==&gt; [1, 2, 3]
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(List.of(4,5,6)).add(7)</b>
+$.. ==&gt; [4, 5, 6, 7]
+<b>jshell&gt; ImmutableList&lt;String&gt; stringList = new ImmutableList&lt;String&gt;(Arrays.asList("One","Two","Three"))</b>
+<b>jshell&gt; stringList.add("Four");</b>
+$.. ==&gt; [One, Two, Three, Four]
+<b>jshell&gt; stringList</b>
+stringList ==&gt; [One, Two, Three]
+<b>jshell&gt; /exit</b>
+</pre>
+
+<p>Check the format correctness of the output by running the following on the command line:
+</p><pre>$ javac -Xlint:rawtypes *.java
+$ jshell -q &lt; test2.jsh
+</pre>
+<p>Check your styling by issuing the following
+</p><pre>$ checkstyle *.java
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+<h2>Level 3</h2>
+<h3>Limiting the List</h3>
+
+<p>Let's create a new method <code>limit</code> in the <code>ImmutableList</code> class. The <code>limit</code> method takes in a <code>long</code> value and then returns an <code>ImmutableList</code> truncated to the length specified by that <code>long</code> value.
+
+</p><p>Consider the case where you pass in a negative number. In this case, let's throw an <code>IllegalArgumentException</code> with the exception message "<code>limit size &lt; 0</code>".
+
+</p><p>It is important to note that, the test cases below <em>catch unchecked exceptions for the purpose of testing only</em>.  It is an unusual coding practice to catch unchecked exceptions, as unchecked exceptions are usually caused by bugs or improper use of APIs, and the application usually cannot recover from such exceptions.
+
+</p><p>
+</p><table style="width: 100%;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+
+<pre><b>jshell&gt; /open ImmutableList.java</b>
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).limit(1)</b>
+$.. ==&gt; [1]
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).limit(10)</b>
+$.. ==&gt; [1, 2, 3]
+<b>jshell&gt; ImmutableList&lt;Integer&gt; list = new ImmutableList&lt;Integer&gt;(1,2,3)</b>
+<b>jshell&gt; list.limit(0)</b>
+$.. ==&gt; []
+<b>jshell&gt; list</b>
+list ==&gt; [1, 2, 3]
+<b>jshell&gt; list = list.limit(0)</b>
+<b>jshell&gt; try {</b>
+<b>   ...&gt; new ImmutableList&lt;Integer&gt;(1,2,3).limit(-1);</b>
+<b>   ...&gt; } catch (IllegalArgumentException e) {</b>
+<b>   ...&gt; System.out.println(e);</b>
+<b>   ...&gt; }</b>
+java.lang.IllegalArgumentException: limit size &lt; 0
+<b>jshell&gt; /exit</b>
+</pre>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p>Check the format correctness of the output by running the following on the command line:
+</p><pre>$ javac -Xlint:rawtypes *.java
+$ jshell -q &lt; test3.jsh
+</pre>
+Check your styling by issuing the following
+<pre>$ checkstyle *.java
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+
+<h2>Level 4</h2>
+<h3>List Equality and Sorting the List</h3>
+
+<p>Write an overridden method <tt>equals</tt> that takes in another <tt>ImmutableList</tt> and checks for equality.  Two immutable lists are the same if they contain the same elements (as determined by each element's <tt>equals</tt> method).
+
+<!--
+<p>Let's create a new method <code>sorted</code> in the <code>ImmutableList</code> class.
+<p>The <code>sorted</code> method takes in no argument, and will return an <code>ImmutableList</code> sorted by using the <em>natural order</em> of the items in the <code>ImmutableList</code>.  
+Thus, similar to <code>java.util.PriorityQueue</code>, we expect the 
+Items in the <code>ImmutableList</code> are required to implement the <code>Comparable</code> interface when the <code>sorted</code> method is invoked.
+
+<p>Consider the case where the items in <code>ImmutableList</code> is of a type which does not implement <code>Comparable</code>. In this case, let's throw an <code>IllegalStateException</code> with the exception message "<code>List elements do not implement Comparable</code>".
+-->
+
+</p><p>We would also like to sort the list using an arbitrary <code>Comparator</code>.  Let's create a <code>sorted</code> method that takes in a <code>Comparator</code> and returns the <code>ImmutableList</code> as sorted by this <code>Comparator</code>.
+What if a <code>null</code> value is passed as a <code>Comparator</code>?
+To preempt such <i>irresponsible</i> actions, let's throw a <code>NullPointerException</code> with the exception message "<code>Comparator is null</code>".
+
+<!--
+<p>In this level, you will need to use the <code>instanceof</code> operator and then perform type casting.  Type casting to a generic type causes Java compiler to alert you with a warning of possible failure during run time due to type safety.  For this instance, and <em>this instance only</em>, you can use <code>@SuppressWarnings("unchecked")</code> to turn off the warning.  It is a good programming practice to limit the scope of <code>@SuppressWarnings</code> to be the smallest possible.  For this lab onwards, you should only write <code>@SuppressWarnings</code> <em>above the line of a local variable assignment statement</em> that triggers the warning.
+-->
+
+</p><p>
+</p><table style="width: 100%;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+<pre><b>jshell&gt; /open ImmutableList.java</b>
+<b>jshell&gt; </b>
+<b>jshell&gt; ImmutableList&lt;Integer&gt; list = new ImmutableList&lt;Integer&gt;(1,2,3)</b>
+<b>jshell&gt; list.equals(list)</b>
+$.. ==&gt; true
+<b>jshell&gt; list.equals(Arrays.asList(1,2,3))</b>
+$.. ==&gt; false
+<b>jshell&gt; list.equals(new ImmutableList&lt;Integer&gt;(1,2,3))</b>
+$.. ==&gt; true
+<b>jshell&gt; list.equals(new ImmutableList&lt;Integer&gt;(1,2))</b>
+$.. ==&gt; false
+<b>jshell&gt; list.equals(new ImmutableList&lt;Integer&gt;(1,2,3,3))</b>
+$.. ==&gt; false
+<b>jshell&gt; list.equals(new ImmutableList&lt;Integer&gt;(3,2,1))</b>
+$.. ==&gt; false
+<b>jshell&gt; list.sorted(new Comparator&lt;Integer&gt;() {</b>
+<b>   ...&gt;     public int compare(Integer i1, Integer i2) {</b>
+<b>   ...&gt;         return i2 - i1;</b>
+<b>   ...&gt;     }})</b>
+$.. ==&gt; [3, 2, 1]
+<b>jshell&gt; list</b>
+list ==&gt; [1, 2, 3]
+<b>jshell&gt; try {</b>
+<b>   ...&gt;   new ImmutableList&lt;Integer&gt;(1,2,3).sorted(null);</b>
+<b>   ...&gt; } catch (NullPointerException e) {</b>
+<b>   ...&gt;   System.out.println(e);</b>
+<b>   ...&gt; }</b>
+java.lang.NullPointerException: Comparator is null
+<b>jshell&gt; /exit</b>
+</pre>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p>Check the format correctness of the output by running the following on the command line:
+</p><pre>$ javac -Xlint:rawtypes *.java
+$ jshell -q &lt; test4.jsh
+</pre>
+Check your styling by issuing the following
+<pre>$ checkstyle *.java
+</pre>
+</td>
+</tr>
+<tr>
+<td>
+<h2>Level 5</h2>
+<h3>Implement a toArray Method</h3>
+
+<p>Create overloaded methods <code>toArray</code> that takes in either no argument, or an array as an argument. 
+The <code>toArray</code> method without argument will return the items in the list as an array of type <code>Object[]</code>.  The <code>toArray</code> method with an array as an argument is a <strong><em>generic method</em></strong> that will return the items in the list in an array <em>of the same type</em> as the argument.  The behavior of <code>toArray</code> of your list is similar to that of <code>toArray</code> of <code>List</code>, with the only difference being the error message associated with the exception thrown.
+
+</p><p>When an array of the wrong type is being passed into the ImmutableList, an <code>ArrayStoreException</code> exception is thrown with the exception message "<code>Cannot add element to array as it is the wrong type</code>".
+</p><p>As for passing a <code>null</code> argument? Once again, we throw a <code>NullPointerException</code> with the exception message "<code>Input array cannot be null</code>".
+
+</p><p>
+</p><table style="width: 100%;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+
+<pre><b>jshell&gt; /open ImmutableList.java</b>
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).toArray()</b>
+$.. ==&gt; Object[3] { 1, 2, 3 }
+<b>jshell&gt; new ImmutableList&lt;Integer&gt;().toArray()</b>
+$.. ==&gt; Object[0] {  }
+<b>jshell&gt; Integer[] integers = new ImmutableList&lt;Integer&gt;(1,2,3).toArray(new Integer[0])</b>
+<b>jshell&gt; integers</b>
+integers ==&gt; Integer[3] { 1, 2, 3 }
+<b>jshell&gt; try {</b>
+<b>   ...&gt;   new ImmutableList&lt;Integer&gt;(1,2,3).toArray(new String[0]);</b>
+<b>   ...&gt; } catch (ArrayStoreException e) {</b>
+<b>   ...&gt;   System.out.println(e);</b>
+<b>   ...&gt; }</b>
+java.lang.ArrayStoreException: Cannot add element to array as it is the wrong type
+<b>jshell&gt; try {</b>
+<b>   ...&gt;   new ImmutableList&lt;Integer&gt;(1,2,3).toArray(null);</b>
+<b>   ...&gt; } catch (NullPointerException e) {</b>
+<b>   ...&gt;   System.out.println(e);</b>
+<b>   ...&gt; }</b>
+java.lang.NullPointerException: Input array cannot be null
+<b>jshell&gt; /exit</b>
+</pre>
+
+</td>
+</tr>
+</tbody>
+</table>
+<p>Check the format correctness of the output by running the following on the command line:
+</p><pre>$ javac -Xlint:rawtypes *.java
+$ jshell -q &lt; test5.jsh
+</pre>
+Check your styling by issuing the following
+<pre>$ checkstyle *.java
+</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+<h2>Bonus Level</h2>
+<h3>Implement Map and Filter Methods</h3>
+
+<p>Now, let's create two new methods in the ImmutableList class.
+
+</p><p>First, the <code>filter</code> method. The <code>filter</code> method will return an <code>ImmutableList</code> with elements based on a <code>Predicate</code> you pass to it. Remember that <code>Predicate</code> is a generic functional interface, and therefore it has one method to implement: <code>test</code>.
+</p><p>Next, implement the <code>map</code> method. The <code>map</code> method will return an <code>ImmutableList</code> in which all elements are transformed based on a <code>Function</code> you pass to it. Again, <code>Function</code> is a generic functional interface, and therefore it has one method to implement: <code>apply</code>. Remember that the input type may not be the same as the output type: consider a mapping from <code>String</code> to <code>Integer</code> using the <code>length()</code> method.
+</p><p>Try passing your own <code>Predicate</code>s and <code>Function</code>s to these methods! We use lambda expressions in the following test cases below.  You are encouraged to <a target="_blank" href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">read more about lambda expressions</a> as you will be using them extensively for the rest of the semester.
+
+</p><p>
+</p><table style="width: 100%;" border="1" cellpadding="10">
+<tbody>
+<tr>
+<td>
+<pre><strong>jshell&gt; /open ImmutableList.java</strong>
+<strong>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).filter(x -&gt; x % 2 == 0)</strong>
+$.. ==&gt; [2]
+<strong>jshell&gt; new ImmutableList&lt;String&gt;("one", "two", "three").filter(x -&gt; x.hashCode()%10 &gt; 5)</strong>
+$.. ==&gt; [two, three]
+<strong>jshell&gt; Predicate&lt;Object&gt; p = x -&gt; x.hashCode()%10 == 0</strong>
+<strong>jshell&gt; new ImmutableList&lt;String&gt;("one", "two", "three").filter(p)</strong>
+$.. ==&gt; []
+<strong>jshell&gt; ImmutableList&lt;Integer&gt; list = new ImmutableList&lt;String&gt;("one", "two", "three").map(x -&gt; x.length())</strong>
+<strong>jshell&gt; /var list</strong>
+|    ImmutableList&lt;Integer&gt; list = [3, 3, 5]
+<strong>jshell&gt; Function&lt;Object,Integer&gt; f = x -&gt; x.hashCode()</strong>
+<strong>jshell&gt; ImmutableList&lt;Number&gt; list = new ImmutableList&lt;String&gt;("one", "two", "three").map(f)</strong>
+<strong>jshell&gt; /var list</strong>
+|    ImmutableList&lt;Number&gt; list = [110182, 115276, 110339486]
+<strong>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).filter(x -&gt; x &gt; 3).map(x -&gt; x + 1)</strong>
+$.. ==&gt; []
+<strong>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).filter(x -&gt; x &gt; 2).map(x -&gt; x + 1)</strong>
+$.. ==&gt; [4]
+<strong>jshell&gt; new ImmutableList&lt;Integer&gt;(1,2,3).map(x -&gt; x + 1).filter(x -&gt; x &gt; 2)</strong>
+$.. ==&gt; [3, 4]
+<strong>jshell&gt; new ImmutableList&lt;String&gt;().filter(s -&gt; s.endsWith("s"))</strong>
+$.. ==&gt; []
+<strong>jshell&gt; new ImmutableList&lt;String&gt;().map(s -&gt; s.endsWith("s"))</strong>
+$.. ==&gt; []
+<strong>jshell&gt; /exit</strong>
+
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+</tbody>
+</table>
+		</div></div>                          
+									<input type="hidden" id="tid" name="tid" value="4950">
+		</div>
+		<!-- end content -->
+</div>
+<!-- end inner -->
+<div id="loading-mask">
+        <p id="loading_mask_loader" class="loader" style="display: none;"> <img alt="Loading..." src="./Lab_04_files/ajax-loader-tr.gif"> <br>
+                Please wait... </p>
+</div>
+<script type="text/javascript">
+$(".star").rating({
+        focus: function(value, link) {
+                var tip = $("#rating_text");
+                tip[0].data = tip[0].data || tip.html(); 
+                tip.html(link.title || "value: " + value);
+        },
+        blur: function(value, link) {
+                var tip = $("#rating_text");
+                $("#rating_text").html(tip[0].data || "");
+        },
+        callback: function(value, link) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_updaterating.php",
+                        data: ({tid:$("#tid").val(), rating:value}),
+                        success: function(html) {
+                                var msg = html.split(";");
+                                $("#rating_text").removeClass().addClass(msg[0]);
+                                $("#rating_text").html(msg[1]);
+                        }
+                });
+        }
+});
+
+function getComments() {
+        $.ajax({
+                type: "POST",
+                url: "task_getcomments.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#commentList").html(html);
+                }
+        });
+}
+
+function doTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#practiceNotification").removeClass().addClass(msg[0]);
+                        $("#practiceNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function doCourseTaskGrade(e, d) {
+        $.ajax({
+                type: "POST",
+                url: "doTaskGrade.php",
+                data: ({tid:$("#tid").val(), course_id:$("#course_id").val(), do_course:1}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#courseNotification").removeClass().addClass(msg[0]);
+                        $("#courseNotification").html(msg[1]);
+                }
+        });
+
+}
+
+function addComment() {
+        $.ajax({
+                type: "POST",
+                url: "task_addcomment.php",
+                data: ({tid:$("#tid").val(), comment:encodeURIComponent($("#comment").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function deleteComment(c) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletecomment.php",
+                data: ({comment_id:c}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#commentNotification").removeClass().addClass(msg[0]);
+                        $("#commentNotification").html(msg[1]);
+                        
+                        getComments();
+                }
+        });
+}
+
+function getClassify(){
+                $.ajax({
+                type: "GET",
+                url: "task_classify.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#classifyList").html(html);
+                }
+        });
+}
+
+function getTutorial(){
+        $.ajax({
+                type: "POST",
+                url: "task_gettutorials.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#tutorialList").html(html);
+                }
+        });
+}
+
+function getQueries() {
+        $.ajax({
+                type: "POST",
+                url: "task_getqueries.php",
+                data: ({tid:$("#tid").val()}),
+                success: function(html) {
+                        $("#queryList").html(html);
+                }
+        });
+}
+
+function addQuery() {
+        $.ajax({
+                type: "POST",
+                url: "task_addquery.php",
+                data: ({tid:$("#tid").val(), contest_id:$("#contest_id").val(), query:encodeURIComponent($("#query").val())}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function deleteQuery(q) {
+        $.ajax({
+                type: "POST",
+                url: "task_deletequery.php",
+                data: ({query_id:q}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#queryNotification").removeClass().addClass(msg[0]);
+                        $("#queryNotification").html(msg[1]);
+                        
+                        getQueries();
+                }
+        });
+}
+
+function addTag() {
+        $.ajax({
+                type: "POST",
+                url: "tag_add.php",
+                data: ({tid:$("#tid").val(), tags:$("#tagwords").val()}),
+                success: function(html) {
+                        var msg = html.split(";");
+                        $("#tagNotification").removeClass().addClass(msg[0]);
+                        $("#tagNotification").html(msg[1]);
+                        
+                        getClassify();
+                }
+        });
+}
+
+
+$(document).ready(function() {
+        getComments();
+        getQueries();
+        getClassify();
+        getTutorial();
+        //getCloud();
+});
+
+$(document).everyTime(60000, function(i) {
+        if ($("#tid").val() != "" && $("#tid").val() != null) {
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcontest.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#contest_submit").html("");
+                                }
+                        }
+                });
+                $.ajax({
+                        type: "POST",
+                        url: "task_checkcourse.php",
+                        data: ({tid:$("#tid").val()}),
+                        success: function(html) {
+                                if (html == "0") {
+                                        $("#course_submit").html("");
+                                }
+                        }
+                });
+        }
+}, 0);
+
+$('#loading_mask_loader')
+        .hide()  // hide it initially
+        .ajaxStart(function() {
+                $(this).show();
+        })
+        .ajaxStop(function() {
+                $(this).hide();
+        });
+        
+</script>
+
+
+</div> <!-- end outer -->
+
+</div> <!-- end container -->
+
+<!-- START NUS-Footer --> 
+<div id="nusfooter" class="nusbody">
+<div id="nusfooter_ml"><div id="nusfooter_mr">
+<div id="nusfooter_tc"><div id="nusfooter_tl"><div id="nusfooter_tr">
+<div id="nusfooter_bc"><div id="nusfooter_bl"><div id="nusfooter_br">
+<div class="inner"><div class="left"><p>© Copyright 2009-2020 National University of Singapore. All Rights Reserved.</p>  
+<p class="nusfooterlinks">
+<a href="http://www.nus.edu.sg/terms.php">Terms of Use</a> |
+<a href="http://www.nus.edu.sg/policy.php">Privacy</a> |
+<a href="http://www.nus.edu.sg/nondiscrim.php">Non-discrimination</a></p> 
+</div>    
+<div class="right">
+<a href="https://mysoc.nus.edu.sg/">MySoC</a> |
+<a href="https://docs.comp.nus.edu.sg/cf/">Computing Facilities</a> |
+<a href="http://www.nus.edu.sg/search/">Search</a> |
+<a href="http://www.nus.edu.sg/campusmap/">Campus Map</a>
+<p>School of Computing, National University of Singapore</p>
+</div>    
+<div style="clear: both;"> </div>
+</div>
+</div></div></div>
+</div></div></div>
+</div></div>
+</div>
+<!-- END NUS-Footer -->
+
+</body></html>
